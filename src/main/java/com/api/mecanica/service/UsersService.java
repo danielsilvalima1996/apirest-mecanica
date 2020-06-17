@@ -12,7 +12,9 @@ import com.api.mecanica.repository.UsersRepository;
 
 @Service
 public class UsersService {
-
+	
+	private static final BCryptPasswordEncoder bc = new BCryptPasswordEncoder();
+	
 	@Autowired
 	UsersRepository repository;
 
@@ -25,8 +27,7 @@ public class UsersService {
 	}
 
 	public Users createUser(Users user) {
-		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(16);
-		String result = bCryptPasswordEncoder.encode(user.getPassword());
+		String result = bc.encode(user.getPassword());
 		user.setPassword(result);
 		return repository.save(user);
 	}
