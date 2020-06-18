@@ -16,6 +16,8 @@ public interface AppConstants {
 	public static final String BUSCAR_POR_MARCA_VEIC = "/buscar-por-marca/{marca}";
 	public static final String BUSCAR_POR_MODELO_VEIC = "/buscar-por-marca/{modelo}";
 	public static final String BUSCAR_POR_ANO_VEIC = "/buscar-por-marca/{ano}";
+	public static final String BUSCAR_POR_FILTROS = "/buscar-por-marca";
+
 	
 	
 	public static final boolean VEICULO_ATIVO = true;

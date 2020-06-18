@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.api.mecanica.constants.AppConstants;
@@ -23,6 +24,7 @@ import com.api.mecanica.service.VeiculoServiceImpl;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
 
 /**
@@ -76,7 +78,7 @@ public class VeiculoController implements RestService {
 	}
 	
 	@GetMapping(AppConstants.BUSCAR_VEICULO)
-	@ApiOperation(value="Retorna dado de um veiculo cadastrado")
+	@ApiOperation(value="Retorna dados de um veiculo cadastrado")
 	public ResponseEntity<Optional<Veiculo>> obterDadosVeiculo(@Valid @PathVariable Long id) {
 		
 		Optional<Veiculo> veiculoRetorno = veiculoService.buscarVeiculo(id);
@@ -103,5 +105,29 @@ public class VeiculoController implements RestService {
 		
 	}
 
+	
+	@GetMapping(AppConstants.BUSCAR_POR_FILTROS)
+	@ApiOperation(value="Retorna uma lista de veiculos cadastrados por marca")
+	public ResponseEntity<List<Veiculo>> obterVeiculosPorFiltros(@ApiParam(value = "Codigo identificador do veiculo")  @Valid @RequestParam(value = "idVeiculo", required = false) Long idVeiculo,
+																 @ApiParam(value = "Descricao da marca do veiculo")  @Valid @RequestParam(value = "marcaVeiculo", required = false) String marcaVeiculo,
+																 @ApiParam(value = "Descricao do modelo do veiculo") @Valid @RequestParam(value = "modeloVeiculo", required = false) String modeloVeiculo,
+																 @ApiParam(value = "Ano do veiculo") @Valid @RequestParam(value = "anoVeiculo", required = false) Long anoVeiculo) {
+		
+		try {
+			
+			final List<Veiculo> veiculosRetornados = veiculoService.buscarVeiculosPorFiltro(idVeiculo, marcaVeiculo, modeloVeiculo, anoVeiculo);
+			
+			if(veiculosRetornados.size() > 0) {
+				return new ResponseEntity<List<Veiculo>>(veiculosRetornados, HttpStatus.OK);
+			} 
+				
+			return ResponseEntity.notFound().build();
+
+		} catch (Exception e) {
+			
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+
+		}
+	}
 	
 }

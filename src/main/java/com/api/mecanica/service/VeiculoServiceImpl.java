@@ -83,4 +83,29 @@ public class VeiculoServiceImpl implements VeiculoService{
 		
 	}
 
+	@Override
+	public List<Veiculo> buscarVeiculosPorFiltro(Long idVeiculo, String marcaVeiculo, String modeloVeiculo,
+			Long anoVeiculo) {
+		
+		if(idVeiculo != null && marcaVeiculo == null && modeloVeiculo == null && anoVeiculo == null) {
+			System.out.println("só veiculo");
+		} else if(marcaVeiculo != null && idVeiculo == null && modeloVeiculo == null && anoVeiculo == null) {
+			System.out.println("só marca");
+		} else if(modeloVeiculo != null && marcaVeiculo == null && idVeiculo == null && anoVeiculo == null) {
+			System.out.println("só modelo");
+		} else if(anoVeiculo != null && modeloVeiculo == null && marcaVeiculo == null && idVeiculo == null) {
+			System.out.println("só ano");
+		} else if(marcaVeiculo != null && idVeiculo != null && modeloVeiculo == null && anoVeiculo == null) {
+			System.out.println("marca e id");
+		} else if(marcaVeiculo != null && idVeiculo != null && modeloVeiculo != null && anoVeiculo == null) {
+			System.out.println("marca, id e modelo");
+		} else if(marcaVeiculo != null && idVeiculo != null && anoVeiculo != null && modeloVeiculo == null) {
+			System.out.println("marca, id e ano");
+		} else if(marcaVeiculo != null && idVeiculo != null && modeloVeiculo != null && anoVeiculo != null) {
+			System.out.println("todos");
+		} 
+		
+		return null;
+	}
+
 }
