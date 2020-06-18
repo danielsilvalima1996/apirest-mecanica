@@ -48,8 +48,24 @@ public class VeiculoServiceImpl implements VeiculoService{
 
 	@Override
 	public Optional<Veiculo> atualizarVeiculo(@Valid Long id, @Valid Veiculo veiculo) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Optional<Veiculo> dadosAtuais = veiculoRepository.findById(id);
+		
+		if(dadosAtuais.isPresent()) {
+			
+			Veiculo veiculoAtualizado = dadosAtuais.get();
+			
+			veiculoAtualizado.setMarca(veiculo.getMarca());
+			veiculoAtualizado.setModelo(veiculo.getModelo());
+			veiculoAtualizado.setModelo(veiculo.getModelo());
+			veiculoAtualizado.setTipoCombustivel(veiculo.getTipoCombustivel());
+			veiculoAtualizado.setAno(veiculo.getAno());
+			
+			return Optional.of(veiculoRepository.saveAndFlush(veiculoAtualizado));
+			
+		} else {
+			return Optional.empty();
+		}
 	}
 
 	@Override

@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.api.mecanica.constants.AppConstants;
 import com.api.mecanica.model.Veiculo;
 import com.api.mecanica.service.VeiculoServiceImpl;
 
@@ -33,14 +35,11 @@ import io.swagger.annotations.ApiOperation;
 @RequestMapping("/api/veiculo")
 public class VeiculoController implements RestService {
 
-	private static final String CADASTRAR_VEICULO = "/cadastrar-veiculo";
-	private static final String LISTAR_VEICULOS = "/listar-veiculos";
-	private static final String BUSCAR_VEICULO = "/buscar-veiculo/{id}";
 
 	@Autowired
 	private VeiculoServiceImpl veiculoService;
 	
-	@PostMapping(CADASTRAR_VEICULO)
+	@PostMapping(AppConstants.CADASTRAR_VEICULO)
 	@ApiOperation(value="Cadastrar um novo veiculo")
 	public ResponseEntity<?> cadastrarEstudante(@Valid @RequestBody Veiculo veiculo) {
 		try {
@@ -55,7 +54,7 @@ public class VeiculoController implements RestService {
 	}
 	
 	
-	@GetMapping(LISTAR_VEICULOS)
+	@GetMapping(AppConstants.LISTAR_VEICULOS)
 	@ApiOperation(value="Retorna uma lista de veiculos cadastrados")
 	public ResponseEntity<List<Veiculo>> obterListaVeiculos() {
 		
@@ -63,9 +62,12 @@ public class VeiculoController implements RestService {
 			
 			final List<Veiculo> veiculosRetornados = veiculoService.buscarVeiculos();
 			
-			return new ResponseEntity<List<Veiculo>>(veiculosRetornados, HttpStatus.OK);
-			
-			
+			if(veiculosRetornados.size() > 0) {
+				return new ResponseEntity<List<Veiculo>>(veiculosRetornados, HttpStatus.OK);
+			} 
+				
+			return ResponseEntity.notFound().build();
+
 		} catch (Exception e) {
 			
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -73,7 +75,7 @@ public class VeiculoController implements RestService {
 		}
 	}
 	
-	@GetMapping(BUSCAR_VEICULO)
+	@GetMapping(AppConstants.BUSCAR_VEICULO)
 	@ApiOperation(value="Retorna dado de um veiculo cadastrado")
 	public ResponseEntity<Optional<Veiculo>> obterDadosVeiculo(@Valid @PathVariable Long id) {
 		
@@ -85,6 +87,20 @@ public class VeiculoController implements RestService {
 		
 		return ResponseEntity.notFound().build();
 	
+	}
+	
+	@PutMapping(AppConstants.ATUALIZAR_VEICULO)
+	@ApiOperation(value="Atualiza dados de um veiculo já cadastrado")
+	public ResponseEntity<?> atualizarVeiculo(@Valid @PathVariable Long id, @Valid @RequestBody Veiculo veiculo) {
+		
+		Optional<Veiculo> veiculoRetorno = veiculoService.atualizarVeiculo(id, veiculo); 
+		
+		if(veiculoRetorno.isPresent()) {
+			return ResponseEntity.ok().build();
+		}
+		
+		return ResponseEntity.notFound().build();
+		
 	}
 	
 }
