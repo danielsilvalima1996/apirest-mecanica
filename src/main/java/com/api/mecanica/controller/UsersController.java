@@ -25,10 +25,22 @@ public class UsersController {
 	@Autowired
 	UsersService service;
 
-	@ApiOperation(value = "Traz um User pelo email")
+	@ApiOperation(value = "Traz uma lista User pelo email")
 	@GetMapping(value = "email", produces = { "application/json" })
 	public List<Users> findByEmailContainingIgnoreCase(@RequestParam(value = "email") String email) {
 		return service.findByEmailContainingIgnoreCase(email);
+	}
+	
+	@ApiOperation(value = "Traz uma lista User pelo username")
+	@GetMapping(value = "username", produces = { "application/json" })
+	public List<Users> findByUserNameContainingIgnoreCase(@RequestParam(value = "username") String username) {
+		return service.findByUserNameContainingIgnoreCase(username);
+	}
+	
+	@ApiOperation(value = "Traz uma lista User pelo active, true ou false")
+	@GetMapping(value = "active", produces = { "application/json" })
+	public List<Users> findByActive(@RequestParam(value = "active") boolean active) {
+		return service.findByActive(active);
 	}
 
 	@ApiOperation(value = "Traz um User pelo id")

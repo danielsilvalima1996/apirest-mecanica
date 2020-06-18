@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.sun.istack.NotNull;
+
 @Entity
 @Table(name = "users")
 public class Users implements Serializable {
@@ -21,13 +23,23 @@ public class Users implements Serializable {
 	private Long id;
 
 	@Column(name = "email", unique = true)
+	@NotNull
 	private String email;
 
-	@Column(name = "user_name")
+	@NotNull
+	@Column(name = "userName")
 	private String userName;
 
+	@NotNull
 	@Column(name = "password")
 	private String password;
+
+	@Column(name = "avatar")
+	private String avatar;
+
+	@NotNull
+	@Column(name = "active")
+	private boolean active;
 
 	public Long getId() {
 		return id;
@@ -59,6 +71,22 @@ public class Users implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 
 }

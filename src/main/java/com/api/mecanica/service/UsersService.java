@@ -27,8 +27,16 @@ public class UsersService {
 	}
 	
 	public List<Users> findByEmailContainingIgnoreCase(String email) {
-		return repository.findByEmailLike("%" + email + "%");
-//		return repository.findByEmailContainingIgnoreCase(email);
+//		return repository.findByEmailLike("%" + email + "%");
+		return repository.findByEmailContainingIgnoreCase(email);
+	}
+	
+	public List<Users> findByUserNameContainingIgnoreCase(String userName) {
+		return repository.findByUserNameContainingIgnoreCase(userName);
+	}
+	
+	public List<Users> findByActive(boolean active) {
+		return repository.findByActive(active);
 	}
 	
 	public List<Users> findAll() {
