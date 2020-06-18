@@ -17,13 +17,22 @@ public class UsersService {
 	
 	@Autowired
 	UsersRepository repository;
-
-	public List<Users> findAll() {
-		return repository.findAll();
-	}
-
+	
 	public Optional<Users> findById(Long id) {
 		return repository.findById(id);
+	}
+	
+	public Users findByEmail(String email) {
+		return repository.findByEmail(email);
+	}
+	
+	public List<Users> findByEmailContainingIgnoreCase(String email) {
+		return repository.findByEmailLike("%" + email + "%");
+//		return repository.findByEmailContainingIgnoreCase(email);
+	}
+	
+	public List<Users> findAll() {
+		return repository.findAll();
 	}
 
 	public Users createUser(Users user) {
