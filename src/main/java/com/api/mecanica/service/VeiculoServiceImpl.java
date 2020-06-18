@@ -1,5 +1,6 @@
 package com.api.mecanica.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,8 +20,18 @@ public class VeiculoServiceImpl implements VeiculoService{
 	
 	@Override
 	public List<Veiculo> buscarVeiculos() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		List<Veiculo> veiculos = new ArrayList<>();
+		
+		try {
+			
+			veiculos = veiculoRepository.findAll();
+			
+		} catch (Exception e) {
+			throw e;
+		}
+		
+		return veiculos;
 	}
 
 	@Override
