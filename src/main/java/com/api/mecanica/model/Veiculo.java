@@ -33,6 +33,8 @@ public class Veiculo implements Serializable {
 	@NotNull
 	private String tipoCombustivel;
 	
+	private boolean active;
+	
 	public Veiculo() {
 	}
 
@@ -75,7 +77,44 @@ public class Veiculo implements Serializable {
 	public void setTipoCombustivel(String tipoCombustivel) {
 		this.tipoCombustivel = tipoCombustivel;
 	}
-	
-	
 
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Veiculo other = (Veiculo) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Veiculo [id=" + id + ", marca=" + marca + ", modelo=" + modelo + ", ano=" + ano + ", tipoCombustivel="
+				+ tipoCombustivel + ", active=" + active + "]";
+	}
+	
 }

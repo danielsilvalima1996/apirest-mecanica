@@ -17,6 +17,4 @@ public interface VeiculoService {
 
 	Optional<Veiculo> atualizarVeiculo(@Valid Long id, @Valid Veiculo veiculo);
 	
-	Optional<Veiculo> excluirVeiculo(@Valid Long id);
-
 }

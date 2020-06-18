@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.api.mecanica.constants.AppConstants;
 import com.api.mecanica.model.Veiculo;
 import com.api.mecanica.repository.VeiculoRepository;
 
@@ -60,6 +61,7 @@ public class VeiculoServiceImpl implements VeiculoService{
 			veiculoAtualizado.setModelo(veiculo.getModelo());
 			veiculoAtualizado.setTipoCombustivel(veiculo.getTipoCombustivel());
 			veiculoAtualizado.setAno(veiculo.getAno());
+			veiculoAtualizado.setActive(veiculo.isActive());
 			
 			return Optional.of(veiculoRepository.saveAndFlush(veiculoAtualizado));
 			
@@ -69,22 +71,10 @@ public class VeiculoServiceImpl implements VeiculoService{
 	}
 
 	@Override
-	public Optional<Veiculo> excluirVeiculo(@Valid Long id) {
-
-		Optional<Veiculo> dadosVeiculo = veiculoRepository.findById(id);
-		
-		if(dadosVeiculo.isPresent()) {
-			veiculoRepository.delete(dadosVeiculo.get());
-			return dadosVeiculo;
-		} else {
-			return Optional.empty();
-		}
-	}
-
-	@Override
 	public void cadastrarVeiculo(@Valid Veiculo veiculo) {
 
 		try {
+			veiculo.setActive(AppConstants.VEICULO_ATIVO);
 			veiculoRepository.saveAndFlush(veiculo);
 			
 		} catch (Exception e) {
