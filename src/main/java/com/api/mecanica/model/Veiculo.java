@@ -1,30 +1,15 @@
 package com.api.mecanica.model;
 
 import java.io.Serializable;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
-@Builder
-@EqualsAndHashCode
-@ToString
 @Entity
-@Table(name = "veiculo")
 public class Veiculo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -47,5 +32,50 @@ public class Veiculo implements Serializable {
 	@NotBlank(message = "O tipo de combustivel do veiculo deve ser preenchido")
 	@NotNull
 	private String tipoCombustivel;
+	
+	public Veiculo() {
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getMarca() {
+		return marca;
+	}
+
+	public void setMarca(String marca) {
+		this.marca = marca;
+	}
+
+	public String getModelo() {
+		return modelo;
+	}
+
+	public void setModelo(String modelo) {
+		this.modelo = modelo;
+	}
+
+	public Long getAno() {
+		return ano;
+	}
+
+	public void setAno(Long ano) {
+		this.ano = ano;
+	}
+
+	public String getTipoCombustivel() {
+		return tipoCombustivel;
+	}
+
+	public void setTipoCombustivel(String tipoCombustivel) {
+		this.tipoCombustivel = tipoCombustivel;
+	}
+	
+	
 
 }

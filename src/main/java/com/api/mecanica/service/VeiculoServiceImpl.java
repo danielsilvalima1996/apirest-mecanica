@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.api.mecanica.model.Veiculo;
 import com.api.mecanica.repository.VeiculoRepository;
+
 @Service
 public class VeiculoServiceImpl implements VeiculoService{
 
@@ -20,18 +21,6 @@ public class VeiculoServiceImpl implements VeiculoService{
 	public List<Veiculo> buscarVeiculos() {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	@Override
-	public void cadastrarVeiculo(@Valid Veiculo veiculo) {
-
-		try {
-			veiculoRepository.saveAndFlush(veiculo);
-			
-		} catch (Exception e) {
-			throw e;
-		}
-		
 	}
 
 	@Override
@@ -50,6 +39,18 @@ public class VeiculoServiceImpl implements VeiculoService{
 	public Optional<Veiculo> excluirVeiculo(@Valid Long id) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void cadastrarVeiculo(@Valid Veiculo veiculo) {
+
+		try {
+			veiculoRepository.saveAndFlush(veiculo);
+			
+		} catch (Exception e) {
+			throw e;
+		}
+		
 	}
 
 }
