@@ -19,12 +19,14 @@ import io.swagger.annotations.ApiOperation;
 @RestController
 @Api(value="API REST Veiculo")
 @RequestMapping("/api/veiculo")
-public class VeiculoController {
+public class VeiculoController implements RestService {
+
+	private static final String CADASTRAR_VEICULO = "/cadastrar-veiculo";
 
 	@Autowired
 	private VeiculoServiceImpl veiculoService;
 	
-	@PostMapping(path="/cadastrar-veiculo")
+	@PostMapping(CADASTRAR_VEICULO)
 	@ApiOperation(value="Cadastrar um novo veiculo")
 	public ResponseEntity<?> cadastrarEstudante(@Valid @RequestBody Veiculo veiculo) {
 		try {

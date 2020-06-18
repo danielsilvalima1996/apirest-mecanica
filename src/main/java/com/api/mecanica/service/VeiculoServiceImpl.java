@@ -5,13 +5,17 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.api.mecanica.model.Veiculo;
-
+import com.api.mecanica.repository.VeiculoRepository;
 @Service
 public class VeiculoServiceImpl implements VeiculoService{
 
+	@Autowired
+	private VeiculoRepository veiculoRepository;
+	
 	@Override
 	public List<Veiculo> buscarVeiculos() {
 		// TODO Auto-generated method stub
@@ -20,7 +24,13 @@ public class VeiculoServiceImpl implements VeiculoService{
 
 	@Override
 	public void cadastrarVeiculo(@Valid Veiculo veiculo) {
-		// TODO Auto-generated method stub
+
+		try {
+			veiculoRepository.saveAndFlush(veiculo);
+			
+		} catch (Exception e) {
+			throw e;
+		}
 		
 	}
 

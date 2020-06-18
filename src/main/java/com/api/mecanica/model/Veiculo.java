@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -23,6 +24,7 @@ import lombok.ToString;
 @EqualsAndHashCode
 @ToString
 @Entity
+@Table(name = "veiculo")
 public class Veiculo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -39,9 +41,8 @@ public class Veiculo implements Serializable {
 	@NotNull
 	private String modelo;
 	
-	@NotBlank(message = "O ano do veiculo deve ser preenchido")
 	@NotNull
-	private Integer ano;
+	private Long ano;
 	
 	@NotBlank(message = "O tipo de combustivel do veiculo deve ser preenchido")
 	@NotNull
