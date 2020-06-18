@@ -1,4 +1,4 @@
-package com.api.mecanica.controller.handler;
+package com.api.mecanica.handler;
 
 public class ErroFormularioDto {
 
