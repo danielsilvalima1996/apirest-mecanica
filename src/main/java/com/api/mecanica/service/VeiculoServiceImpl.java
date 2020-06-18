@@ -70,8 +70,15 @@ public class VeiculoServiceImpl implements VeiculoService{
 
 	@Override
 	public Optional<Veiculo> excluirVeiculo(@Valid Long id) {
-		// TODO Auto-generated method stub
-		return null;
+
+		Optional<Veiculo> dadosVeiculo = veiculoRepository.findById(id);
+		
+		if(dadosVeiculo.isPresent()) {
+			veiculoRepository.delete(dadosVeiculo.get());
+			return dadosVeiculo;
+		} else {
+			return Optional.empty();
+		}
 	}
 
 	@Override

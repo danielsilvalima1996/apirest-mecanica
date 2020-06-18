@@ -13,4 +13,5 @@ public interface AppConstants {
 	public static final String LISTAR_VEICULOS = "/listar-veiculos";
 	public static final String BUSCAR_VEICULO = "/buscar-veiculo/{id}";
 	public static final String ATUALIZAR_VEICULO = "/atualizar-veiculo/{id}";
+	public static final String DELETAR_VEICULO = "/deletar-veiculo/{id}";
 }
