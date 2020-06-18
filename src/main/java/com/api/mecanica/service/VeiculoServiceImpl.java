@@ -36,8 +36,14 @@ public class VeiculoServiceImpl implements VeiculoService{
 
 	@Override
 	public Optional<Veiculo> buscarVeiculo(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Optional<Veiculo> veiculo = veiculoRepository.findById(id);
+		
+		if(veiculo.isPresent()) {
+			return veiculo;
+		} else {
+			return Optional.empty();
+		}
 	}
 
 	@Override

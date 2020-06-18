@@ -1,6 +1,7 @@
 package com.api.mecanica.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -9,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,6 +35,7 @@ public class VeiculoController implements RestService {
 
 	private static final String CADASTRAR_VEICULO = "/cadastrar-veiculo";
 	private static final String LISTAR_VEICULOS = "/listar-veiculos";
+	private static final String BUSCAR_VEICULO = "/buscar-veiculo/{id}";
 
 	@Autowired
 	private VeiculoServiceImpl veiculoService;
@@ -68,6 +71,20 @@ public class VeiculoController implements RestService {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 
 		}
+	}
+	
+	@GetMapping(BUSCAR_VEICULO)
+	@ApiOperation(value="Retorna dado de um veiculo cadastrado")
+	public ResponseEntity<Optional<Veiculo>> obterDadosVeiculo(@Valid @PathVariable Long id) {
+		
+		Optional<Veiculo> veiculoRetorno = veiculoService.buscarVeiculo(id);
+		
+		if(veiculoRetorno.isPresent()) {
+			return ResponseEntity.ok().body(veiculoRetorno);
+		} 
+		
+		return ResponseEntity.notFound().build();
+	
 	}
 	
 }
