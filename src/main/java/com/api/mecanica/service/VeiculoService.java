@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import com.api.mecanica.exception.VeiculoException;
 import com.api.mecanica.model.Veiculo;
 
 public interface VeiculoService {
@@ -17,6 +18,6 @@ public interface VeiculoService {
 
 	Optional<Veiculo> atualizarVeiculo(@Valid Long id, @Valid Veiculo veiculo);
 	
-	List<Veiculo> buscarVeiculosPorFiltro(Long idVeiculo, String marcaVeiculo, String modeloVeiculo, Long anoVeiculo);
+	List<Veiculo> buscarVeiculosPorFiltro(Long idVeiculo, String marcaVeiculo, String modeloVeiculo, Long anoVeiculo) throws VeiculoException;
 	
 }

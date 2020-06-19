@@ -7,11 +7,19 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.api.mecanica.constants.AppConstants;
+import com.api.mecanica.exception.VeiculoException;
 import com.api.mecanica.model.Veiculo;
 import com.api.mecanica.repository.VeiculoRepository;
+import com.api.mecanica.specification.VeiculoSpecification;
+
+
+import static org.springframework.data.jpa.domain.Specification.where;
+
 
 @Service
 public class VeiculoServiceImpl implements VeiculoService{
@@ -85,27 +93,29 @@ public class VeiculoServiceImpl implements VeiculoService{
 
 	@Override
 	public List<Veiculo> buscarVeiculosPorFiltro(Long idVeiculo, String marcaVeiculo, String modeloVeiculo,
-			Long anoVeiculo) {
+			Long anoVeiculo) throws VeiculoException {
 		
-		if(idVeiculo != null && marcaVeiculo == null && modeloVeiculo == null && anoVeiculo == null) {
-			System.out.println("só veiculo");
-		} else if(marcaVeiculo != null && idVeiculo == null && modeloVeiculo == null && anoVeiculo == null) {
-			System.out.println("só marca");
-		} else if(modeloVeiculo != null && marcaVeiculo == null && idVeiculo == null && anoVeiculo == null) {
-			System.out.println("só modelo");
-		} else if(anoVeiculo != null && modeloVeiculo == null && marcaVeiculo == null && idVeiculo == null) {
-			System.out.println("só ano");
-		} else if(marcaVeiculo != null && idVeiculo != null && modeloVeiculo == null && anoVeiculo == null) {
-			System.out.println("marca e id");
-		} else if(marcaVeiculo != null && idVeiculo != null && modeloVeiculo != null && anoVeiculo == null) {
-			System.out.println("marca, id e modelo");
-		} else if(marcaVeiculo != null && idVeiculo != null && anoVeiculo != null && modeloVeiculo == null) {
-			System.out.println("marca, id e ano");
-		} else if(marcaVeiculo != null && idVeiculo != null && modeloVeiculo != null && anoVeiculo != null) {
-			System.out.println("todos");
-		} 
+		List<Veiculo> veiculos = new ArrayList<>();
 		
-		return null;
+		try {
+										
+			veiculos = this.veiculoRepository.findAll(
+					where(VeiculoSpecification.codigoVeiculo(idVeiculo))
+					.and(VeiculoSpecification.marcaPadraoVeiculo(marcaVeiculo))
+					.and(VeiculoSpecification.modeloPadraoVeiculo(modeloVeiculo))
+					.and(VeiculoSpecification.anoPadraoVeiculo(anoVeiculo)));
+			
+			if(veiculos.size() == 0) {
+				throw new VeiculoException(HttpStatus.NOT_FOUND.value(), "Veiculo não encontrado");
+			}
+			
+		} catch (VeiculoException e) {
+			throw e;
+		} catch (Exception e) {
+			throw new VeiculoException(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());
+		}
+		
+		return veiculos;
 	}
 
 }
