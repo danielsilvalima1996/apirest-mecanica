@@ -122,6 +122,8 @@ public class VeiculoController implements RestService {
 			if(veiculosRetornados.size() > 0) {
 				return new ResponseEntity<List<Veiculo>>(veiculosRetornados, HttpStatus.OK);
 			} 
+			
+			
 				
 			return ResponseEntity.notFound().build();
 

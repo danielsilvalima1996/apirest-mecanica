@@ -104,6 +104,7 @@ public class VeiculoServiceImpl implements VeiculoService{
 					.and(VeiculoSpecification.modeloPadraoVeiculo(modeloVeiculo))
 					.and(VeiculoSpecification.anoPadraoVeiculo(anoVeiculo)));
 			
+			
 			if(veiculos.size() == 0) {
 				throw new VeiculoException(HttpStatus.NOT_FOUND.value(), "Veiculo não encontrado");
 			}
