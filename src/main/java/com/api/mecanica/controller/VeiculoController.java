@@ -19,12 +19,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.api.mecanica.constants.AppConstants;
+import com.api.mecanica.exception.VeiculoException;
 import com.api.mecanica.model.Veiculo;
 import com.api.mecanica.service.VeiculoServiceImpl;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lombok.extern.log4j.Log4j2;
 
 
 /**
@@ -123,6 +125,8 @@ public class VeiculoController implements RestService {
 				
 			return ResponseEntity.notFound().build();
 
+		} catch (VeiculoException e) {
+			return ResponseEntity.status(e.getErrorCode()).build(); 
 		} catch (Exception e) {
 			
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
