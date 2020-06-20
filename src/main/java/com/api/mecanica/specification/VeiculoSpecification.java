@@ -22,9 +22,8 @@ public class VeiculoSpecification {
 		if(marcaVeiculo == null) {
 			return null;
 		}
-		return (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.like(criteriaBuilder.lower(root.<String> get("marca")), "%" + marcaVeiculo + "%");
 		
-
+		return (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.like(criteriaBuilder.lower(root.<String> get("marca")), "%" + marcaVeiculo + "%");
 	}
 	
 	public static Specification<Veiculo> modeloPadraoVeiculo(String modeloVeiculo) {
