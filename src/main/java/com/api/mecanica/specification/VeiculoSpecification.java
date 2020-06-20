@@ -22,14 +22,16 @@ public class VeiculoSpecification {
 		if(marcaVeiculo == null) {
 			return null;
 		}
-		return (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.equal(root.get("marca"), marcaVeiculo);
+		return (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.like(criteriaBuilder.lower(root.<String> get("marca")), "%" + marcaVeiculo + "%");
+		
+
 	}
 	
 	public static Specification<Veiculo> modeloPadraoVeiculo(String modeloVeiculo) {
 		if(modeloVeiculo == null) {
 			return null;
 		}
-		return (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.equal(root.get("modelo"), modeloVeiculo);
+		return (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.like(criteriaBuilder.lower(root.<String> get("modelo")), "%" + modeloVeiculo + "%");
 	}
 	
 	public static Specification<Veiculo> anoPadraoVeiculo(Long anoVeiculo) {
