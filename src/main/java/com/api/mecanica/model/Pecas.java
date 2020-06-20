@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -22,18 +23,21 @@ public class Pecas implements Serializable {
 	private Long id;
 
 	@Column(name = "marca")
+	@NotBlank(message = "A marca da peca deve ser preenchida")
 	@NotNull
 	private String marca;
 
 	@NotNull
+	@NotBlank(message = "O modelo da peca deve ser preenchido")
 	@Column(name = "modelo")
 	private String modelo;
 
 	@NotNull
+	@NotBlank(message = "A descricao da peca deve ser preenchida")
 	@Column(name = "descricao")
 	private String descricao;
 
-	@NotNull
+	@NotNull(message = "O valor da peca deve ser preenchido")
 	@Column(name = "valorUnitario")
 	private Double valorUnitario;
 

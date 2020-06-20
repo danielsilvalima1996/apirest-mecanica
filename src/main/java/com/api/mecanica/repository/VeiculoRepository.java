@@ -9,8 +9,3 @@ import com.api.mecanica.model.Veiculo;
 public interface VeiculoRepository extends  JpaRepository<Veiculo, Long>, JpaSpecificationExecutor<Veiculo>{
 
 }
-
-
-/*public interface VeiculoRepository extends CrudRepository<Veiculo, Long>,
-	JpaSpecificationExecutor<Veiculo> {
-}*/

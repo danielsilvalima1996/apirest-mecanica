@@ -17,12 +17,16 @@ public interface AppConstants {
 	public static final String BUSCAR_POR_MODELO_VEIC = "/buscar-por-marca/{modelo}";
 	public static final String BUSCAR_POR_ANO_VEIC = "/buscar-por-marca/{ano}";
 	public static final String BUSCAR_POR_FILTROS = "/buscar-por-filtros";
-
-	
 	
 	public static final boolean VEICULO_ATIVO = true;
 	public static final boolean VEICULO_INATIVO = false;
 	
-
+	/*
+	 * Atributos de Peças
+	 */
+	public static final String CADASTRAR_PECA = "/cadastrar-peca";
+	public static final String LISTAR_PECAS = "/listar-pecas";
+	public static final boolean PECA_ATIVA = true;
+	public static final boolean PECA_INATIVA = false;
 
 }
