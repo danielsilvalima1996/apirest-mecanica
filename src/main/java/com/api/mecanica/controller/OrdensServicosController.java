@@ -20,7 +20,6 @@ import com.api.mecanica.service.OrdensServicosService;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@CrossOrigin(origins = "*")
 @RequestMapping("/api/ordens-servicos")
 public class OrdensServicosController {
 	

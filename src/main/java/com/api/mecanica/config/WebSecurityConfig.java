@@ -48,13 +48,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
-		httpSecurity.csrf().disable()
+		httpSecurity.httpBasic().disable()
+				.csrf().disable()
 // Não cheque essas requisições
 				.authorizeRequests().antMatchers("/api/login", "/v2/api-docs", "/configuration/ui",
 						"/swagger-resources/**", "/configuration/**", "/swagger-ui.html", "/webjars/**")
 				.permitAll()
 				.and().authorizeRequests().antMatchers(HttpMethod.POST, "/api/users").permitAll()
+//				.and().authorizeRequests().antMatchers(HttpMethod.GET, "/api/ordens-servicos/all").permitAll()
+//				.and().authorizeRequests().antMatchers(HttpMethod.OPTIONS, "/api/ordens-servicos/all").permitAll()
 // Qualquer outra requisição deve ser checada
+				.and().authorizeRequests().antMatchers(HttpMethod.GET).authenticated()
+				.and().authorizeRequests().antMatchers(HttpMethod.POST).authenticated()
+				.and().authorizeRequests().antMatchers(HttpMethod.PUT).authenticated()
+				.and().authorizeRequests().antMatchers(HttpMethod.DELETE).authenticated()
+				.and().authorizeRequests().antMatchers(HttpMethod.OPTIONS).authenticated()
 				.anyRequest().authenticated().and().exceptionHandling()
 				.authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
