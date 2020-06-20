@@ -26,7 +26,6 @@ import com.api.mecanica.service.VeiculoServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import lombok.extern.log4j.Log4j2;
 
 
 /**

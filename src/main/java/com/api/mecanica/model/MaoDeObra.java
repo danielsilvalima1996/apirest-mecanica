@@ -11,8 +11,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "pecas")
-public class Pecas implements Serializable {
+@Table(name = "mao_de_obra")
+public class MaoDeObra implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -21,16 +21,8 @@ public class Pecas implements Serializable {
 	@Column(name = "id")
 	private Long id;
 
-	@Column(name = "marca")
-	@NotNull
-	private String marca;
-
-	@NotNull
-	@Column(name = "modelo")
-	private String modelo;
-
-	@NotNull
 	@Column(name = "descricao")
+	@NotNull
 	private String descricao;
 
 	@NotNull
@@ -47,22 +39,6 @@ public class Pecas implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getMarca() {
-		return marca;
-	}
-
-	public void setMarca(String marca) {
-		this.marca = marca;
-	}
-
-	public String getModelo() {
-		return modelo;
-	}
-
-	public void setModelo(String modelo) {
-		this.modelo = modelo;
 	}
 
 	public String getDescricao() {

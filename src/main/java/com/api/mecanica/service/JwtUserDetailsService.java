@@ -23,7 +23,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 		Users user = repository.findByEmail(username);
 //		if ("springuser".equals(username)) {
 		if (user == null) {
-			throw new UsernameNotFoundException("User not found with username: " + username);
+			throw new UsernameNotFoundException("Usuário não encontrado com o email: " + username);
 		}
 		return new User(user.getEmail(), user.getPassword(), new ArrayList<>());
 	}
