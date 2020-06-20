@@ -42,7 +42,7 @@ public class OrdensServicos implements Serializable {
 	@Column(name = "cpf_cnpj")
 	@NotNull
 	@Size(min = 11, max = 14)
-	private String cpf_cnpj;
+	private String cpfCnpj;
 
 	@Column(name = "ddd", length = 2)
 	@NotNull
@@ -121,12 +121,12 @@ public class OrdensServicos implements Serializable {
 		this.nomeCliente = nomeCliente;
 	}
 
-	public String getCpf_cnpj() {
-		return cpf_cnpj;
+	public String getCpfCnpj() {
+		return cpfCnpj;
 	}
 
-	public void setCpf_cnpj(String cpf_cnpj) {
-		this.cpf_cnpj = cpf_cnpj;
+	public void setCpfCnpj(String cpfCnpj) {
+		this.cpfCnpj = cpfCnpj;
 	}
 
 	public String getDdd() {

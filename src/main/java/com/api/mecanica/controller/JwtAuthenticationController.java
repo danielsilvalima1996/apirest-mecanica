@@ -44,11 +44,6 @@ public class JwtAuthenticationController {
 	@ApiOperation(value = "Endpoint login")
 	@PostMapping()
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
-//		authentication(authenticationRequest.getUsername(), authenticationRequest.getPassword());
-//		final UserDetails userDetails = userDetailsService
-//				.loadUserByUsername(authenticationRequest.getUsername());
-//		final String token = jwtTokenUtil.generateToken(userDetails);
-//		return ResponseEntity.ok(new JwtResponse(token));
 		Users user = repository.findByEmail(authenticationRequest.getUsername());
 		authentication(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 		final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
@@ -59,6 +54,7 @@ public class JwtAuthenticationController {
 		model.put("email", authenticationRequest.getUsername());
 		model.put("username", user.getUserName());
 		model.put("avatar", user.getAvatar());
+		model.put("id", user.getId());
 
 		return ResponseEntity.ok(model);
 	}
