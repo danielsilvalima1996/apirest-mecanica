@@ -1,17 +1,18 @@
 package com.api.mecanica.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.api.mecanica.model.MaoDeObra;
@@ -33,22 +34,24 @@ public class MaoObraCotroller {
 		return service.findAll();
 	}
 	
-	@PostMapping("/cadastrar-mao-obra")
-	@ApiOperation(value="Cadastrar uma nova mao de obra")
-	public MaoDeObra cadastrarMaoDeObra(@Valid @RequestBody MaoDeObra maoDeObra) {
-//		try {
-//			
-//			MaoDeObra mao = service.cadastrarDeMaoObra(maoDeObra);
-//			
-//			return ResponseEntity.ok(mao);
-//			
-//		} catch (Exception e) {
-//			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-//		}
-		return service.cadastrarDeMaoObra(maoDeObra);
-		
+	@ApiOperation(value = "Traz uma mão de obra pelo id")
+	@GetMapping(produces = { "application/json" })
+	public Optional<MaoDeObra> findById(@RequestParam(value = "id") Long id) {
+		return service.findById(id);
 	}
 	
+	@PostMapping("/cadastrar")
+	@ApiOperation(value="Cadastra uma nova mao de obra")
+	public MaoDeObra cadastrarMaoDeObra(@Valid @RequestBody MaoDeObra maoDeObra) {
+		return service.cadastrarDeMaoObra(maoDeObra);
+	}
+	
+	@ApiOperation(value="Atualiza uma mão de obra já cadastrada")
+	@PutMapping("/atualizar")
+	public MaoDeObra atualizarMaoDeObra(@RequestBody MaoDeObra maoDeObra) {
+		return service.alterMaoDeObra(maoDeObra);
+	 
+	}
 	
 
 }
