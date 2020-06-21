@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,9 +21,10 @@ import com.api.mecanica.service.OrdensServicosService;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
+@CrossOrigin(origins = "*", methods = { RequestMethod.GET, RequestMethod.OPTIONS })
 @RequestMapping("/api/ordens-servicos")
 public class OrdensServicosController {
-	
+
 	@Autowired
 	OrdensServicosService service;
 
@@ -49,7 +51,7 @@ public class OrdensServicosController {
 	public Optional<OrdensServicos> findById(@RequestParam(value = "id") Long id) {
 		return service.findById(id);
 	}
-	
+
 	@ApiOperation(value = "Traz uma Lista de OS")
 	@GetMapping(value = "all", produces = { "application/json" })
 	public List<OrdensServicos> findAll() {
