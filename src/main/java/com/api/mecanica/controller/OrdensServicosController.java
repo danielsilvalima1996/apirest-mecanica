@@ -48,8 +48,14 @@ public class OrdensServicosController {
 	
 	@ApiOperation(value = "Altera uma OS")
 	@PutMapping(consumes = { "application/json" }, produces = { "application/json" })
-	public OrdensServicos alterOs(@Valid @RequestBody OrdensServicos os) {
+	public OrdensServicos alterOs(@Valid @RequestBody OrdensServicos os) throws Exception {
 		return service.alterOS(os);
+	}
+	
+	@ApiOperation(value = "Finaliza uma OS")
+	@PutMapping(value = "/finalizar", consumes = { "application/json" }, produces = { "application/json" })
+	public OrdensServicos finalizarOs(@Valid @RequestBody OrdensServicos os) throws Exception {
+		return service.finalizarOs(os);
 	}
 
 }

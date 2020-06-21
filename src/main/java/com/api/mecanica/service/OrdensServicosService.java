@@ -33,12 +33,26 @@ public class OrdensServicosService {
 		return repository.findById(id);
 	}
 	
-	public OrdensServicos alterOS(OrdensServicos os) {	
+	public OrdensServicos alterOS(OrdensServicos os) throws Exception {	
+		var nova = findById(os.getId());
+		if (nova.get().getIsFinalizado()) {
+			throw new Exception("Não se pode alterar uma  OS Finalizada");			
+		}
 		// total serviço
 		os = calculaOs(os);
-		if (os.getIsFinalizado()) {
-			os.setSaida(new Date());
+		return repository.saveAndFlush(os);
+	}
+	
+	public OrdensServicos finalizarOs(OrdensServicos os) throws Exception {
+		var nova = findById(os.getId());
+		
+		if (nova.get().getIsFinalizado()) {
+			throw new Exception("OS já Finalizada");			
 		}
+		
+		os.setSaida(new Date());
+		os.setIsFinalizado(true);
+		os = calculaOs(os);
 		return repository.saveAndFlush(os);
 	}
 	
