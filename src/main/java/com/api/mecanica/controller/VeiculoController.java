@@ -78,6 +78,27 @@ public class VeiculoController implements RestService {
 		}
 	}
 	
+	@GetMapping(AppConstants.BUSCAR_VEICULOS_ATIVOS)
+	@ApiOperation(value="Retorna uma lista de veiculos cadastrados")
+	public ResponseEntity<List<Veiculo>> obterListaVeiculosAtivos() {
+		
+		try {
+			
+			final List<Veiculo> veiculosRetornados = veiculoService.buscarVeiculosAtivos(true);
+			
+			if(veiculosRetornados.size() > 0) {
+				return new ResponseEntity<List<Veiculo>>(veiculosRetornados, HttpStatus.OK);
+			} 
+				
+			return ResponseEntity.notFound().build();
+
+		} catch (Exception e) {
+			
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+
+		}
+	}
+	
 	@GetMapping(AppConstants.BUSCAR_VEICULO)
 	@ApiOperation(value="Retorna dados de um veiculo cadastrado")
 	public ResponseEntity<Optional<Veiculo>> obterDadosVeiculo(@Valid @PathVariable Long id) {
