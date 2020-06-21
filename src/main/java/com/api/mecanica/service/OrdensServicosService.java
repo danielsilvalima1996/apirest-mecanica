@@ -36,6 +36,9 @@ public class OrdensServicosService {
 	public OrdensServicos alterOS(OrdensServicos os) {	
 		// total serviço
 		os = calculaOs(os);
+		if (os.getIsFinalizado()) {
+			os.setSaida(new Date());
+		}
 		return repository.saveAndFlush(os);
 	}
 	
