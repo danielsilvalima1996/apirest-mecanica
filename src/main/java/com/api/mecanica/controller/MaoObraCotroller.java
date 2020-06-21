@@ -50,8 +50,18 @@ public class MaoObraCotroller {
 	@PutMapping("/atualizar")
 	public MaoDeObra atualizarMaoDeObra(@RequestBody MaoDeObra maoDeObra) {
 		return service.alterMaoDeObra(maoDeObra);
-	 
 	}
 	
-
-}
+	@ApiOperation(value="Traz uma lista de mão de obras ativas")
+	@GetMapping(value="active")
+	public List<MaoDeObra> findByActive(@RequestParam(value="active") boolean active){
+	return service.findByActive(active);
+	}
+	
+	@ApiOperation(value="Traz uma lista de mão de obras pela descrição")
+	@GetMapping(value="descricao",produces = { "application/json" })
+	public List<MaoDeObra> findByDescricao(@RequestParam(value="descricao") String descricao){
+	return service.findByDescricao(descricao);
+	}
+	}
+	

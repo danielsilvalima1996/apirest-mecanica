@@ -31,5 +31,11 @@ public class MaoDeObraService {
 		return repository.save(maoDeObra);
 	}
 	
-
+	public List<MaoDeObra> findByActive(boolean active){
+		return repository.findByActive(active);
+	}
+	
+	public List<MaoDeObra> findByDescricao(String descricao){
+		return repository.findByDescricao(descricao);
+	}
 }
