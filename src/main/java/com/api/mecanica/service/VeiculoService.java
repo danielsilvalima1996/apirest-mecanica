@@ -11,6 +11,8 @@ import com.api.mecanica.model.Veiculo;
 public interface VeiculoService {
 
 	List<Veiculo> buscarVeiculos();
+	
+	List<Veiculo> buscarVeiculosAtivos(boolean active);
 
 	void cadastrarVeiculo(@Valid Veiculo veiculo);
 

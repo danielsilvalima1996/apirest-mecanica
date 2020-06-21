@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.api.mecanica.constants.AppConstants;
 import com.api.mecanica.model.Pecas;
-import com.api.mecanica.model.Veiculo;
 import com.api.mecanica.service.PecasServiceImpl;
 
 import io.swagger.annotations.Api;

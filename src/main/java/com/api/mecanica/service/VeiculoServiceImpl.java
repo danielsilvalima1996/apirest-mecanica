@@ -118,4 +118,20 @@ public class VeiculoServiceImpl implements VeiculoService{
 		return veiculos;
 	}
 
+	@Override
+	public List<Veiculo> buscarVeiculosAtivos(boolean active) {
+		
+		List<Veiculo> veiculos = new ArrayList<>();
+		
+		try {
+			
+			veiculos = veiculoRepository.findByActive(active);
+			
+		} catch (Exception e) {
+			throw e;
+		}
+		
+		return veiculos;
+	}
+
 }
