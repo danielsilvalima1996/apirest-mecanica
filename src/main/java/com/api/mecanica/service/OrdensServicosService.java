@@ -18,6 +18,7 @@ public class OrdensServicosService {
 	
 	public OrdensServicos createOS(OrdensServicos os) {
 		os.setEntrada(new Date());
+		os.setIsFinalizado(false);
 		os.setTotalOsMaoDeObra(0.0);
 		os.setTotalOsPecas(0.0);
 		os.setTotalServico(0.0);
@@ -32,11 +33,14 @@ public class OrdensServicosService {
 		return repository.findById(id);
 	}
 	
-	private OrdensServicos calculaOS(OrdensServicos os) {	
+	public OrdensServicos alterOS(OrdensServicos os) {	
 		// total serviço
-		os.setTotalOsMaoDeObra(0.0);
-		os.setTotalOsPecas(0.0);
-		os.setTotalServico(0.0);
+		os = calculaOs(os);
+		return repository.saveAndFlush(os);
+	}
+	
+	public OrdensServicos calculaOs(OrdensServicos os) {
+		os.setTotalServico(os.getTotalOsMaoDeObra() + os.getTotalOsPecas() + os.getTotalServico());
 		return os;
 	}
 }
