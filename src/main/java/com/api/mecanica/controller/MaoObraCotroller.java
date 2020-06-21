@@ -59,9 +59,9 @@ public class MaoObraCotroller {
 	}
 	
 	@ApiOperation(value="Traz uma lista de mão de obras pela descrição")
-	@GetMapping(value="descricao",produces = { "application/json" })
-	public List<MaoDeObra> findByDescricao(@RequestParam(value="descricao") String descricao){
-	return service.findByDescricao(descricao);
+	@GetMapping(value = "descricao", produces = { "application/json" })
+	public List<MaoDeObra> findByDescricaoContainingIgnoreCase(@RequestParam(value = "descricao") String descricao) {
+		return service.findByDescricaoContainingIgnoreCase(descricao);
 	}
 	}
 	

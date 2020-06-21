@@ -35,7 +35,7 @@ public class MaoDeObraService {
 		return repository.findByActive(active);
 	}
 	
-	public List<MaoDeObra> findByDescricao(String descricao){
-		return repository.findByDescricao(descricao);
+	public List<MaoDeObra> findByDescricaoContainingIgnoreCase(String descricao) {
+		return repository.findByDescricaoContainingIgnoreCase(descricao);
 	}
 }

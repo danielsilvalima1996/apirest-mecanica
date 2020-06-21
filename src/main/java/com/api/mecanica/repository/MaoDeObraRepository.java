@@ -10,5 +10,5 @@ public interface MaoDeObraRepository extends JpaRepository<MaoDeObra, Long> {
 
 	List<MaoDeObra> findByActive(boolean active);
 	
-	List<MaoDeObra> findByDescricao(String descricao);
+	List<MaoDeObra> findByDescricaoContainingIgnoreCase(String descricao);
 }
