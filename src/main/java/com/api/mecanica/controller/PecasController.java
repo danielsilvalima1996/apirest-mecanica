@@ -150,6 +150,27 @@ public class PecasController implements RestService{
 		}
 	}
 	
+	@GetMapping(AppConstants.BUSCAR_PECA_POR_DESCRICAO)
+	@ApiOperation(value="Retorna uma lista de pecas por descricao")
+	public ResponseEntity<List<Pecas>> obterListaPecasPorDescricao(@Valid @PathVariable String descricao) {
+		
+		try {
+			
+			final List<Pecas> pecasRetornadas = service.buscarPecasPorDescricao(descricao);
+			
+			if(pecasRetornadas.size() > 0) {
+				return new ResponseEntity<List<Pecas>>(pecasRetornadas, HttpStatus.OK);
+			} 
+				
+			return ResponseEntity.notFound().build();
+
+		} catch (Exception e) {
+			
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+
+		}
+	}
+	
 
 	
 }

@@ -113,4 +113,20 @@ public class PecasServiceImpl implements PecasService{
 		return pecas;
 	}
 
+	@Override
+	public List<Pecas> buscarPecasPorDescricao(String descricao) {
+		
+		List<Pecas> peca = new ArrayList<>();
+		
+		try {
+			peca = repository.findByDescricaoContainingIgnoreCase(descricao);
+			
+		} catch (Exception e) {
+			
+			throw e;
+		}
+		
+		return peca;
+	}
+
 }

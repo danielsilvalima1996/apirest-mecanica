@@ -20,4 +20,6 @@ public interface PecasService {
 	Optional<Pecas> atualizarPeca(@Valid Long id, @Valid Pecas peca);
 	
 	List<Pecas> buscarPecasPorMarca(String marca);
+	
+	List<Pecas> buscarPecasPorDescricao(String descricao);
 }

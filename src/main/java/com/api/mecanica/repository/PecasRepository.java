@@ -11,4 +11,5 @@ public interface PecasRepository extends JpaRepository<Pecas, Long>, JpaSpecific
 
 	List<Pecas> findByActive(boolean active);
 	List<Pecas> findByMarcaContainingIgnoreCase(String marca);
+	List<Pecas> findByDescricaoContainingIgnoreCase(String marca);
 }
