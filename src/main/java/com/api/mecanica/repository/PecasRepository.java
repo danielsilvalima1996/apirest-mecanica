@@ -10,4 +10,5 @@ import com.api.mecanica.model.Pecas;
 public interface PecasRepository extends JpaRepository<Pecas, Long>, JpaSpecificationExecutor<Pecas>{
 
 	List<Pecas> findByActive(boolean active);
+	List<Pecas> findByMarcaContainingIgnoreCase(String marca);
 }

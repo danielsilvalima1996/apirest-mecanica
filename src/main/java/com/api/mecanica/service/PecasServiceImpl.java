@@ -80,9 +80,21 @@ public class PecasServiceImpl implements PecasService{
 	}
 
 	@Override
-	public List<Pecas> buscarPecasPorFiltro(Long id, String marca, String descricao, boolean active) {
-	
-		return null;
+	public List<Pecas> buscarPecasPorMarca(String marca) {
+
+		
+		List<Pecas> peca = new ArrayList<>();
+		
+		try {
+			peca = repository.findByMarcaContainingIgnoreCase(marca);
+		} catch (Exception e) {
+			
+			throw e;
+		}
+		
+		return peca;
+
+		
 	}
 
 	@Override

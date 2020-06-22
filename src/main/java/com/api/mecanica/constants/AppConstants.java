@@ -27,6 +27,7 @@ public interface AppConstants {
 	public static final String LISTAR_PECAS = "/listar-pecas";
 	public static final String LISTAR_PECAS_ATIVAS = "/listar-pecas-ativas";
 	public static final String BUSCAR_PECA_POR_ID = "/buscar-peca/{id}";
+	public static final String BUSCAR_PECA_POR_MARCA = "/buscar-peca-marca/{marca}";
 
 	public static final boolean PECA_ATIVA = true;
 	public static final boolean PECA_INATIVA = false;

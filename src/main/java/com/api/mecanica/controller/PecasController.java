@@ -15,15 +15,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.api.mecanica.constants.AppConstants;
+import com.api.mecanica.exception.VeiculoException;
 import com.api.mecanica.model.Pecas;
 import com.api.mecanica.model.Veiculo;
 import com.api.mecanica.service.PecasServiceImpl;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
 /**
  * @author [cristian.baptistella]
@@ -123,5 +126,30 @@ public class PecasController implements RestService{
 		return ResponseEntity.notFound().build();
 	
 	}
+	
+	
+	
+	@GetMapping(AppConstants.BUSCAR_PECA_POR_MARCA)
+	@ApiOperation(value="Retorna uma lista de pecas por marca")
+	public ResponseEntity<List<Pecas>> obterListaPecasPorMarca(@Valid @PathVariable String marca) {
+		
+		try {
+			
+			final List<Pecas> pecasRetornadas = service.buscarPecasPorMarca(marca);
+			
+			if(pecasRetornadas.size() > 0) {
+				return new ResponseEntity<List<Pecas>>(pecasRetornadas, HttpStatus.OK);
+			} 
+				
+			return ResponseEntity.notFound().build();
+
+		} catch (Exception e) {
+			
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+
+		}
+	}
+	
+
 	
 }
