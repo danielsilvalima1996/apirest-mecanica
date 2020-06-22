@@ -1,20 +1,18 @@
 package com.api.mecanica.model;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.internal.util.stereotypes.Immutable;
 
 @Entity
 @Table(name = "os_mao_de_obra")
@@ -27,27 +25,21 @@ public class OsMaoDeObra implements Serializable {
 	@Column(name = "id")
 	private Long id;
 
-	@Column(name = "quantidade")
-	@NotNull
-	private Integer quantidade;
-
-	@NotNull
+	@Immutable
 	@Column(name = "total")
 	private Double total;
+
+	@NotNull
+	@Column(name = "quantidade")
+	private Double quantidade;
 
 	@ManyToOne()
 	@JoinColumn(name = "id_ordens_servico")
 	private OrdensServicos idOrdemServico;
 
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "mao_os",
-			joinColumns = @JoinColumn(name = "mao_de_obra_id"), 
-			inverseJoinColumns = @JoinColumn(name = "os_mao_de_obra_id"))
-	private List<MaoDeObra> idMaoDeObra;
-
-	@NotNull
-	@Column(name = "valor_unitario")
-	private Double valorUnitario;
+	@ManyToOne()
+	@JoinColumn(name = "id_mao_de_obra")
+	private MaoDeObra idMaoDeObra;
 
 	public Long getId() {
 		return id;
@@ -55,14 +47,6 @@ public class OsMaoDeObra implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public Integer getQuantidade() {
-		return quantidade;
-	}
-
-	public void setQuantidade(Integer quantidade) {
-		this.quantidade = quantidade;
 	}
 
 	public Double getTotal() {
@@ -81,20 +65,20 @@ public class OsMaoDeObra implements Serializable {
 		this.idOrdemServico = idOrdemServico;
 	}
 
-	public List<MaoDeObra> getIdMaoDeObra() {
+	public MaoDeObra getIdMaoDeObra() {
 		return idMaoDeObra;
 	}
 
-	public void setIdMaoDeObra(List<MaoDeObra> idMaoDeObra) {
+	public void setIdMaoDeObra(MaoDeObra idMaoDeObra) {
 		this.idMaoDeObra = idMaoDeObra;
 	}
 
-	public Double getValorUnitario() {
-		return valorUnitario;
+	public Double getQuantidade() {
+		return quantidade;
 	}
 
-	public void setValorUnitario(Double valorUnitario) {
-		this.valorUnitario = valorUnitario;
+	public void setQuantidade(Double quantidade) {
+		this.quantidade = quantidade;
 	}
 
 }
