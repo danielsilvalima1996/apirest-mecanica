@@ -56,13 +56,43 @@ public class PecasServiceImpl implements PecasService{
 	@Override
 	public Optional<Pecas> atualizarPeca(@Valid Long id, @Valid Pecas peca) {
 		
-		return null;
+		Optional<Pecas> dadosAtuais = repository.findById(id);
+		
+		if(dadosAtuais.isPresent()) {
+			
+			Pecas pecaAtualizada = dadosAtuais.get();
+			pecaAtualizada.setDescricao(peca.getDescricao());
+			pecaAtualizada.setMarca(peca.getMarca());
+			pecaAtualizada.setModelo(peca.getModelo());
+			pecaAtualizada.setValorUnitario(peca.getValorUnitario());
+			pecaAtualizada.setActive(peca.isActive());
+			
+			return Optional.of(repository.saveAndFlush(pecaAtualizada));
+		} else {
+			return Optional.empty();
+		}
 	}
 
 	@Override
 	public List<Pecas> buscarPecasPorFiltro(Long id, String marca, String descricao, boolean active) {
 	
 		return null;
+	}
+
+	@Override
+	public List<Pecas> buscarPecasAtivas(boolean active) {
+		
+		List<Pecas> pecas = new ArrayList<>();
+		
+		try {
+			
+			pecas = repository.findByActive(active);
+			
+		} catch (Exception e) {
+			throw e;
+		}
+		
+		return pecas;
 	}
 
 }

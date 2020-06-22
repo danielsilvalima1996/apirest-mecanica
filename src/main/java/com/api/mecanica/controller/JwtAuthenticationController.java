@@ -25,7 +25,7 @@ import com.api.mecanica.service.JwtUserDetailsService;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "*")
 @RequestMapping("api/login")
 public class JwtAuthenticationController {
 

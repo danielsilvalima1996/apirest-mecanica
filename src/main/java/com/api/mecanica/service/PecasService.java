@@ -11,6 +11,8 @@ public interface PecasService {
 
 	List<Pecas> buscarPecas();
 	
+	List<Pecas> buscarPecasAtivas(boolean active);
+
 	void cadastrarPecas(@Valid Pecas pecas); 
 	
 	Optional<Pecas> buscarPecas(Long id);

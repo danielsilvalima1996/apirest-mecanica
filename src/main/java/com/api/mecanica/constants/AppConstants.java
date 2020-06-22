@@ -23,7 +23,10 @@ public interface AppConstants {
 	 * Atributos de Peças
 	 */
 	public static final String CADASTRAR_PECA = "/cadastrar-peca";
+	public static final String ATUALIZAR_PECA = "/atualizar-peca/{id}";
 	public static final String LISTAR_PECAS = "/listar-pecas";
+	public static final String LISTAR_PECAS_ATIVAS = "/listar-pecas-ativas";
+
 	public static final boolean PECA_ATIVA = true;
 	public static final boolean PECA_INATIVA = false;
 
