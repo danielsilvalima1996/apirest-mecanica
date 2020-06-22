@@ -15,7 +15,7 @@ public interface PecasService {
 
 	void cadastrarPecas(@Valid Pecas pecas); 
 	
-	Optional<Pecas> buscarPecas(Long id);
+	Optional<Pecas> buscarPecaById(Long id);
 	
 	Optional<Pecas> atualizarPeca(@Valid Long id, @Valid Pecas peca);
 	

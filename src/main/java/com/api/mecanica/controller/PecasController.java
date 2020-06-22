@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.api.mecanica.constants.AppConstants;
 import com.api.mecanica.model.Pecas;
+import com.api.mecanica.model.Veiculo;
 import com.api.mecanica.service.PecasServiceImpl;
 
 import io.swagger.annotations.Api;
@@ -96,8 +97,8 @@ public class PecasController implements RestService{
 	
 	
 	@PutMapping(AppConstants.ATUALIZAR_PECA)
-	@ApiOperation(value="Atualiza dados de um veiculo já cadastrado")
-	public ResponseEntity<?> atualizarVeiculo(@Valid @PathVariable Long id, @Valid @RequestBody Pecas peca) {
+	@ApiOperation(value="Atualiza dados de uma peca já cadastrado")
+	public ResponseEntity<?> atualizarPeca(@Valid @PathVariable Long id, @Valid @RequestBody Pecas peca) {
 		
 		Optional<Pecas> pecaRetorno = service.atualizarPeca(id, peca);
 		
@@ -107,6 +108,20 @@ public class PecasController implements RestService{
 		
 		return ResponseEntity.notFound().build();
 		
+	}
+	
+	@GetMapping(AppConstants.BUSCAR_PECA_POR_ID)
+	@ApiOperation(value="Retorna dados de uma peca cadastrado")
+	public ResponseEntity<Optional<Pecas>> obterDadosPecas(@Valid @PathVariable Long id) {
+		
+		Optional<Pecas> pecaRetorno = service.buscarPecaById(id);
+		
+		if(pecaRetorno.isPresent()) {
+			return ResponseEntity.ok().body(pecaRetorno);
+		} 
+		
+		return ResponseEntity.notFound().build();
+	
 	}
 	
 }

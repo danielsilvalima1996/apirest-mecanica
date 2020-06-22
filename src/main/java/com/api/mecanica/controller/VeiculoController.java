@@ -99,7 +99,7 @@ public class VeiculoController implements RestService {
 		}
 	}
 	
-	@GetMapping(AppConstants.BUSCAR_VEICULO)
+	@GetMapping(AppConstants.BUSCAR_VEICULO_POR_ID)
 	@ApiOperation(value="Retorna dados de um veiculo cadastrado")
 	public ResponseEntity<Optional<Veiculo>> obterDadosVeiculo(@Valid @PathVariable Long id) {
 		

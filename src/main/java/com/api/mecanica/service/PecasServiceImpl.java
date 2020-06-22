@@ -48,10 +48,16 @@ public class PecasServiceImpl implements PecasService{
 	}
 
 	@Override
-	public Optional<Pecas> buscarPecas(Long id) {
+	public Optional<Pecas> buscarPecaById(Long id) {
 		
-		return null;
-	}
+		Optional<Pecas> peca = repository.findById(id);
+		
+		if(peca.isPresent()) {
+			return peca;
+		} else {
+			return Optional.empty();
+		}
+	} 
 
 	@Override
 	public Optional<Pecas> atualizarPeca(@Valid Long id, @Valid Pecas peca) {
