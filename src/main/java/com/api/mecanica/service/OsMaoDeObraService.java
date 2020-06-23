@@ -11,11 +11,31 @@ public class OsMaoDeObraService {
 
 	@Autowired
 	OsMaoDeObraRepository repository;
-	
-	public OsMaoDeObra createOsMaoDeObra(OsMaoDeObra os) {
-		return repository.save(os);
+
+	@Autowired
+	OrdensServicosService osService;
+
+	@Autowired
+	MaoDeObraService maoService;
+
+	public OsMaoDeObra createOsMaoDeObra(OsMaoDeObra os) throws Exception {
+		if (!osService.isAtivoOS(os.getIdOrdemServico().getId())) {
+			throw new Exception("OS " + os.getId() + " Não existe");
+		}
+		if (!maoService.isAtivoMao(os.getIdMaoDeObra().getId())) {
+			throw new Exception("Mão de obra " + os.getId() + " Não existe");
+		}
+		var mao = maoService.findById(os.getIdMaoDeObra().getId());
+
+		os.setTotal(os.getQuantidade() * mao.get().getValorUnitario());
+		
+		OsMaoDeObra maoRet = repository.save(os);
+		
+		osService.addMao(maoRet);
+
+		return maoRet;
 	}
-	
+
 	public void deleteOsMaoDeObra(OsMaoDeObra os) {
 		repository.delete(os);
 	}

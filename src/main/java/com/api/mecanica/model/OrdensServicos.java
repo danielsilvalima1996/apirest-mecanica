@@ -36,7 +36,6 @@ public class OrdensServicos implements Serializable {
 	private Date entrada;
 
 	@Column(name = "saida")
-	@Immutable
 	private Date saida;
 
 	@Column(name = "nome_cliente")
@@ -64,14 +63,12 @@ public class OrdensServicos implements Serializable {
 	@ManyToOne()
 	@JoinColumn(name = "id_veiculo")
 	private Veiculo idVeiculo;
-	
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "mao_os",
-			joinColumns = @JoinColumn(name = "os_mao_de_obra_id"), 
-			inverseJoinColumns = @JoinColumn(name = "ordens_servicos_id"))
+
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "mao_os", joinColumns = @JoinColumn(name = "os_mao_de_obra_id"), 
+	inverseJoinColumns = @JoinColumn(name = "ordens_servicos_id"))
 	private List<OsMaoDeObra> idOsMaoDeObra;
 
-	@Immutable
 	@Column(name = "total_os_mao_de_obra")
 	private Double totalOsMaoDeObra;
 
@@ -79,11 +76,9 @@ public class OrdensServicos implements Serializable {
 	@JoinColumn(name = "id_os_pecas")
 	private OsPecas idOsPecas;
 
-	@Immutable
 	@Column(name = "total_os_pecas")
 	private Double totalOsPecas;
 
-	@Immutable
 	@Column(name = "total_servico")
 	private Double totalServico;
 

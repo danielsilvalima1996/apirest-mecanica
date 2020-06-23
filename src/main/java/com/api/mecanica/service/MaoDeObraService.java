@@ -19,12 +19,12 @@ public class MaoDeObraService {
 
 	public Optional<MaoDeObra> findById(Long id) throws MaoDeObraException {
 		var os = repository.findById(id);
-		if(!os.isPresent()) {
+		if (!os.isPresent()) {
 			throw new MaoDeObraException(HttpStatus.NOT_FOUND.value(), "Não tem mão de obra para esse ID");
 		}
 		return os;
 	}
-	
+
 	public List<MaoDeObra> findAll() {
 		return repository.findAll();
 	}
@@ -32,16 +32,24 @@ public class MaoDeObraService {
 	public MaoDeObra cadastrarDeMaoObra(MaoDeObra maoDeObra) {
 		return repository.save(maoDeObra);
 	}
-	
+
 	public MaoDeObra alterMaoDeObra(MaoDeObra maoDeObra) {
 		return repository.save(maoDeObra);
 	}
-	
-	public List<MaoDeObra> findByActive(boolean active){
+
+	public List<MaoDeObra> findByActive(boolean active) {
 		return repository.findByActive(active);
 	}
-	
+
 	public List<MaoDeObra> findByDescricaoContainingIgnoreCase(String descricao) {
 		return repository.findByDescricaoContainingIgnoreCase(descricao);
+	}
+
+	public boolean isAtivoMao(Long id) throws MaoDeObraException {
+		var mao = findById(id);
+		if (mao.isPresent()) {
+			return true;
+		}
+		return false;
 	}
 }

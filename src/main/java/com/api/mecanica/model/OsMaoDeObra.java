@@ -2,6 +2,7 @@ package com.api.mecanica.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,12 +32,15 @@ public class OsMaoDeObra implements Serializable {
 
 	@NotNull
 	@Column(name = "quantidade")
-	private Double quantidade;
+	private int quantidade;
 
+	@NotNull
 	@ManyToOne()
 	@JoinColumn(name = "id_ordens_servico")
+	@Basic
 	private OrdensServicos idOrdemServico;
 
+	@NotNull
 	@ManyToOne()
 	@JoinColumn(name = "id_mao_de_obra")
 	private MaoDeObra idMaoDeObra;
@@ -73,11 +77,11 @@ public class OsMaoDeObra implements Serializable {
 		this.idMaoDeObra = idMaoDeObra;
 	}
 
-	public Double getQuantidade() {
+	public int getQuantidade() {
 		return quantidade;
 	}
 
-	public void setQuantidade(Double quantidade) {
+	public void setQuantidade(int quantidade) {
 		this.quantidade = quantidade;
 	}
 

@@ -17,21 +17,15 @@ import io.swagger.annotations.ApiOperation;
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/api/os-mao-obra")
-public class OsMaoObraController {
-
+public class OsMaoDeObraController {
+	
 	@Autowired
 	OsMaoDeObraService service;
-
-	@ApiOperation(value = "Cria uma OS Mão de Obra")
+	
+	@ApiOperation(value = "Cria uma OS Mao de Obra")
 	@PostMapping(consumes = { "application/json" }, produces = { "application/json" })
-	public OsMaoDeObra createOsMaoObra(@Valid @RequestBody OsMaoDeObra osMaoDeObra) {
-		return service.createOsMaoDeObra(osMaoDeObra);
-	}
-
-	@ApiOperation(value = "Deleta uma OS Mão de Obra")
-	@PostMapping(consumes = { "application/json" })
-	public void deleteOsMaoDeObra(@Valid @RequestBody OsMaoDeObra osMaoDeObra) {
-		service.deleteOsMaoDeObra(osMaoDeObra);
+	public OsMaoDeObra createOs(@Valid @RequestBody OsMaoDeObra os) throws Exception {
+		return service.createOsMaoDeObra(os);
 	}
 
 }
