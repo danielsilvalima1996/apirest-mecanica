@@ -18,9 +18,9 @@ public class OsMaoDeObraService {
 	@Autowired
 	MaoDeObraService maoService;
 
-	public OsMaoDeObra createOsMaoDeObra(OsMaoDeObra os) throws Exception {
-		if (!osService.isAtivoOS(os.getIdOrdemServico().getId())) {
-			throw new Exception("OS " + os.getId() + " Não existe");
+	public OsMaoDeObra createOsMaoDeObra(OsMaoDeObra os, Long id) throws Exception {
+		if (!osService.isAtivoOS(id)) {
+			throw new Exception("OS " + id + " Não existe");
 		}
 		if (!maoService.isAtivoMao(os.getIdMaoDeObra().getId())) {
 			throw new Exception("Mão de obra " + os.getId() + " Não existe");
@@ -31,7 +31,7 @@ public class OsMaoDeObraService {
 		
 		OsMaoDeObra maoRet = repository.save(os);
 		
-		osService.addMao(maoRet);
+		osService.addMao(maoRet, id);
 
 		return maoRet;
 	}

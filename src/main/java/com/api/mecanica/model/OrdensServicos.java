@@ -72,9 +72,10 @@ public class OrdensServicos implements Serializable {
 	@Column(name = "total_os_mao_de_obra")
 	private Double totalOsMaoDeObra;
 
-	@ManyToOne()
-	@JoinColumn(name = "id_os_pecas")
-	private OsPecas idOsPecas;
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "pecas_itens_os", joinColumns = @JoinColumn(name = "os_pecas_id"), 
+	inverseJoinColumns = @JoinColumn(name = "ordens_servicos_id"))
+	private List<OsPecas> idOsPecas;
 
 	@Column(name = "total_os_pecas")
 	private Double totalOsPecas;
@@ -178,11 +179,11 @@ public class OrdensServicos implements Serializable {
 		this.totalOsMaoDeObra = totalOsMaoDeObra;
 	}
 
-	public OsPecas getIdOsPecas() {
+	public List<OsPecas> getIdOsPecas() {
 		return idOsPecas;
 	}
 
-	public void setIdOsPecas(OsPecas idOsPecas) {
+	public void setIdOsPecas(List<OsPecas> idOsPecas) {
 		this.idOsPecas = idOsPecas;
 	}
 

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.api.mecanica.model.OrdensServicos;
 import com.api.mecanica.model.OsMaoDeObra;
+import com.api.mecanica.model.OsPecas;
 import com.api.mecanica.repository.OrdensServicosRepository;
 
 @Service
@@ -74,8 +75,8 @@ public class OrdensServicosService {
 		return true;
 	}
 
-	public void addMao(OsMaoDeObra mao) {
-		var os = findById(mao.getIdOrdemServico().getId()).get();
+	public void addMao(OsMaoDeObra mao, Long id) {
+		var os = findById(id).get();
 
 		os.setTotalOsMaoDeObra(os.getTotalOsMaoDeObra() + mao.getTotal());
 		
@@ -86,6 +87,22 @@ public class OrdensServicosService {
 		list.add(mao);
 				
 		os.setIdOsMaoDeObra(list);
+		
+		repository.saveAndFlush(os);
+	}
+	
+	public void addPecas(OsPecas pecas, Long id) {
+		var os = findById(id).get();
+
+		os.setTotalOsPecas(os.getTotalOsMaoDeObra() + pecas.getTotal());
+		
+		double total = os.getTotalOsMaoDeObra() + os.getTotalOsPecas() + os.getTotalOsPecas();
+		os.setTotalServico(total);
+		
+		List<OsPecas> list = os.getIdOsPecas();
+		list.add(pecas);
+				
+		os.setIdOsPecas(list);
 		
 		repository.saveAndFlush(os);
 	}

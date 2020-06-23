@@ -4,6 +4,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,9 +24,9 @@ public class OsMaoDeObraController {
 	OsMaoDeObraService service;
 	
 	@ApiOperation(value = "Cria uma OS Mao de Obra")
-	@PostMapping(consumes = { "application/json" }, produces = { "application/json" })
-	public OsMaoDeObra createOs(@Valid @RequestBody OsMaoDeObra os) throws Exception {
-		return service.createOsMaoDeObra(os);
+	@PostMapping(value = "{id}", consumes = { "application/json" }, produces = { "application/json" })
+	public OsMaoDeObra createOs(@Valid @RequestBody OsMaoDeObra os, @PathVariable(value = "id") Long id) throws Exception {
+		return service.createOsMaoDeObra(os, id);
 	}
 
 }

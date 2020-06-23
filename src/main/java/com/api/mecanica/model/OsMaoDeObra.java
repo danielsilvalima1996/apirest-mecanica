@@ -2,7 +2,6 @@ package com.api.mecanica.model;
 
 import java.io.Serializable;
 
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -36,12 +35,6 @@ public class OsMaoDeObra implements Serializable {
 
 	@NotNull
 	@ManyToOne()
-	@JoinColumn(name = "id_ordens_servico")
-	@Basic
-	private OrdensServicos idOrdemServico;
-
-	@NotNull
-	@ManyToOne()
 	@JoinColumn(name = "id_mao_de_obra")
 	private MaoDeObra idMaoDeObra;
 
@@ -59,14 +52,6 @@ public class OsMaoDeObra implements Serializable {
 
 	public void setTotal(Double total) {
 		this.total = total;
-	}
-
-	public OrdensServicos getIdOrdemServico() {
-		return idOrdemServico;
-	}
-
-	public void setIdOrdemServico(OrdensServicos idOrdemServico) {
-		this.idOrdemServico = idOrdemServico;
 	}
 
 	public MaoDeObra getIdMaoDeObra() {
