@@ -41,7 +41,7 @@ public class MaoObraController {
 			if(maoObraRetornadas.size() > 0 ) {
 				return new ResponseEntity<List<MaoDeObra>>(maoObraRetornadas,HttpStatus.OK);
 			}
-			return ResponseEntity.notFound().build();
+			return ResponseEntity.noContent().build();
 		} catch(Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
