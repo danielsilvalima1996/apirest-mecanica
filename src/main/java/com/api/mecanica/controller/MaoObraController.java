@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,8 +38,8 @@ public class MaoObraController {
 	}
 
 	@ApiOperation(value = "Traz uma mão de obra pelo id")
-	@GetMapping(produces = { "application/json" })
-	public ResponseEntity<MaoDeObra> findById(@RequestParam(value = "id") Long id) {
+	@GetMapping(value ="{id}", produces = { "application/json" })
+	public ResponseEntity<MaoDeObra> findById(@PathVariable(value = "id") Long id) {
 		try {
 			return service.findById(id).map(x -> ResponseEntity.ok().body(x)).orElse(ResponseEntity.notFound().build());
 		} catch (MaoDeObraException e) {
