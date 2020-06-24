@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import com.api.mecanica.exception.PecaException;
 import com.api.mecanica.model.Pecas;
 
 public interface PecasService {
@@ -22,4 +23,6 @@ public interface PecasService {
 	List<Pecas> buscarPecasPorMarca(String marca);
 	
 	List<Pecas> buscarPecasPorDescricao(String descricao);
+	
+	List<Pecas> buscarPecasPorFiltros(Long idPeca, String marcaPeca, String descricaoPeca, String modeloPeca, boolean active) throws PecaException;
 }

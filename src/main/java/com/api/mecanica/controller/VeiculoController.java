@@ -128,8 +128,8 @@ public class VeiculoController implements RestService {
 	}
 
 	
-	@GetMapping(AppConstants.BUSCAR_POR_FILTROS)
-	@ApiOperation(value="Retorna uma lista de veiculos cadastrados por marca")
+	@GetMapping(AppConstants.BUSCAR_VEICULO_POR_FILTROS)
+	@ApiOperation(value="Retorna uma lista de veiculos cadastrados por filtros")
 	public ResponseEntity<List<Veiculo>> obterVeiculosPorFiltros(@ApiParam(value = "Codigo identificador do veiculo")  @Valid @RequestParam(value = "idVeiculo", required = false) Long idVeiculo,
 																 @ApiParam(value = "Descricao da marca do veiculo")  @Valid @RequestParam(value = "marcaVeiculo", required = false) String marcaVeiculo,
 																 @ApiParam(value = "Descricao do modelo do veiculo") @Valid @RequestParam(value = "modeloVeiculo", required = false) String modeloVeiculo,

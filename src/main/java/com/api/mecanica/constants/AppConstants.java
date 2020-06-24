@@ -14,7 +14,7 @@ public interface AppConstants {
 	public static final String BUSCAR_VEICULO_POR_ID = "/buscar-veiculo/{id}";
 	public static final String ATUALIZAR_VEICULO = "/atualizar-veiculo/{id}";
 	public static final String BUSCAR_VEICULOS_ATIVOS = "/buscar-veiculos-ativos";
-	public static final String BUSCAR_POR_FILTROS = "/buscar-por-filtros";
+	public static final String BUSCAR_VEICULO_POR_FILTROS = "/buscar-por-filtros";
 	
 	public static final boolean VEICULO_ATIVO = true;
 	public static final boolean VEICULO_INATIVO = false;
@@ -26,6 +26,8 @@ public interface AppConstants {
 	public static final String ATUALIZAR_PECA = "/atualizar-peca/{id}";
 	public static final String LISTAR_PECAS = "/listar-pecas";
 	public static final String LISTAR_PECAS_ATIVAS = "/listar-pecas-ativas";
+	public static final String BUSCAR_PECA_POR_FILTROS = "/buscar-peca-por-filtros";
+	
 	public static final String BUSCAR_PECA_POR_ID = "/buscar-peca/{id}";
 	public static final String BUSCAR_PECA_POR_MARCA = "/buscar-peca-marca/{marca}";
 	public static final String BUSCAR_PECA_POR_DESCRICAO = "/buscar-peca-descricao/{descricao}";

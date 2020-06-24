@@ -7,11 +7,16 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.api.mecanica.constants.AppConstants;
+import com.api.mecanica.exception.PecaException;
 import com.api.mecanica.model.Pecas;
 import com.api.mecanica.repository.PecasRepository;
+import com.api.mecanica.specification.PecaSpecification;
+import static org.springframework.data.jpa.domain.Specification.where;
+
 
 @Service
 public class PecasServiceImpl implements PecasService{
@@ -127,6 +132,35 @@ public class PecasServiceImpl implements PecasService{
 		}
 		
 		return peca;
+	}
+
+	@Override
+	public List<Pecas> buscarPecasPorFiltros(Long idPeca, String marcaPeca, String descricaoPeca, String modeloPeca, boolean active) 
+			throws PecaException {
+
+		List<Pecas> pecas = new ArrayList<>();
+		active = true;
+		
+		try {
+			pecas = repository.findAll(
+					where(PecaSpecification.codigoPeca(idPeca))
+					.and(PecaSpecification.marcaPadraoPeca(marcaPeca))
+					.and(PecaSpecification.modeloPadraoPeca(modeloPeca))
+					.and(PecaSpecification.descricaoPadraoPeca(descricaoPeca))
+					.and(PecaSpecification.isActive(active))
+					);
+			
+			if(pecas.size() == 0) {
+				throw new PecaException(HttpStatus.NOT_FOUND.value(), "Peca não encontrada");
+			}
+			
+		} catch (PecaException e) {
+			throw e;
+		} catch (Exception e) {
+			throw new PecaException(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Erro ao buscar peça");
+		}
+		
+		return pecas;
 	}
 
 }

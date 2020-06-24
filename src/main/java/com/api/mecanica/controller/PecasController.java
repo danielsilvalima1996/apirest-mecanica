@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.api.mecanica.constants.AppConstants;
+import com.api.mecanica.exception.PecaException;
 import com.api.mecanica.exception.VeiculoException;
 import com.api.mecanica.model.Pecas;
 import com.api.mecanica.model.Veiculo;
@@ -171,6 +172,30 @@ public class PecasController implements RestService{
 		}
 	}
 	
+	@GetMapping(AppConstants.BUSCAR_PECA_POR_FILTROS)
+	@ApiOperation(value="Retorna uma lista de veiculos cadastrado por filtros")
+	public ResponseEntity<List<Pecas>> obterPecaPorFiltros(@ApiParam(value="Codigo identificador da peca") @Valid @RequestParam(value = "idPeca", required = false) Long idPeca,
+														   @ApiParam(value="Descrição da peca") @Valid @RequestParam(value = "descricaoPeca", required = false) String descricaoPeca,
+														   @ApiParam(value="Modelo da peca") @Valid @RequestParam(value = "modeloPeca", required = false) String modeloPeca,
+														   @ApiParam(value="Atividade da peca") @Valid @RequestParam(value = "active", required = false) boolean active,
+														   @ApiParam(value="Marca da peca") @Valid @RequestParam(value = "marcaPeca", required = false) String marcaPeca) {
+		
+		try {
+			
+			final List<Pecas> pecasRetornada = service.buscarPecasPorFiltros( idPeca,  marcaPeca,  descricaoPeca,  modeloPeca,  active);
+			
+			if(pecasRetornada.size() > 0) {
+				return new ResponseEntity<List<Pecas>>(pecasRetornada, HttpStatus.OK);
+			}
+			
+			return ResponseEntity.notFound().build();
+
+		} catch (PecaException e) {
+			return ResponseEntity.status(e.getErrorCode()).build(); 
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
+	}
 
 	
 }
