@@ -33,8 +33,19 @@ public class MaoObraController {
 
 	@ApiOperation(value = "Retorna uma lista de mão de obra cadastrada")
 	@GetMapping(value = "all", produces = { "application/json" })
-	public List<MaoDeObra> findAll() {
-		return service.findAll();
+	public ResponseEntity<List<MaoDeObra>> findAll() {
+		
+		try {
+			final List<MaoDeObra> maoObraRetornadas = service.findAll();
+			
+			if(maoObraRetornadas.size() > 0 ) {
+				return new ResponseEntity<List<MaoDeObra>>(maoObraRetornadas,HttpStatus.OK);
+			}
+			return ResponseEntity.notFound().build();
+		} catch(Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
+
 	}
 
 	@ApiOperation(value = "Traz uma mão de obra pelo id")
@@ -51,8 +62,17 @@ public class MaoObraController {
 
 	@PostMapping("/cadastrar")
 	@ApiOperation(value = "Cadastra uma nova mao de obra")
-	public MaoDeObra cadastrarMaoDeObra(@Valid @RequestBody MaoDeObra maoDeObra) {
-		return service.cadastrarDeMaoObra(maoDeObra);
+	public ResponseEntity<MaoDeObra> cadastrarMaoDeObra(@Valid @RequestBody MaoDeObra maoDeObra) {
+		try {
+			
+			service.cadastrarDeMaoObra(maoDeObra);
+			
+			return ResponseEntity.ok().build();
+			
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
+		
 	}
 
 	@ApiOperation(value = "Atualiza uma mão de obra já cadastrada")
