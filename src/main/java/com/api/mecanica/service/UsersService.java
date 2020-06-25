@@ -18,8 +18,13 @@ public class UsersService {
 	@Autowired
 	UsersRepository repository;
 	
-	public Optional<Users> findById(Long id) {
-		return repository.findById(id);
+	public Optional<Users> findById(Long id) throws Exception {
+		var user = repository.findById(id);
+		if (!user.isPresent()) {
+			throw new Exception("Usuário não encontrado");
+		}
+		user.get().setPassword("");
+		return user;
 	}
 	
 	public Users findByEmail(String email) {
@@ -27,26 +32,63 @@ public class UsersService {
 	}
 	
 	public List<Users> findByEmailContainingIgnoreCase(String email) {
-//		return repository.findByEmailLike("%" + email + "%");
-		return repository.findByEmailContainingIgnoreCase(email);
+		var users = repository.findByEmailContainingIgnoreCase(email);
+		if (users.size() > 0) {
+			users.forEach(u -> u.setPassword(""));
+		}
+		return users;
 	}
 	
 	public List<Users> findByUserNameContainingIgnoreCase(String userName) {
-		return repository.findByUserNameContainingIgnoreCase(userName);
+		var users = repository.findByUserNameContainingIgnoreCase(userName);
+		if (users.size() > 0) {
+			users.forEach(u -> u.setPassword(""));
+		}
+		return users;
 	}
 	
 	public List<Users> findByActive(boolean active) {
-		return repository.findByActive(active);
+		var users = repository.findByActive(active);
+		if (users.size() > 0) {
+			users.forEach(u -> u.setPassword(""));
+		}
+		return users;
 	}
 	
 	public List<Users> findAll() {
-		return repository.findAll();
+		var users = repository.findAll();
+		if (users.size() > 0) {
+			users.forEach(u -> u.setPassword(""));
+		}
+		return users;
 	}
 
-	public Users createUser(Users user) {
+	public Users createUser(Users user) throws Exception {
+		var dbUser = findByEmail(user.getEmail());
+		if (dbUser != null) {
+			throw new Exception("Email já cadastrado");
+		}
 		String result = bc.encode(user.getPassword());
 		user.setPassword(result);
+		String avatar = "https://api.adorable.io/avatars/64/" + user.getEmail() + ".png";
+		user.setAvatar(avatar);
 		return repository.save(user);
+	}
+	
+	public Users alterUser(Users user) throws Exception {
+		var dbUser = repository.findById(user.getId());
+		if (!dbUser.isPresent()) {
+			throw new Exception("Usuário não encotrado, impossível alterar");
+		}
+		if (user.getPassword() != "") {
+			String result = bc.encode(user.getPassword());
+			user.setPassword(result);
+		} else {			
+			user.setPassword(dbUser.get().getPassword().toString());
+		}
+		String avatar = "https://api.adorable.io/avatars/64/" + user.getEmail() + ".png";
+		user.setAvatar(avatar);
+		return repository.saveAndFlush(user);
 	}
 
 }
