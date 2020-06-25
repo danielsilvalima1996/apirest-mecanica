@@ -2,9 +2,9 @@
 <section name="Workbench">
 	<section name="MavenProjectImportWizardPage">
 		<list key="rootDirectory">
+			<item value="/home/dlima/Downloads/apirest-mecanica"/>
 			<item value="/home/alison/Documentos/ProjetosAtivos/apirest-mecanica"/>
 			<item value="C:\Users\Cristian\Documents\workspace\apirest-mecanica"/>
-			<item value="/home/dlima/Downloads/apirest-mecanica"/>
 			<item value="/home/daniel/Documentos/estagio/mecanica"/>
 		</list>
 		<list key="projectNameTemplate">
