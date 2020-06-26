@@ -106,7 +106,7 @@ public class UsersService {
 		if(users.size() == 0) {
 			throw new Exception("Não há dados");
 		}
-		
+		users.forEach(x -> x.setPassword(""));
 		return users;
 	}
 
