@@ -1,7 +1,6 @@
 package com.api.mecanica.model;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -40,8 +38,9 @@ public class OsMaoDeObra implements Serializable {
 	@JoinColumn(name = "id_mao_de_obra")
 	private MaoDeObra idMaoDeObra;
 	
-	@ManyToMany(mappedBy = "idOsMaoDeObra")
-	private List<OrdensServicos> ordensServicos;
+	@ManyToOne
+	@JoinColumn(name = "ordens_servicos_id")
+	private OrdensServicos ordensServicos;
 
 	public Long getId() {
 		return id;
@@ -75,11 +74,11 @@ public class OsMaoDeObra implements Serializable {
 		this.quantidade = quantidade;
 	}
 
-	public List<OrdensServicos> getOrdensServicos() {
+	public OrdensServicos getOrdensServicos() {
 		return ordensServicos;
 	}
 
-	public void setOrdensServicos(List<OrdensServicos> ordensServicos) {
+	public void setOrdensServicos(OrdensServicos ordensServicos) {
 		this.ordensServicos = ordensServicos;
 	}
 
