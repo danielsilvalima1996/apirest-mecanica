@@ -1,5 +1,8 @@
 package com.api.mecanica.service;
 
+import static org.springframework.data.jpa.domain.Specification.where;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,15 +12,16 @@ import org.springframework.stereotype.Service;
 
 import com.api.mecanica.model.Users;
 import com.api.mecanica.repository.UsersRepository;
+import com.api.mecanica.specification.UsersSpecification;
 
 @Service
 public class UsersService {
-	
+
 	private static final BCryptPasswordEncoder bc = new BCryptPasswordEncoder();
-	
+
 	@Autowired
 	UsersRepository repository;
-	
+
 	public Optional<Users> findById(Long id) throws Exception {
 		var user = repository.findById(id);
 		if (!user.isPresent()) {
@@ -26,11 +30,11 @@ public class UsersService {
 		user.get().setPassword("");
 		return user;
 	}
-	
+
 	public Users findByEmail(String email) {
 		return repository.findByEmail(email);
 	}
-	
+
 	public List<Users> findByEmailContainingIgnoreCase(String email) {
 		var users = repository.findByEmailContainingIgnoreCase(email);
 		if (users.size() > 0) {
@@ -38,7 +42,7 @@ public class UsersService {
 		}
 		return users;
 	}
-	
+
 	public List<Users> findByUserNameContainingIgnoreCase(String userName) {
 		var users = repository.findByUserNameContainingIgnoreCase(userName);
 		if (users.size() > 0) {
@@ -46,7 +50,7 @@ public class UsersService {
 		}
 		return users;
 	}
-	
+
 	public List<Users> findByActive(boolean active) {
 		var users = repository.findByActive(active);
 		if (users.size() > 0) {
@@ -54,7 +58,7 @@ public class UsersService {
 		}
 		return users;
 	}
-	
+
 	public List<Users> findAll() {
 		var users = repository.findAll();
 		if (users.size() > 0) {
@@ -74,7 +78,7 @@ public class UsersService {
 		user.setAvatar(avatar);
 		return repository.save(user);
 	}
-	
+
 	public Users alterUser(Users user) throws Exception {
 		var dbUser = repository.findById(user.getId());
 		if (!dbUser.isPresent()) {
@@ -83,12 +87,27 @@ public class UsersService {
 		if (user.getPassword() != "") {
 			String result = bc.encode(user.getPassword());
 			user.setPassword(result);
-		} else {			
+		} else {
 			user.setPassword(dbUser.get().getPassword().toString());
 		}
 		String avatar = "https://api.adorable.io/avatars/64/" + user.getEmail() + ".png";
 		user.setAvatar(avatar);
 		return repository.saveAndFlush(user);
+	}
+
+	public List<Users> findByFiltros(Long id, String email, String userName, Boolean active) throws Exception {
+		List<Users> users = new ArrayList<>();
+		users = repository.findAll(
+				where(UsersSpecification.codigoUsers(id))
+				.and(UsersSpecification.emailUsers(email))
+				.and(UsersSpecification.userNameUsers(userName))
+				.and(UsersSpecification.activeUsers(active)));
+		
+		if(users.size() == 0) {
+			throw new Exception("Não há dados");
+		}
+		
+		return users;
 	}
 
 }

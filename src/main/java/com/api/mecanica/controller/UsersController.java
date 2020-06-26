@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -55,6 +56,18 @@ public class UsersController {
 	@GetMapping(value = "all", produces = { "application/json" })
 	public List<Users> findAll() {
 		return service.findAll();
+	}
+	
+
+	@ApiOperation(value = "Busca uma lista de User por ID ou EMAIL")
+	@GetMapping(value = "/busca", produces = { "application/json" })
+	public List<Users> findByEmailContainingOrUserNameContaining(
+			@Param(value = "id") Long id,
+			@Param(value = "email") String email, 
+			@Param(value = "userName") String userName,
+			@Param(value = "userName") Boolean active)
+			throws Exception {
+		return service.findByFiltros(id, email, userName, active);
 	}
 
 	@ApiOperation(value = "Cria um único User")

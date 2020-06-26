@@ -2,13 +2,18 @@ package com.api.mecanica.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -60,14 +65,14 @@ public class OrdensServicos implements Serializable {
 	@JoinColumn(name = "id_veiculo")
 	private Veiculo idVeiculo;
 
-//	@ManyToMany(fetch = FetchType.EAGER)
-//	@JoinTable(name = "mao_os", joinColumns = @JoinColumn(name = "os_mao_de_obra_id"), 
-//	inverseJoinColumns = @JoinColumn(name = "ordens_servicos_id"))
-//	private List<OsMaoDeObra> idOsMaoDeObra;
-//
-//	@Column(name = "total_os_mao_de_obra")
-//	private Double totalOsMaoDeObra;
-//
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "mao_os", joinColumns = @JoinColumn(name = "os_mao_de_obra_id"), 
+	inverseJoinColumns = @JoinColumn(name = "ordens_servicos_id"))
+	private Set<OsMaoDeObra> idOsMaoDeObra = new HashSet<OsMaoDeObra>();
+
+	@Column(name = "total_os_mao_de_obra")
+	private Double totalOsMaoDeObra;
+
 //	@ManyToMany(fetch = FetchType.LAZY)
 //	@JoinTable(name = "pecas_itens_os", joinColumns = @JoinColumn(name = "os_pecas_id"), 
 //	inverseJoinColumns = @JoinColumn(name = "ordens_servicos_id"))
@@ -163,22 +168,22 @@ public class OrdensServicos implements Serializable {
 		this.idVeiculo = idVeiculo;
 	}
 
-//	public List<OsMaoDeObra> getIdOsMaoDeObra() {
-//		return idOsMaoDeObra;
-//	}
-//
-//	public void setIdOsMaoDeObra(List<OsMaoDeObra> idOsMaoDeObra) {
-//		this.idOsMaoDeObra = idOsMaoDeObra;
-//	}
-//
-//	public Double getTotalOsMaoDeObra() {
-//		return totalOsMaoDeObra;
-//	}
-//
-//	public void setTotalOsMaoDeObra(Double totalOsMaoDeObra) {
-//		this.totalOsMaoDeObra = totalOsMaoDeObra;
-//	}
-//
+	public Set<OsMaoDeObra> getIdOsMaoDeObra() {
+		return idOsMaoDeObra;
+	}
+
+	public void setIdOsMaoDeObra(Set<OsMaoDeObra> idOsMaoDeObra) {
+		this.idOsMaoDeObra = idOsMaoDeObra;
+	}
+
+	public Double getTotalOsMaoDeObra() {
+		return totalOsMaoDeObra;
+	}
+
+	public void setTotalOsMaoDeObra(Double totalOsMaoDeObra) {
+		this.totalOsMaoDeObra = totalOsMaoDeObra;
+	}
+
 //	public List<OsPecas> getIdOsPecas() {
 //		return idOsPecas;
 //	}
