@@ -76,6 +76,7 @@ public class UsersService {
 		user.setPassword(result);
 		String avatar = "https://api.adorable.io/avatars/64/" + user.getEmail() + ".png";
 		user.setAvatar(avatar);
+		user.setActive(true);
 		return repository.save(user);
 	}
 
