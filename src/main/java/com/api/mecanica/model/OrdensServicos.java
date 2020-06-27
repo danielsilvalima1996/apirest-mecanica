@@ -18,6 +18,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.validator.internal.util.stereotypes.Immutable;
 
 @Entity
@@ -64,18 +66,16 @@ public class OrdensServicos implements Serializable {
 	@JoinColumn(name = "id_veiculo")
 	private Veiculo idVeiculo;
 
+	@Fetch(FetchMode.SELECT)
 	@OneToMany(mappedBy = "ordensServicos", fetch = FetchType.EAGER)
-//	@JoinTable(name = "mao_os", joinColumns = @JoinColumn(name = "os_mao_de_obra_id"), 
-//	inverseJoinColumns = @JoinColumn(name = "ordens_servicos_id"))
 	private List<OsMaoDeObra> idOsMaoDeObra = new ArrayList<OsMaoDeObra>();
 
 	@Column(name = "total_os_mao_de_obra")
 	private Double totalOsMaoDeObra;
 
-//	@ManyToMany(fetch = FetchType.LAZY)
-//	@JoinTable(name = "pecas_itens_os", joinColumns = @JoinColumn(name = "os_pecas_id"), 
-//	inverseJoinColumns = @JoinColumn(name = "ordens_servicos_id"))
-//	private List<OsPecas> idOsPecas;
+	@Fetch(FetchMode.SELECT)
+	@OneToMany(mappedBy = "ordensServicos", fetch = FetchType.EAGER)
+	private List<OsPecas> idOsPecas = new ArrayList<OsPecas>();
 
 	@Column(name = "total_os_pecas")
 	private Double totalOsPecas;
@@ -183,13 +183,13 @@ public class OrdensServicos implements Serializable {
 		this.totalOsMaoDeObra = totalOsMaoDeObra;
 	}
 
-//	public List<OsPecas> getIdOsPecas() {
-//		return idOsPecas;
-//	}
-//
-//	public void setIdOsPecas(List<OsPecas> idOsPecas) {
-//		this.idOsPecas = idOsPecas;
-//	}
+	public List<OsPecas> getIdOsPecas() {
+		return idOsPecas;
+	}
+
+	public void setIdOsPecas(List<OsPecas> idOsPecas) {
+		this.idOsPecas = idOsPecas;
+	}
 
 	public Double getTotalOsPecas() {
 		return totalOsPecas;

@@ -35,6 +35,10 @@ public class OsPecas implements Serializable {
 	@ManyToOne()
 	@JoinColumn(name = "id_pecas")
 	private Pecas idPecas;
+	
+	@ManyToOne
+	@JoinColumn(name = "ordens_servicos_id")
+	private OrdensServicos ordensServicos;
 
 	public Long getId() {
 		return id;
@@ -66,6 +70,14 @@ public class OsPecas implements Serializable {
 
 	public void setIdPecas(Pecas idPecas) {
 		this.idPecas = idPecas;
+	}
+
+	public OrdensServicos getOrdensServicos() {
+		return ordensServicos;
+	}
+
+	public void setOrdensServicos(OrdensServicos ordensServicos) {
+		this.ordensServicos = ordensServicos;
 	}
 
 }
