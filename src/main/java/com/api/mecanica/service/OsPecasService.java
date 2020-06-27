@@ -3,48 +3,47 @@ package com.api.mecanica.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.api.mecanica.model.OsMaoDeObra;
-import com.api.mecanica.repository.OsMaoDeObraRepository;
+import com.api.mecanica.model.OsPecas;
+import com.api.mecanica.repository.OsPecasRepository;
 
 @Service
 public class OsPecasService {
 
 	@Autowired
-	OsMaoDeObraRepository repository;
+	OsPecasRepository repository;
 
 	@Autowired
 	OrdensServicosService osService;
 
 	@Autowired
-	MaoDeObraService maoService;
+	PecasServiceImpl pecasService;
 
-	public OsMaoDeObra createOsMaoDeObra(OsMaoDeObra os, Long id) throws Exception {
+	public OsPecas createOsPecas(OsPecas os, Long id) throws Exception {
 		if (!osService.isAtivoOS(id)) {
 			throw new Exception("OS " + id + " Não existe");
 		}
-		if (!maoService.isAtivoMao(os.getIdMaoDeObra().getId())) {
-			throw new Exception("Mão de obra " + os.getId() + " Não existe");
+		if (!pecasService.isAtivoPeca(os.getIdPecas().getId())) {
+			throw new Exception("Peca " + os.getIdPecas().getId() + " Não existe");
 		}
-		var mao = maoService.findById(os.getIdMaoDeObra().getId());
+		var peca = pecasService.findById(os.getIdPecas().getId());
 		var nova = osService.findById(id).get();
 
-		os.setTotal(os.getQuantidade() * mao.get().getValorUnitario());
+		os.setTotal(os.getQuantidade() * peca.get().getValorUnitario());
 		os.setOrdensServicos(nova);
-		OsMaoDeObra maoRet = repository.save(os);
-		
-		osService.addMao(maoRet, id);
+		OsPecas pecaRet = repository.save(os);
 
-		return maoRet;
+		osService.addPeca(pecaRet, id);
+		return pecaRet;
 	}
 
-	public void deleteOsMaoDeObra(OsMaoDeObra os, Long id) throws Exception {
+	public void deleteOsMaoDeObra(OsPecas os, Long id) throws Exception {
 		if (!osService.isAtivoOS(id)) {
 			throw new Exception("OS " + id + " Não existe");
 		}
-		if (!maoService.isAtivoMao(os.getIdMaoDeObra().getId())) {
-			throw new Exception("Mão de obra " + os.getId() + " Não existe");
+		if (!pecasService.isAtivoPeca(os.getIdPecas().getId())) {
+			throw new Exception("Peca " + os.getId() + " Não existe");
 		}
-		osService.deleteMao(os, id);
+		osService.deletePeca(os, id);
 		repository.delete(os);
 	}
 }

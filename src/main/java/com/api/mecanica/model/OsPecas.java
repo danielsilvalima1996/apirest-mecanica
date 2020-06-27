@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.internal.util.stereotypes.Immutable;
+
 @Entity
 @Table(name = "os_pecas")
 public class OsPecas implements Serializable {
@@ -23,19 +25,19 @@ public class OsPecas implements Serializable {
 	@Column(name = "id")
 	private Long id;
 
-	@Column(name = "quantidade")
-	@NotNull
-	private Integer quantidade;
-
-	@NotNull
+	@Immutable
 	@Column(name = "total")
 	private Double total;
 
 	@NotNull
+	@Column(name = "quantidade")
+	private int quantidade;
+
+	@NotNull
 	@ManyToOne()
 	@JoinColumn(name = "id_pecas")
-	private Pecas idPecas;
-	
+	private MaoDeObra idPecas;
+
 	@ManyToOne
 	@JoinColumn(name = "ordens_servicos_id")
 	private OrdensServicos ordensServicos;
@@ -48,14 +50,6 @@ public class OsPecas implements Serializable {
 		this.id = id;
 	}
 
-	public Integer getQuantidade() {
-		return quantidade;
-	}
-
-	public void setQuantidade(Integer quantidade) {
-		this.quantidade = quantidade;
-	}
-
 	public Double getTotal() {
 		return total;
 	}
@@ -64,16 +58,20 @@ public class OsPecas implements Serializable {
 		this.total = total;
 	}
 
-	public Pecas getIdPecas() {
+	public int getQuantidade() {
+		return quantidade;
+	}
+
+	public void setQuantidade(int quantidade) {
+		this.quantidade = quantidade;
+	}
+
+	public MaoDeObra getIdPecas() {
 		return idPecas;
 	}
 
-	public void setIdPecas(Pecas idPecas) {
+	public void setIdPecas(MaoDeObra idPecas) {
 		this.idPecas = idPecas;
-	}
-
-	public OrdensServicos getOrdensServicos() {
-		return ordensServicos;
 	}
 
 	public void setOrdensServicos(OrdensServicos ordensServicos) {
