@@ -30,13 +30,13 @@ public class OrdensServicosController {
 
 	@ApiOperation(value = "Traz uma OS pelo id")
 	@GetMapping(value = "{id}", produces = { "application/json" })
-	public Optional<OrdensServicos> findById(@PathVariable(value = "id") Long id) {
+	public Optional<OrdensServicos> findById(@PathVariable(value = "id") Long id) throws Exception {
 		return service.findById(id);
 	}
 
 	@ApiOperation(value = "Traz uma Lista de OS")
 	@GetMapping(value = "all", produces = { "application/json" })
-	public List<OrdensServicos> findAll() {
+	public List<OrdensServicos> findAll() throws Exception {
 		return service.findAll();
 	}
 

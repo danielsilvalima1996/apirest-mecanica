@@ -27,12 +27,20 @@ public class OrdensServicosService {
 		return repository.save(os);
 	}
 
-	public List<OrdensServicos> findAll() {
-		return repository.findAll();
+	public List<OrdensServicos> findAll() throws Exception {
+		var os = repository.findAll();
+		if (os.size() == 0) {
+			throw new Exception("Não há dados");
+		}
+		return os;
 	}
 
-	public Optional<OrdensServicos> findById(Long id) {
-		return repository.findById(id);
+	public Optional<OrdensServicos> findById(Long id) throws Exception {
+		var os = repository.findById(id);
+		if(!os.isPresent()) {
+			throw new Exception("Não há OS com o ID " + id);
+		}
+		return os;
 	}
 
 	public OrdensServicos alterOS(OrdensServicos os) throws Exception {
@@ -59,11 +67,11 @@ public class OrdensServicosService {
 	}
 
 	public OrdensServicos calculaOs(OrdensServicos os) {
-//		os.setTotalServico(os.getTotalOsMaoDeObra() + os.getTotalOsPecas() + os.getTotalServico());
+		os.setTotalServico(os.getTotalOsMaoDeObra() + os.getTotalOsPecas());
 		return os;
 	}
 
-	public boolean isAtivoOS(Long id) {
+	public boolean isAtivoOS(Long id) throws Exception {
 		var os = findById(id);
 		if (os.isPresent()) {
 			if (os.get().getIsFinalizado()) {
@@ -75,13 +83,12 @@ public class OrdensServicosService {
 		return true;
 	}
 
-	public void addMao(OsMaoDeObra mao, Long id) {
+	public void addMao(OsMaoDeObra mao, Long id) throws Exception {
 		var os = findById(id).get();
 		
 		os.setTotalOsMaoDeObra(os.getTotalOsMaoDeObra() + mao.getTotal());
 		
-		double total = os.getTotalOsMaoDeObra() + os.getTotalOsPecas() + os.getTotalOsPecas();
-		os.setTotalServico(total);
+		os = calculaOs(os);
 		
 		List<OsMaoDeObra> list = os.getIdOsMaoDeObra();
 		list.add(mao);
@@ -91,19 +98,34 @@ public class OrdensServicosService {
 		repository.save(os);
 	}
 	
-	public void addPecas(OsPecas pecas, Long id) {
+	public void deleteMao(OsMaoDeObra mao, Long id) throws Exception {
 		var os = findById(id).get();
-
-//		os.setTotalOsPecas(os.getTotalOsMaoDeObra() + pecas.getTotal());
-//		
-//		double total = os.getTotalOsMaoDeObra() + os.getTotalOsPecas() + os.getTotalOsPecas();
-//		os.setTotalServico(total);
-//		
-//		List<OsPecas> list = os.getIdOsPecas();
-//		list.add(pecas);
-//				
-//		os.setIdOsPecas(list);
 		
-		repository.saveAndFlush(os);
+		os.setTotalOsMaoDeObra(os.getTotalOsMaoDeObra() - mao.getTotal());
+		
+		os = calculaOs(os);
+		
+		List<OsMaoDeObra> list = os.getIdOsMaoDeObra();
+		list.remove(mao);
+				
+		os.setIdOsMaoDeObra(list);
+		
+		repository.save(os);
 	}
+	
+	public void addMao(OsPecas peca, Long id) throws Exception {
+		var os = findById(id).get();
+		
+		os.setTotalOsMaoDeObra(os.getTotalOsMaoDeObra() + peca.getTotal());
+		
+		os = calculaOs(os);
+		
+		List<OsPecas> list = os.getIdOsPecas();
+		list.add(peca);
+				
+		os.setIdOsPecas(list);
+		
+		repository.save(os);
+	}
+
 }

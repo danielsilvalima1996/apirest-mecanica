@@ -37,7 +37,14 @@ public class OsMaoDeObraService {
 		return maoRet;
 	}
 
-	public void deleteOsMaoDeObra(OsMaoDeObra os) {
+	public void deleteOsMaoDeObra(OsMaoDeObra os, Long id) throws Exception {
+		if (!osService.isAtivoOS(id)) {
+			throw new Exception("OS " + id + " Não existe");
+		}
+		if (!maoService.isAtivoMao(os.getIdMaoDeObra().getId())) {
+			throw new Exception("Mão de obra " + os.getId() + " Não existe");
+		}
+		osService.deleteMao(os, id);
 		repository.delete(os);
 	}
 }

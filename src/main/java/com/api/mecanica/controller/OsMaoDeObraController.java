@@ -4,6 +4,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,6 +28,12 @@ public class OsMaoDeObraController {
 	@PostMapping(value = "{id}", consumes = { "application/json" }, produces = { "application/json" })
 	public OsMaoDeObra createOs(@Valid @RequestBody OsMaoDeObra os, @PathVariable(value = "id") Long id) throws Exception {
 		return service.createOsMaoDeObra(os, id);
+	}
+	
+	@ApiOperation(value = "Deleta uma OS Mao de Obra")
+	@DeleteMapping(value = "{id}", consumes = { "application/json" })
+	public void deleteOs(@Valid @RequestBody OsMaoDeObra os, @PathVariable(value = "id") Long id) throws Exception {
+		service.deleteOsMaoDeObra(os, id);
 	}
 
 }
