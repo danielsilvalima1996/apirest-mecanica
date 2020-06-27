@@ -1,5 +1,8 @@
 package com.api.mecanica.service;
 
+import static org.springframework.data.jpa.domain.Specification.where;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.api.mecanica.exception.MaoDeObraException;
 import com.api.mecanica.model.MaoDeObra;
 import com.api.mecanica.repository.MaoDeObraRepository;
+import com.api.mecanica.specification.MaoDeObraSpecification;
 
 @Service
 public class MaoDeObraService {
@@ -51,5 +55,18 @@ public class MaoDeObraService {
 			return true;
 		}
 		return false;
+	}
+	
+	public List<MaoDeObra> findByFiltros(Long id, String descricao, Boolean active) throws Exception {
+		List<MaoDeObra> maoDeObra = new ArrayList<>();
+		maoDeObra = repository.findAll(
+				where(MaoDeObraSpecification.codigoMaoDeObra(id))
+				.and(MaoDeObraSpecification.descricaoMaoDeObra(descricao))
+				.and(MaoDeObraSpecification.activeMaoDeObra(active)));
+		
+		if(maoDeObra.size() == 0) {
+			throw new Exception("Não há dados");
+		}
+		return maoDeObra;
 	}
 }
