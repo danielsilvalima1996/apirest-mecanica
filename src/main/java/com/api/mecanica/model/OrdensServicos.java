@@ -16,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.Fetch;
@@ -65,6 +66,13 @@ public class OrdensServicos implements Serializable {
 	@ManyToOne()
 	@JoinColumn(name = "id_veiculo")
 	private Veiculo idVeiculo;
+	
+	@Column(name = "placa", length = 7)
+	@Pattern(regexp = "^[A-Za-z0-9]*\\d+[A-Za-z0-9]*$", message = "A placa deve conter apenas números e letra")
+	@NotNull
+	@Immutable
+	@Size(min = 7, max = 7)
+	private String placa;
 
 	@Fetch(FetchMode.SELECT)
 	@OneToMany(mappedBy = "ordensServicos", fetch = FetchType.EAGER)
@@ -165,6 +173,14 @@ public class OrdensServicos implements Serializable {
 
 	public void setIdVeiculo(Veiculo idVeiculo) {
 		this.idVeiculo = idVeiculo;
+	}
+
+	public String getPlaca() {
+		return placa;
+	}
+
+	public void setPlaca(String placa) {
+		this.placa = placa;
 	}
 
 	public List<OsMaoDeObra> getIdOsMaoDeObra() {

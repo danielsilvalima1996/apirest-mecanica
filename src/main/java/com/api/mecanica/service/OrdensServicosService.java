@@ -20,6 +20,7 @@ public class OrdensServicosService {
 
 	public OrdensServicos createOS(OrdensServicos os) {
 		os.setEntrada(new Date());
+		os.setPlaca(os.getPlaca().toUpperCase());
 		os.setIsFinalizado(false);
 		os.setTotalOsMaoDeObra(0.0);
 		os.setTotalOsPecas(0.0);
@@ -63,7 +64,7 @@ public class OrdensServicosService {
 		os.setSaida(new Date());
 		os.setIsFinalizado(true);
 		os = calculaOs(os);
-		return repository.saveAndFlush(os);
+		return repository.save(os);
 	}
 
 	public OrdensServicos calculaOs(OrdensServicos os) {

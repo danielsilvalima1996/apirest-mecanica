@@ -44,7 +44,11 @@ public class OsMaoDeObraService {
 		if (!maoService.isAtivoMao(os.getIdMaoDeObra().getId())) {
 			throw new Exception("Mão de obra " + os.getId() + " Não existe");
 		}
+		try {
 		osService.deleteMao(os, id);
 		repository.delete(os);
+		} catch (Exception e) {
+			throw new Exception("Erro ao excluir mão de obra " + os.getId());
+		}
 	}
 }
