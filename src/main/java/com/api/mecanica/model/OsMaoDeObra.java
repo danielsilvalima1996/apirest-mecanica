@@ -74,10 +74,6 @@ public class OsMaoDeObra implements Serializable {
 		this.quantidade = quantidade;
 	}
 
-	public OrdensServicos getOrdensServicos() {
-		return ordensServicos;
-	}
-
 	public void setOrdensServicos(OrdensServicos ordensServicos) {
 		this.ordensServicos = ordensServicos;
 	}
