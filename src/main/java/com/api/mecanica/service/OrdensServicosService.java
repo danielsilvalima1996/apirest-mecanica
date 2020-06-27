@@ -77,7 +77,7 @@ public class OrdensServicosService {
 
 	public void addMao(OsMaoDeObra mao, Long id) {
 		var os = findById(id).get();
-
+		
 		os.setTotalOsMaoDeObra(os.getTotalOsMaoDeObra() + mao.getTotal());
 		
 		double total = os.getTotalOsMaoDeObra() + os.getTotalOsPecas() + os.getTotalOsPecas();

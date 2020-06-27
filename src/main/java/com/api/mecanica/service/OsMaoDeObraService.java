@@ -26,9 +26,10 @@ public class OsMaoDeObraService {
 			throw new Exception("Mão de obra " + os.getId() + " Não existe");
 		}
 		var mao = maoService.findById(os.getIdMaoDeObra().getId());
+		var nova = osService.findById(id).get();
 
 		os.setTotal(os.getQuantidade() * mao.get().getValorUnitario());
-		
+		os.setOrdensServicos(nova);
 		OsMaoDeObra maoRet = repository.save(os);
 		
 		osService.addMao(maoRet, id);
