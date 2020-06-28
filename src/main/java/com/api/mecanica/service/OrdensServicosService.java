@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.api.mecanica.model.OrdensServicos;
@@ -50,7 +51,7 @@ public class OrdensServicosService {
 				.and(OrdensServicosSpecification.idVeiculoOS(idVeiculoOS))
 				.and(OrdensServicosSpecification.placaOS(placaOS))
 				.and(OrdensServicosSpecification.idUsuarioOS(idUsuarioOS))
-				.and(OrdensServicosSpecification.isFinalizadoOS(isFinalizadoOS)));
+				.and(OrdensServicosSpecification.isFinalizadoOS(isFinalizadoOS)), Sort.by(Sort.Direction.DESC, "id"));
 
 		if (os.size() == 0) {
 			throw new Exception("Não há dados");
