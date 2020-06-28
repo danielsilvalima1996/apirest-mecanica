@@ -1,5 +1,8 @@
 package com.api.mecanica.service;
 
+import static org.springframework.data.jpa.domain.Specification.where;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -11,6 +14,7 @@ import com.api.mecanica.model.OrdensServicos;
 import com.api.mecanica.model.OsMaoDeObra;
 import com.api.mecanica.model.OsPecas;
 import com.api.mecanica.repository.OrdensServicosRepository;
+import com.api.mecanica.specification.OrdensServicosSpecification;
 
 @Service
 public class OrdensServicosService {
@@ -28,8 +32,26 @@ public class OrdensServicosService {
 		return repository.save(os);
 	}
 
-	public List<OrdensServicos> findAll() throws Exception {
-		var os = repository.findAll();
+//	public List<OrdensServicos> findAll() throws Exception {
+//		var os = repository.findAll();
+//		if (os.size() == 0) {
+//			throw new Exception("Não há dados");
+//		}
+//		return os;
+//	}
+
+	public List<OrdensServicos> findAll(Long idOS, String nomeClienteOS, String cpfCnpjOS, String observacoesOS,
+			Long idVeiculoOS, String placaOS, Long idUsuarioOS, Boolean isFinalizadoOS) throws Exception {
+		List<OrdensServicos> os = new ArrayList<>();
+		os = repository.findAll(where(OrdensServicosSpecification.idOS(idOS))
+				.and(OrdensServicosSpecification.nomeClienteOS(nomeClienteOS))
+				.and(OrdensServicosSpecification.cpfCnpjOS(cpfCnpjOS))
+				.and(OrdensServicosSpecification.observacoesOS(observacoesOS))
+				.and(OrdensServicosSpecification.idVeiculoOS(idVeiculoOS))
+				.and(OrdensServicosSpecification.placaOS(placaOS))
+				.and(OrdensServicosSpecification.idUsuarioOS(idUsuarioOS))
+				.and(OrdensServicosSpecification.isFinalizadoOS(isFinalizadoOS)));
+
 		if (os.size() == 0) {
 			throw new Exception("Não há dados");
 		}
