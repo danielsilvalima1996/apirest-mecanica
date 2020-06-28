@@ -56,7 +56,7 @@ public class OrdensServicosSpecification {
 		if (idUsuario == null) {
 			return null;
 		}
-		return (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.equal(root.get("placa"), idUsuario);
+		return (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.equal(root.get("idUsuario"), idUsuario);
 	}
 
 	public static Specification<OrdensServicos> isFinalizadoOS(Boolean isFinalizado) {
