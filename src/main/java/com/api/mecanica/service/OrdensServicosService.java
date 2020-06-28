@@ -26,23 +26,15 @@ public class OrdensServicosService {
 	public OrdensServicos createOS(OrdensServicos os) {
 		os.setEntrada(new Date());
 		os.setPlaca(os.getPlaca().toUpperCase());
-		os.setIsFinalizado(false);
+		os.setIsFinalizado(0);
 		os.setTotalOsMaoDeObra(0.0);
 		os.setTotalOsPecas(0.0);
 		os.setTotalServico(0.0);
 		return repository.save(os);
 	}
 
-//	public List<OrdensServicos> findAll() throws Exception {
-//		var os = repository.findAll();
-//		if (os.size() == 0) {
-//			throw new Exception("Não há dados");
-//		}
-//		return os;
-//	}
-
 	public List<OrdensServicos> findAll(Long idOS, String nomeClienteOS, String cpfCnpjOS, String observacoesOS,
-			Long idVeiculoOS, String placaOS, Long idUsuarioOS, Boolean isFinalizadoOS) throws Exception {
+			Long idVeiculoOS, String placaOS, Long idUsuarioOS, Integer isFinalizadoOS) throws Exception {
 		List<OrdensServicos> os = new ArrayList<>();
 		os = repository.findAll(where(OrdensServicosSpecification.idOS(idOS))
 				.and(OrdensServicosSpecification.nomeClienteOS(nomeClienteOS))
@@ -68,26 +60,37 @@ public class OrdensServicosService {
 	}
 
 	public OrdensServicos alterOS(OrdensServicos os) throws Exception {
-		var nova = findById(os.getId());
-		if (nova.get().getIsFinalizado()) {
-			throw new Exception("Não se pode alterar uma  OS Finalizada");
+		var nova = findById(os.getId()).get();
+		if (nova.getIsFinalizado() != 0) {
+			throw new Exception("Não se pode alterar uma  OS " + (nova.getIsFinalizado() == 1 ? "Finalizada" : "Cancelada"));
 		}
 		// total serviço
 		os = calculaOs(os);
 		return repository.saveAndFlush(os);
 	}
 
-	public OrdensServicos finalizarOs(OrdensServicos os) throws Exception {
-		var nova = findById(os.getId());
+	public OrdensServicos finalizarOs(Long id) throws Exception {
+		var nova = findById(id).get();
 
-		if (nova.get().getIsFinalizado()) {
-			throw new Exception("OS já Finalizada");
+		if (nova.getIsFinalizado() != 0) {
+			throw new Exception("OS já " + (nova.getIsFinalizado() == 1 ? "Finalizada" : "Cancelada"));
 		}
 
-		os.setSaida(new Date());
-		os.setIsFinalizado(true);
-		os = calculaOs(os);
-		return repository.save(os);
+		nova.setSaida(new Date());
+		nova.setIsFinalizado(1);
+		return repository.save(nova);
+	}
+	
+	public OrdensServicos cancelarOs(Long id) throws Exception {
+		var nova = findById(id).get();
+
+		if (nova.getIsFinalizado() != 0) {
+			throw new Exception("OS já " + (nova.getIsFinalizado() == 1 ? "Finalizada" : "Cancelada"));
+		}
+
+		nova.setSaida(new Date());
+		nova.setIsFinalizado(2);
+		return repository.save(nova);
 	}
 
 	public OrdensServicos calculaOs(OrdensServicos os) {
@@ -98,7 +101,7 @@ public class OrdensServicosService {
 	public boolean isAtivoOS(Long id) throws Exception {
 		var os = findById(id);
 		if (os.isPresent()) {
-			if (os.get().getIsFinalizado()) {
+			if (os.get().getIsFinalizado() != 0) {
 				return false;
 			}
 		} else {

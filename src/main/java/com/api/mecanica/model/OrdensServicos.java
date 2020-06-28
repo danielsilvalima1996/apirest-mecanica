@@ -60,7 +60,6 @@ public class OrdensServicos implements Serializable {
 	private String telefone;
 
 	@Column(name = "observacoes", length = 500)
-	@NotNull
 	private String observacoes;
 
 	@ManyToOne()
@@ -97,7 +96,7 @@ public class OrdensServicos implements Serializable {
 
 	@Column(name = "is_finalizado")
 	@Immutable
-	private Boolean isFinalizado;
+	private Integer isFinalizado;
 
 	public OrdensServicos() {
 		super();
@@ -231,11 +230,11 @@ public class OrdensServicos implements Serializable {
 		this.idUsuario = idUsuario;
 	}
 
-	public Boolean getIsFinalizado() {
+	public Integer getIsFinalizado() {
 		return isFinalizado;
 	}
 
-	public void setIsFinalizado(Boolean isFinalizado) {
+	public void setIsFinalizado(Integer isFinalizado) {
 		this.isFinalizado = isFinalizado;
 	}
 

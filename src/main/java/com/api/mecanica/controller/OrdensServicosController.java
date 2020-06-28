@@ -40,7 +40,7 @@ public class OrdensServicosController {
 	public List<OrdensServicos> findAll(@Param(value = "id") Long id, @Param(value = "nomeCliente") String nomeCliente,
 			@Param(value = "cpfCnpj") String cpfCnpj, @Param(value = "observacoes") String observacoes,
 			@Param(value = "idVeiculo") Long idVeiculo, @Param(value = "placa") String placa,
-			@Param(value = "idUsuario") Long idUsuario, @Param(value = "isFinalizado") Boolean isFinalizado)
+			@Param(value = "idUsuario") Long idUsuario, @Param(value = "isFinalizado") Integer isFinalizado)
 			throws Exception {
 		return service.findAll(id, nomeCliente, cpfCnpj, observacoes, idVeiculo, placa, idUsuario, isFinalizado);
 	}
@@ -58,9 +58,15 @@ public class OrdensServicosController {
 	}
 
 	@ApiOperation(value = "Finaliza uma OS")
-	@PutMapping(value = "/finalizar", consumes = { "application/json" }, produces = { "application/json" })
-	public OrdensServicos finalizarOs(@Valid @RequestBody OrdensServicos os) throws Exception {
-		return service.finalizarOs(os);
+	@PutMapping(value = "/finalizar/{id}", produces = { "application/json" })
+	public OrdensServicos finalizarOs(@Valid @PathVariable(name = "id", required = true) Long id) throws Exception {
+		return service.finalizarOs(id);
+	}
+	
+	@ApiOperation(value = "cancela uma OS")
+	@PutMapping(value = "/cancelar/{id}", produces = { "application/json" })
+	public OrdensServicos cancelarOs(@Valid @PathVariable(name = "id", required = true) Long id) throws Exception {
+		return service.cancelarOs(id);
 	}
 
 }
