@@ -177,5 +177,13 @@ public class OrdensServicosService {
 	public long countAll() {
 		return repository.count();
 	}
+	
+	public Double sumTotalOsByIsFinalizado(int isFinalizado) {
+		return repository.sumTotalOsByIsFinalizado(isFinalizado);
+	}
+	
+	public double sumTotalOs() {
+		return repository.sumTotalOs();
+	}
 
 }

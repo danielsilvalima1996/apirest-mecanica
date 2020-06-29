@@ -24,7 +24,7 @@ import org.hibernate.annotations.FetchMode;
 import org.hibernate.validator.internal.util.stereotypes.Immutable;
 
 @Entity
-@Table(name = "ordens_servico")
+@Table(name = "ordens_servicos")
 public class OrdensServicos implements Serializable {
 
 	private static final long serialVersionUID = 1L;
