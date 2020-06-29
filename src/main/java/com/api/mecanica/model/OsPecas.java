@@ -26,6 +26,10 @@ public class OsPecas implements Serializable {
 	private Long id;
 
 	@Immutable
+	@Column(name = "valor_unitario")
+	private Double valorUnitario;
+
+	@Immutable
 	@Column(name = "total")
 	private Double total;
 
@@ -36,7 +40,7 @@ public class OsPecas implements Serializable {
 	@NotNull
 	@ManyToOne()
 	@JoinColumn(name = "id_pecas")
-	private MaoDeObra idPecas;
+	private Pecas idPecas;
 
 	@ManyToOne
 	@JoinColumn(name = "ordens_servicos_id")
@@ -58,6 +62,14 @@ public class OsPecas implements Serializable {
 		this.total = total;
 	}
 
+	public Double getValorUnitario() {
+		return valorUnitario;
+	}
+
+	public void setValorUnitario(Double valorUnitario) {
+		this.valorUnitario = valorUnitario;
+	}
+
 	public int getQuantidade() {
 		return quantidade;
 	}
@@ -66,11 +78,11 @@ public class OsPecas implements Serializable {
 		this.quantidade = quantidade;
 	}
 
-	public MaoDeObra getIdPecas() {
+	public Pecas getIdPecas() {
 		return idPecas;
 	}
 
-	public void setIdPecas(MaoDeObra idPecas) {
+	public void setIdPecas(Pecas idPecas) {
 		this.idPecas = idPecas;
 	}
 

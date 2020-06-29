@@ -24,6 +24,10 @@ public class OsMaoDeObra implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Long id;
+	
+	@Immutable
+	@Column(name = "valor_unitario")
+	private Double valorUnitario;
 
 	@Immutable
 	@Column(name = "total")
@@ -56,6 +60,14 @@ public class OsMaoDeObra implements Serializable {
 
 	public void setTotal(Double total) {
 		this.total = total;
+	}
+
+	public Double getValorUnitario() {
+		return valorUnitario;
+	}
+
+	public void setValorUnitario(Double valorUnitario) {
+		this.valorUnitario = valorUnitario;
 	}
 
 	public MaoDeObra getIdMaoDeObra() {

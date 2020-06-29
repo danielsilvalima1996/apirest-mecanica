@@ -28,7 +28,8 @@ public class OsPecasService {
 		var peca = pecasService.findById(os.getIdPecas().getId());
 		var nova = osService.findById(id).get();
 
-		os.setTotal(os.getQuantidade() * peca.get().getValorUnitario());
+		os.setValorUnitario(peca.get().getValorUnitario());
+		os.setTotal(os.getQuantidade() * os.getValorUnitario());
 		os.setOrdensServicos(nova);
 		OsPecas pecaRet = repository.save(os);
 

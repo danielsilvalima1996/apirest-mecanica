@@ -28,7 +28,8 @@ public class OsMaoDeObraService {
 		var mao = maoService.findById(os.getIdMaoDeObra().getId());
 		var nova = osService.findById(id).get();
 
-		os.setTotal(os.getQuantidade() * mao.get().getValorUnitario());
+		os.setValorUnitario(mao.get().getValorUnitario());
+		os.setTotal(os.getQuantidade() * os.getValorUnitario());
 		os.setOrdensServicos(nova);
 		OsMaoDeObra maoRet = repository.save(os);
 		
