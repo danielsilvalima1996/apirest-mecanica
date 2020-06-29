@@ -11,5 +11,9 @@ import com.api.mecanica.model.OrdensServicos;
 public interface OrdensServicosRepository extends JpaRepository<OrdensServicos, Long> {
 
 	List<OrdensServicos> findAll(Specification<OrdensServicos> and, Sort sort);
+	
+	long countByIsFinalizado(int active);
+	
+	long count();
 
 }

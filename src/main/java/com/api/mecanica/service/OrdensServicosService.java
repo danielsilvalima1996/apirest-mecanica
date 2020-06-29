@@ -169,5 +169,13 @@ public class OrdensServicosService {
 
 		repository.save(os);
 	}
+	
+	public long countByIsFinalizado(int active) {
+		return repository.countByIsFinalizado(active);
+	}
+	
+	public long countAll() {
+		return repository.count();
+	}
 
 }
