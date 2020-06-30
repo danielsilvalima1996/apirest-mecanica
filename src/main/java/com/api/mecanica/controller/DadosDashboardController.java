@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.api.mecanica.model.DadosDashboard;
-import com.api.mecanica.service.OrdensServicosService;
+import com.api.mecanica.service.DadosDashboardService;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -17,23 +17,12 @@ import io.swagger.annotations.ApiOperation;
 public class DadosDashboardController {
 
 	@Autowired
-	OrdensServicosService osService;
+	DadosDashboardService service;
 
 	@ApiOperation(value = "Dados dashboard, totais")
 	@GetMapping(produces = { "application/json" })
 	public DadosDashboard counts() throws Exception {
-		DadosDashboard dd = new DadosDashboard();
-		
-		dd.setQuantidadeOS(osService.countAll());
-		dd.setQuantidadeOSAndamento(osService.countByIsFinalizado(0));
-		dd.setQuantidadeOSFinalizada(osService.countByIsFinalizado(1));
-		dd.setQuantidadeOSCancelada(osService.countByIsFinalizado(2));
-		
-		dd.setTotalOS(osService.sumTotalOs());
-		dd.setTotalOSAndamento(osService.sumTotalOsByIsFinalizado(0));
-		dd.setTotalOSFinalizada(osService.sumTotalOsByIsFinalizado(1));
-		dd.setTotalOSCancelada(osService.sumTotalOsByIsFinalizado(2));
-		return dd;
+		return service.counts();
 	}
 
 }
