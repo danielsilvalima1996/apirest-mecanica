@@ -137,7 +137,6 @@ public class PecasServiceImpl implements PecasService {
 			boolean active) throws PecaException {
 
 		List<Pecas> pecas = new ArrayList<>();
-		active = true;
 
 		try {
 			pecas = repository.findAll(where(PecaSpecification.codigoPeca(idPeca))
