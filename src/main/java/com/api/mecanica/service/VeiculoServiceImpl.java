@@ -133,5 +133,13 @@ public class VeiculoServiceImpl implements VeiculoService{
 		
 		return veiculos;
 	}
+	
+	public long countByActive(Boolean active) {
+		return veiculoRepository.countByActive(active);
+	}
+
+	public long countAll() {
+		return veiculoRepository.count();
+	}
 
 }

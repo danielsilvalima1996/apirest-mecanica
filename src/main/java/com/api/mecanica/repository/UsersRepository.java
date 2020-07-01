@@ -20,5 +20,9 @@ public interface UsersRepository extends JpaRepository<Users, Long> {
 	List<Users> findByActive(boolean active);
 
 	List<Users> findAll(Specification<Users> or);
+	
+	long countByActive(Boolean active);
+	
+	long count();
 
 }

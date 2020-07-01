@@ -12,4 +12,8 @@ public interface VeiculoRepository extends  JpaRepository<Veiculo, Long>, JpaSpe
 
 	List<Veiculo> findByActive(boolean active);
 	
+	long countByActive(Boolean active);
+	
+	long count();
+	
 }

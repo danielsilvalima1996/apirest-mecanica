@@ -98,17 +98,22 @@ public class UsersService {
 
 	public List<Users> findByFiltros(Long id, String email, String userName, Boolean active) throws Exception {
 		List<Users> users = new ArrayList<>();
-		users = repository.findAll(
-				where(UsersSpecification.codigoUsers(id))
-				.and(UsersSpecification.emailUsers(email))
-				.and(UsersSpecification.userNameUsers(userName))
-				.and(UsersSpecification.activeUsers(active)));
-		
-		if(users.size() == 0) {
+		users = repository.findAll(where(UsersSpecification.codigoUsers(id)).and(UsersSpecification.emailUsers(email))
+				.and(UsersSpecification.userNameUsers(userName)).and(UsersSpecification.activeUsers(active)));
+
+		if (users.size() == 0) {
 			throw new Exception("Não há dados");
 		}
 		users.forEach(x -> x.setPassword(""));
 		return users;
+	}
+
+	public long countByActive(Boolean active) {
+		return repository.countByActive(active);
+	}
+
+	public long countAll() {
+		return repository.count();
 	}
 
 }

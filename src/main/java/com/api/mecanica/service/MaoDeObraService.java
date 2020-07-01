@@ -56,17 +56,25 @@ public class MaoDeObraService {
 		}
 		return false;
 	}
-	
+
 	public List<MaoDeObra> findByFiltros(Long id, String descricao, Boolean active) throws Exception {
 		List<MaoDeObra> maoDeObra = new ArrayList<>();
-		maoDeObra = repository.findAll(
-				where(MaoDeObraSpecification.codigoMaoDeObra(id))
+		maoDeObra = repository.findAll(where(MaoDeObraSpecification.codigoMaoDeObra(id))
 				.and(MaoDeObraSpecification.descricaoMaoDeObra(descricao))
 				.and(MaoDeObraSpecification.activeMaoDeObra(active)));
-		
-		if(maoDeObra.size() == 0) {
+
+		if (maoDeObra.size() == 0) {
 			throw new Exception("Não há dados");
 		}
 		return maoDeObra;
 	}
+
+	public long countByActive(Boolean active) {
+		return repository.countByActive(active);
+	}
+
+	public long countAll() {
+		return repository.count();
+	}
+
 }

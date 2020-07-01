@@ -137,7 +137,6 @@ public class PecasServiceImpl implements PecasService {
 			boolean active) throws PecaException {
 
 		List<Pecas> pecas = new ArrayList<>();
-		
 
 		try {
 			pecas = repository.findAll(where(PecaSpecification.codigoPeca(idPeca))
@@ -174,6 +173,14 @@ public class PecasServiceImpl implements PecasService {
 			throw new Exception("Não tem peça para esse ID");
 		}
 		return os;
+	}
+
+	public long countByActive(Boolean active) {
+		return repository.countByActive(active);
+	}
+
+	public long countAll() {
+		return repository.count();
 	}
 
 }
