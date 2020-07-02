@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -52,7 +53,7 @@ public class UsersService {
 	}
 
 	public List<Users> findByActive(boolean active) {
-		var users = repository.findByActive(active);
+		var users = repository.findByActive(active, Sort.by("userName"));
 		if (users.size() > 0) {
 			users.forEach(u -> u.setPassword(""));
 		}
