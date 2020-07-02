@@ -22,7 +22,7 @@ public interface OrdensServicosRepository extends JpaRepository<OrdensServicos, 
 	Double sumTotalOsByIsFinalizado(@Param("isFinalizado") int isFinalizado);
 	
 	@Query(value = "SELECT SUM(total_servico) FROM ordens_servicos ", nativeQuery = true)
-	double sumTotalOs();
+	Double sumTotalOs();
 	
 	
 }

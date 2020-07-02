@@ -179,11 +179,19 @@ public class OrdensServicosService {
 	}
 	
 	public Double sumTotalOsByIsFinalizado(int isFinalizado) {
-		return repository.sumTotalOsByIsFinalizado(isFinalizado);
+		var ret = repository.sumTotalOsByIsFinalizado(isFinalizado);
+		if (ret == null) {
+			ret = (double) 0;
+		}
+		return ret;
 	}
 	
 	public double sumTotalOs() {
-		return repository.sumTotalOs();
+		var ret = repository.sumTotalOs();
+		if (ret == null) {
+			ret = (double) 0;
+		}
+		return ret;
 	}
 
 }
