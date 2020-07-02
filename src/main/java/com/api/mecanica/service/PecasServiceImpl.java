@@ -9,6 +9,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -107,7 +108,7 @@ public class PecasServiceImpl implements PecasService {
 
 		try {
 
-			pecas = repository.findByActive(active);
+			pecas = repository.findByActive(active, Sort.by("marca", "descricao"));
 
 		} catch (Exception e) {
 			throw e;

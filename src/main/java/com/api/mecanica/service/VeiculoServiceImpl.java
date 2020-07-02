@@ -7,6 +7,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -125,7 +126,7 @@ public class VeiculoServiceImpl implements VeiculoService{
 		
 		try {
 			
-			veiculos = veiculoRepository.findByActive(active);
+			veiculos = veiculoRepository.findByActive(active, Sort.by("marca", "modelo"));
 			
 		} catch (Exception e) {
 			throw e;

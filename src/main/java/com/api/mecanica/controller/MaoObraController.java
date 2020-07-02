@@ -83,7 +83,7 @@ public class MaoObraController {
 	}
 
 	@ApiOperation(value = "Traz uma lista de mão de obras ativas")
-	@GetMapping(value = "{active}")
+	@GetMapping(value = "active")
 	public List<MaoDeObra> findByActive(@RequestParam(value = "active") boolean active) {
 		return service.findByActive(active);
 	}
