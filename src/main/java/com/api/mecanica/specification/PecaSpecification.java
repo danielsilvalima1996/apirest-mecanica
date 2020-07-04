@@ -40,7 +40,10 @@ public class PecaSpecification {
 		return (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.like(criteriaBuilder.lower(root.<String> get("descricao")), "%" + descricaoPeca + "%");
 	}
 	
-	public static Specification<Pecas> isActive(boolean active) {
+	public static Specification<Pecas> isActive(Boolean active) {
+		if(active == null) {
+			return null;
+		}
 		return (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.equal(root.get("active"), active);
 	}
 }

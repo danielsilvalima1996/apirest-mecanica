@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -20,9 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.api.mecanica.constants.AppConstants;
 import com.api.mecanica.exception.PecaException;
-import com.api.mecanica.exception.VeiculoException;
 import com.api.mecanica.model.Pecas;
-import com.api.mecanica.model.Veiculo;
 import com.api.mecanica.service.PecasServiceImpl;
 
 import io.swagger.annotations.Api;
@@ -177,7 +176,7 @@ public class PecasController implements RestService{
 	public ResponseEntity<List<Pecas>> obterPecaPorFiltros(@ApiParam(value="Codigo identificador da peca") @Valid @RequestParam(value = "idPeca", required = false) Long idPeca,
 														   @ApiParam(value="Descrição da peca") @Valid @RequestParam(value = "descricaoPeca", required = false) String descricaoPeca,
 														   @ApiParam(value="Modelo da peca") @Valid @RequestParam(value = "modeloPeca", required = false) String modeloPeca,
-														   @ApiParam(value="Atividade da peca") @Valid @RequestParam(value = "active", required = false) boolean active,
+														   @ApiParam(value="Atividade da peca") @Valid @Param(value = "active") Boolean active,
 														   @ApiParam(value="Marca da peca") @Valid @RequestParam(value = "marcaPeca", required = false) String marcaPeca) {
 		
 		try {

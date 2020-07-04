@@ -135,7 +135,7 @@ public class PecasServiceImpl implements PecasService {
 
 	@Override
 	public List<Pecas> buscarPecasPorFiltros(Long idPeca, String marcaPeca, String descricaoPeca, String modeloPeca,
-			boolean active) throws PecaException {
+			Boolean active) throws PecaException {
 
 		List<Pecas> pecas = new ArrayList<>();
 

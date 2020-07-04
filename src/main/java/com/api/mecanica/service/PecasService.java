@@ -24,7 +24,7 @@ public interface PecasService {
 	
 	List<Pecas> buscarPecasPorDescricao(String descricao);
 	
-	List<Pecas> buscarPecasPorFiltros(Long idPeca, String marcaPeca, String descricaoPeca, String modeloPeca, boolean active) throws PecaException;
+	List<Pecas> buscarPecasPorFiltros(Long idPeca, String marcaPeca, String descricaoPeca, String modeloPeca, Boolean active) throws PecaException;
 	
 	boolean isAtivoPeca(Long id) throws Exception;
 	

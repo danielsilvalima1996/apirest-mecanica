@@ -35,22 +35,22 @@ public class MaoObraController {
 	@ApiOperation(value = "Retorna uma lista de mão de obra cadastrada")
 	@GetMapping(value = "all", produces = { "application/json" })
 	public ResponseEntity<List<MaoDeObra>> findAll() {
-		
+
 		try {
 			final List<MaoDeObra> maoObraRetornadas = service.findAll();
-			
-			if(maoObraRetornadas.size() > 0 ) {
-				return new ResponseEntity<List<MaoDeObra>>(maoObraRetornadas,HttpStatus.OK);
+
+			if (maoObraRetornadas.size() > 0) {
+				return new ResponseEntity<List<MaoDeObra>>(maoObraRetornadas, HttpStatus.OK);
 			}
 			return ResponseEntity.noContent().build();
-		} catch(Exception e) {
+		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 
 	}
 
 	@ApiOperation(value = "Traz uma mão de obra pelo id")
-	@GetMapping(value ="{id}", produces = { "application/json" })
+	@GetMapping(value = "{id}", produces = { "application/json" })
 	public ResponseEntity<MaoDeObra> findById(@PathVariable(value = "id") Long id) {
 		try {
 			return service.findById(id).map(x -> ResponseEntity.ok().body(x)).orElse(ResponseEntity.notFound().build());
@@ -65,15 +65,15 @@ public class MaoObraController {
 	@ApiOperation(value = "Cadastra uma nova mao de obra")
 	public ResponseEntity<MaoDeObra> cadastrarMaoDeObra(@Valid @RequestBody MaoDeObra maoDeObra) {
 		try {
-			
+
 			service.cadastrarDeMaoObra(maoDeObra);
-			
+
 			return ResponseEntity.ok().build();
-			
+
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
-		
+
 	}
 
 	@ApiOperation(value = "Atualiza uma mão de obra já cadastrada")
@@ -93,14 +93,11 @@ public class MaoObraController {
 	public List<MaoDeObra> findByDescricaoContainingIgnoreCase(@RequestParam(value = "descricao") String descricao) {
 		return service.findByDescricaoContainingIgnoreCase(descricao);
 	}
-	
+
 	@ApiOperation(value = "Busca uma lista de Mão de Obras por ID ou Descrição")
 	@GetMapping(value = "/busca", produces = { "application/json" })
-	public List<MaoDeObra> findByEmailContainingOrUserNameContaining(
-			@Param(value = "id") Long id,
-			@Param(value = "descricao") String descricao,
-			@Param(value = "active") Boolean active)
-			throws Exception {
+	public List<MaoDeObra> findByFiltros(@Param(value = "id") Long id, @Param(value = "descricao") String descricao,
+			@Param(value = "active") Boolean active) throws Exception {
 		return service.findByFiltros(id, descricao, active);
 	}
 }
