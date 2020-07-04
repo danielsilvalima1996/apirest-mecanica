@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -133,11 +134,12 @@ public class VeiculoController implements RestService {
 	public ResponseEntity<List<Veiculo>> obterVeiculosPorFiltros(@ApiParam(value = "Codigo identificador do veiculo")  @Valid @RequestParam(value = "idVeiculo", required = false) Long idVeiculo,
 																 @ApiParam(value = "Descricao da marca do veiculo")  @Valid @RequestParam(value = "marcaVeiculo", required = false) String marcaVeiculo,
 																 @ApiParam(value = "Descricao do modelo do veiculo") @Valid @RequestParam(value = "modeloVeiculo", required = false) String modeloVeiculo,
-																 @ApiParam(value = "Ano do veiculo") @Valid @RequestParam(value = "anoVeiculo", required = false) Long anoVeiculo) {
+																 @ApiParam(value = "Ano do veiculo") @Valid @RequestParam(value = "anoVeiculo", required = false) Long anoVeiculo,
+																 @ApiParam(value = "veículo ativo") @Valid @Param(value = "activeVeiculo") Boolean activeVeiculo) {
 		
 		try {
 			
-			final List<Veiculo> veiculosRetornados = veiculoService.buscarVeiculosPorFiltro(idVeiculo, marcaVeiculo, modeloVeiculo, anoVeiculo);
+			final List<Veiculo> veiculosRetornados = veiculoService.buscarVeiculosPorFiltro(idVeiculo, marcaVeiculo, modeloVeiculo, anoVeiculo, activeVeiculo);
 			
 			if(veiculosRetornados.size() > 0) {
 				return new ResponseEntity<List<Veiculo>>(veiculosRetornados, HttpStatus.OK);

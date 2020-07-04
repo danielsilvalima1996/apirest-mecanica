@@ -93,7 +93,7 @@ public class VeiculoServiceImpl implements VeiculoService{
 
 	@Override
 	public List<Veiculo> buscarVeiculosPorFiltro(Long idVeiculo, String marcaVeiculo, String modeloVeiculo,
-			Long anoVeiculo) throws VeiculoException {
+			Long anoVeiculo, Boolean activeVeiculo) throws VeiculoException {
 		
 		List<Veiculo> veiculos = new ArrayList<>();
 		
@@ -103,7 +103,8 @@ public class VeiculoServiceImpl implements VeiculoService{
 					where(VeiculoSpecification.codigoVeiculo(idVeiculo))
 					.and(VeiculoSpecification.marcaPadraoVeiculo(marcaVeiculo))
 					.and(VeiculoSpecification.modeloPadraoVeiculo(modeloVeiculo))
-					.and(VeiculoSpecification.anoPadraoVeiculo(anoVeiculo)));
+					.and(VeiculoSpecification.anoPadraoVeiculo(anoVeiculo))
+					.and(VeiculoSpecification.activePadraoVeiculo(activeVeiculo)));
 			
 			
 			if(veiculos.size() == 0) {

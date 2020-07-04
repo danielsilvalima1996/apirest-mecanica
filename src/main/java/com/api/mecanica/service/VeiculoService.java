@@ -20,6 +20,6 @@ public interface VeiculoService {
 
 	Optional<Veiculo> atualizarVeiculo(@Valid Long id, @Valid Veiculo veiculo);
 	
-	List<Veiculo> buscarVeiculosPorFiltro(Long idVeiculo, String marcaVeiculo, String modeloVeiculo, Long anoVeiculo) throws VeiculoException;
+	List<Veiculo> buscarVeiculosPorFiltro(Long idVeiculo, String marcaVeiculo, String modeloVeiculo, Long anoVeiculo, Boolean activeVeiculo) throws VeiculoException;
 	
 }

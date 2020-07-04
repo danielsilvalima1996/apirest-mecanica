@@ -26,7 +26,7 @@ public class UsersService {
 	public Optional<Users> findById(Long id) throws Exception {
 		var user = repository.findById(id);
 		if (!user.isPresent()) {
-			throw new Exception("Usuário não encontrado");
+			throw new Exception("Usuário " + id + " não encontrado");
 		}
 		user.get().setPassword("");
 		return user;

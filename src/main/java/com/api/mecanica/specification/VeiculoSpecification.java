@@ -39,4 +39,11 @@ public class VeiculoSpecification {
 		}
 		return (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.equal(root.get("ano"), anoVeiculo);
 	}
+	
+	public static Specification<Veiculo> activePadraoVeiculo(Boolean activeVeiculo) {
+		if(activeVeiculo == null) {
+			return null;
+		}
+		return (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.equal(root.get("active"), activeVeiculo );
+	}
 }
