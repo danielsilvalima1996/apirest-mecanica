@@ -22,4 +22,8 @@ public interface VeiculoService {
 	
 	List<Veiculo> buscarVeiculosPorFiltro(Long idVeiculo, String marcaVeiculo, String modeloVeiculo, Long anoVeiculo, Boolean activeVeiculo) throws VeiculoException;
 	
+	List<Veiculo> createMuitosVeiculos(List<Veiculo> veiculos) throws VeiculoException, Exception;
+	
+	
+	
 }

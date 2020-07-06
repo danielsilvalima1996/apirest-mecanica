@@ -158,4 +158,10 @@ public class VeiculoController implements RestService {
 		}
 	}
 	
+	@ApiOperation(value = "Cria Varios Veiculos")
+	@PostMapping(value = "all", consumes = { "application/json" }, produces = { "application/json" })
+	public List<Veiculo> createMuitosVeiculos(@RequestBody List<Veiculo> veiculos) throws Exception {
+		return veiculoService.createMuitosVeiculos(veiculos);
+	}
+	
 }

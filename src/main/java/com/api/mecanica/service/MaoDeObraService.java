@@ -77,5 +77,13 @@ public class MaoDeObraService {
 	public long countAll() {
 		return repository.count();
 	}
+	
+	public List<MaoDeObra> createMuitasMaos(List<MaoDeObra> maos) throws Exception {
+		if (maos.size() < 1) {
+			throw new Exception("Não há dados para salvar");
+		}
+		var dbMaos = repository.saveAll(maos);
+		return dbMaos;
+	}
 
 }

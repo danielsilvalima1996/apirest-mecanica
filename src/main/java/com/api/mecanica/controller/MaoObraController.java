@@ -100,4 +100,10 @@ public class MaoObraController {
 			@Param(value = "active") Boolean active) throws Exception {
 		return service.findByFiltros(id, descricao, active);
 	}
+	
+	@ApiOperation(value = "Cria Varias Mãos de Obras")
+	@PostMapping(value = "all", consumes = { "application/json" }, produces = { "application/json" })
+	public List<MaoDeObra> createMuitasMaos(@RequestBody List<MaoDeObra> maos) throws Exception {
+		return service.createMuitasMaos(maos);
+	}
 }

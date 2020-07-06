@@ -1,5 +1,7 @@
 package com.api.mecanica.service;
 
+import static org.springframework.data.jpa.domain.Specification.where;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -16,9 +18,6 @@ import com.api.mecanica.exception.VeiculoException;
 import com.api.mecanica.model.Veiculo;
 import com.api.mecanica.repository.VeiculoRepository;
 import com.api.mecanica.specification.VeiculoSpecification;
-
-
-import static org.springframework.data.jpa.domain.Specification.where;
 
 
 @Service
@@ -143,5 +142,16 @@ public class VeiculoServiceImpl implements VeiculoService{
 	public long countAll() {
 		return veiculoRepository.count();
 	}
+
+	@Override
+	public List<Veiculo> createMuitosVeiculos(List<Veiculo> veiculos) throws Exception {
+		if (veiculos.size() < 1) {
+			throw new Exception("Não há dados para salvar");
+		}
+		var dbVeiculos = veiculoRepository.saveAll(veiculos);
+		return dbVeiculos;
+	}
+
+	
 
 }

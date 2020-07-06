@@ -195,6 +195,12 @@ public class PecasController implements RestService{
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}
+	
+	@ApiOperation(value = "Cria Varias Peças")
+	@PostMapping(value = "all", consumes = { "application/json" }, produces = { "application/json" })
+	public List<Pecas> createMuitasPecas(@RequestBody List<Pecas> pecas) throws Exception {
+		return service.createMuitasPecas(pecas);
+	}
 
 	
 }

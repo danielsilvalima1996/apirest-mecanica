@@ -29,4 +29,6 @@ public interface PecasService {
 	boolean isAtivoPeca(Long id) throws Exception;
 	
 	Optional<Pecas> findById(Long id) throws Exception;
+	
+	List<Pecas> createMuitasPecas(List<Pecas> pecas) throws Exception;
 }

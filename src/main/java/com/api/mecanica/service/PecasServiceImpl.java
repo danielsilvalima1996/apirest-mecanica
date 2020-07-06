@@ -184,4 +184,13 @@ public class PecasServiceImpl implements PecasService {
 		return repository.count();
 	}
 
+	@Override
+	public List<Pecas> createMuitasPecas(List<Pecas> pecas) throws Exception {
+		if (pecas.size() < 1) {
+			throw new Exception("Não há dados para salvar");
+		}
+		var dbPecas = repository.saveAll(pecas);
+		return dbPecas;
+	}
+
 }
