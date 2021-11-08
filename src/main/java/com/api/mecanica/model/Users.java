@@ -40,6 +40,18 @@ public class Users implements Serializable {
 	@Column(name = "active")
 	private boolean active;
 
+	public Users() {
+	}
+
+	public Users(Long id, String email, String userName, String password, String avatar, boolean active) {
+		this.id = id;
+		this.email = email;
+		this.userName = userName;
+		this.password = password;
+		this.avatar = avatar;
+		this.active = active;
+	}
+
 	public Long getId() {
 		return id;
 	}

@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-MecanicaApplication<mecanica>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.api.mecanica.MecanicaApplication",
+            "projectName": "mecanica",
+            "args": ""
+        }
+    ]
+}
