@@ -22,7 +22,7 @@ import io.swagger.annotations.ApiOperation;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/api/users")
+@RequestMapping("/api/user")
 public class UserController {
 
 	@Autowired
