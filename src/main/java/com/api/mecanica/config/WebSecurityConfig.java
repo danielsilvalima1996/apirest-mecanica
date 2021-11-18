@@ -48,6 +48,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
+		httpSecurity.httpBasic().disable().authorizeRequests().antMatchers("/h2-console/**").permitAll()
+        .and().csrf().ignoringAntMatchers("/h2-console/**")
+        .and().headers().frameOptions().sameOrigin();
+
 		httpSecurity.httpBasic().disable()
 				.csrf().disable()
 				// Não cheque essas requisições
