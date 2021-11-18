@@ -76,7 +76,7 @@ public class Address implements Serializable {
 
     @JsonIgnore
     @ManyToMany(mappedBy = "address")
-    private Set<Client> clients = new HashSet<>();;
+    private Set<Client> clients = new HashSet<>();
 
     public Address() {
     }
