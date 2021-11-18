@@ -5,6 +5,7 @@ import java.util.List;
 import com.api.mecanica.model.Client;
 import com.api.mecanica.repository.AddressRepository;
 import com.api.mecanica.repository.ClientRepository;
+import com.api.mecanica.repository.PhoneRepository;
 import com.api.mecanica.service.interfaces.ClientServiceInterface;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ public class ClientService implements ClientServiceInterface {
 
 	@Autowired
 	AddressRepository addressRepository;
+
+	@Autowired
+	PhoneRepository phoneRepository;
 
 	@Override
 	public Client findById(Long id) {
@@ -38,13 +42,26 @@ public class ClientService implements ClientServiceInterface {
 			addressRepository.saveAll(client.getAddress());
 		else
 			System.out.println("Error, endereço obrigatório!");
+
+		if(!client.getPhone().isEmpty())
+			phoneRepository.saveAll(client.getPhone());
+		else
+			System.out.println("Error, phone obrigatório!");
 		Client dbClient = repository.save(client);
 		return dbClient;
 	}
 
 	@Override
 	public Client alterClient(Client client) {
-		addressRepository.saveAll(client.getAddress());
+		if(!client.getAddress().isEmpty())
+			addressRepository.saveAll(client.getAddress());
+		else
+			System.out.println("Error, endereço obrigatório!");
+
+		if(!client.getPhone().isEmpty())
+			phoneRepository.saveAll(client.getPhone());
+		else
+			System.out.println("Error, phone obrigatório!");
 		Client dbClient = repository.save(client);
 		return dbClient;
 	}
