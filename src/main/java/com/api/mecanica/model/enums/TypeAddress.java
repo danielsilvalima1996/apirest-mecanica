@@ -2,7 +2,7 @@ package com.api.mecanica.model.enums;
 
 public enum TypeAddress {
 
-    RESIDENTIAL(1), COMMERCIAL(2);
+    RESIDENCIAL(1), COMERCIAL(2);
 
     private int code;
 

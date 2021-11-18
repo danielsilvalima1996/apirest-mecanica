@@ -1,18 +1,31 @@
 package com.api.mecanica.model;
 
 import java.io.Serializable;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import com.api.mecanica.model.enums.TypeAddress;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
-@Table(name = "address")
+@EntityListeners(AuditingEntityListener.class)
+@Table(name = "tb_address")
 public class Address implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -44,6 +57,26 @@ public class Address implements Serializable {
     private String number;
 
     private Integer type;
+
+    @CreatedDate
+	@Column(name = "created", updatable = false)
+	private Date created;
+
+	@LastModifiedDate
+	@Column(name = "modified")
+	private Date modified;
+
+	@CreatedBy
+	@Column(name = "created_by", updatable = false)
+	private String createdBy;
+
+	@LastModifiedBy
+	@Column(name = "modified_by")
+	private String modifiedBy;
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "address")
+    private Set<Client> clients = new HashSet<>();;
 
     public Address() {
     }
@@ -134,6 +167,46 @@ public class Address implements Serializable {
             this.type = type.getCode();
     }
 
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
+    }
+
+    public Date getModified() {
+        return modified;
+    }
+
+    public void setModified(Date modified) {
+        this.modified = modified;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public String getModifiedBy() {
+        return modifiedBy;
+    }
+
+    public void setModifiedBy(String modifiedBy) {
+        this.modifiedBy = modifiedBy;
+    }
+
+    public Set<Client> getClients() {
+        return clients;
+    }
+
+    public void setClients(Set<Client> clients) {
+        this.clients = clients;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -141,7 +214,11 @@ public class Address implements Serializable {
         result = prime * result + ((address == null) ? 0 : address.hashCode());
         result = prime * result + ((city == null) ? 0 : city.hashCode());
         result = prime * result + ((complement == null) ? 0 : complement.hashCode());
+        result = prime * result + ((created == null) ? 0 : created.hashCode());
+        result = prime * result + ((createdBy == null) ? 0 : createdBy.hashCode());
         result = prime * result + ((id == null) ? 0 : id.hashCode());
+        result = prime * result + ((modified == null) ? 0 : modified.hashCode());
+        result = prime * result + ((modifiedBy == null) ? 0 : modifiedBy.hashCode());
         result = prime * result + ((neighborhood == null) ? 0 : neighborhood.hashCode());
         result = prime * result + ((number == null) ? 0 : number.hashCode());
         result = prime * result + ((state == null) ? 0 : state.hashCode());
@@ -174,10 +251,30 @@ public class Address implements Serializable {
                 return false;
         } else if (!complement.equals(other.complement))
             return false;
+        if (created == null) {
+            if (other.created != null)
+                return false;
+        } else if (!created.equals(other.created))
+            return false;
+        if (createdBy == null) {
+            if (other.createdBy != null)
+                return false;
+        } else if (!createdBy.equals(other.createdBy))
+            return false;
         if (id == null) {
             if (other.id != null)
                 return false;
         } else if (!id.equals(other.id))
+            return false;
+        if (modified == null) {
+            if (other.modified != null)
+                return false;
+        } else if (!modified.equals(other.modified))
+            return false;
+        if (modifiedBy == null) {
+            if (other.modifiedBy != null)
+                return false;
+        } else if (!modifiedBy.equals(other.modifiedBy))
             return false;
         if (neighborhood == null) {
             if (other.neighborhood != null)
@@ -206,5 +303,7 @@ public class Address implements Serializable {
             return false;
         return true;
     }
+
+    
 
 }
