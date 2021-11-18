@@ -92,7 +92,7 @@ public class OrdensServicos implements Serializable {
 
 	@ManyToOne()
 	@JoinColumn(name = "id_usuario")
-	private Users idUsuario;
+	private User idUsuario;
 
 	@Column(name = "is_finalizado")
 	@Immutable
@@ -222,11 +222,11 @@ public class OrdensServicos implements Serializable {
 		this.totalServico = totalServico;
 	}
 
-	public Users getIdUsuario() {
+	public User getIdUsuario() {
 		return idUsuario;
 	}
 
-	public void setIdUsuario(Users idUsuario) {
+	public void setIdUsuario(User idUsuario) {
 		this.idUsuario = idUsuario;
 	}
 

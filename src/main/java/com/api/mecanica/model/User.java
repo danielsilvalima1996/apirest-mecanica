@@ -12,8 +12,8 @@ import javax.persistence.Table;
 import com.sun.istack.NotNull;
 
 @Entity
-@Table(name = "usuario")
-public class Users implements Serializable {
+@Table(name = "user")
+public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -27,7 +27,7 @@ public class Users implements Serializable {
 	private String email;
 
 	@NotNull
-	@Column(name = "userName")
+	@Column(name = "user_name")
 	private String userName;
 
 	@NotNull
@@ -40,10 +40,10 @@ public class Users implements Serializable {
 	@Column(name = "active")
 	private boolean active;
 
-	public Users() {
+	public User() {
 	}
 
-	public Users(Long id, String email, String userName, String password, String avatar, boolean active) {
+	public User(Long id, String email, String userName, String password, String avatar, boolean active) {
 		this.id = id;
 		this.email = email;
 		this.userName = userName;

@@ -21,7 +21,7 @@ public class DadosDashboardService {
 	VeiculoServiceImpl veiculoService;
 	
 	@Autowired
-	UsersService usersService;
+	UserService usersService;
 
 	public DadosDashboard counts() throws Exception {
 		try {

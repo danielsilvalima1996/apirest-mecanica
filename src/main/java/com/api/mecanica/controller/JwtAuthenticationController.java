@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.api.mecanica.config.JwtTokenUtil;
 import com.api.mecanica.model.JwtRequest;
-import com.api.mecanica.model.Users;
-import com.api.mecanica.repository.UsersRepository;
+import com.api.mecanica.model.User;
+import com.api.mecanica.repository.UserRepository;
 import com.api.mecanica.service.JwtUserDetailsService;
 
 import io.swagger.annotations.ApiOperation;
@@ -39,12 +39,12 @@ public class JwtAuthenticationController {
 	private JwtUserDetailsService userDetailsService;
 
 	@Autowired
-	private UsersRepository repository;
+	private UserRepository repository;
 
 	@ApiOperation(value = "Endpoint login")
 	@PostMapping()
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
-		Users user = repository.findByEmail(authenticationRequest.getUsername());
+		User user = repository.findByEmail(authenticationRequest.getUsername());
 		authentication(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 		final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
 		final String token = jwtTokenUtil.generateToken(userDetails);

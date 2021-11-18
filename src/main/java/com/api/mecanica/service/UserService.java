@@ -11,19 +11,19 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.api.mecanica.model.Users;
-import com.api.mecanica.repository.UsersRepository;
+import com.api.mecanica.model.User;
+import com.api.mecanica.repository.UserRepository;
 import com.api.mecanica.specification.UsersSpecification;
 
 @Service
-public class UsersService {
+public class UserService {
 
 	private static final BCryptPasswordEncoder bc = new BCryptPasswordEncoder();
 
 	@Autowired
-	UsersRepository repository;
+	UserRepository repository;
 
-	public Optional<Users> findById(Long id) throws Exception {
+	public Optional<User> findById(Long id) throws Exception {
 		var user = repository.findById(id);
 		if (!user.isPresent()) {
 			throw new Exception("Usuário " + id + " não encontrado");
@@ -32,11 +32,11 @@ public class UsersService {
 		return user;
 	}
 
-	public Users findByEmail(String email) {
+	public User findByEmail(String email) {
 		return repository.findByEmail(email);
 	}
 
-	public List<Users> findByEmailContainingIgnoreCase(String email) {
+	public List<User> findByEmailContainingIgnoreCase(String email) {
 		var users = repository.findByEmailContainingIgnoreCase(email);
 		if (users.size() > 0) {
 			users.forEach(u -> u.setPassword(""));
@@ -44,7 +44,7 @@ public class UsersService {
 		return users;
 	}
 
-	public List<Users> findByUserNameContainingIgnoreCase(String userName) {
+	public List<User> findByUserNameContainingIgnoreCase(String userName) {
 		var users = repository.findByUserNameContainingIgnoreCase(userName);
 		if (users.size() > 0) {
 			users.forEach(u -> u.setPassword(""));
@@ -52,7 +52,7 @@ public class UsersService {
 		return users;
 	}
 
-	public List<Users> findByActive(boolean active) {
+	public List<User> findByActive(boolean active) {
 		var users = repository.findByActive(active, Sort.by("userName"));
 		if (users.size() > 0) {
 			users.forEach(u -> u.setPassword(""));
@@ -60,7 +60,7 @@ public class UsersService {
 		return users;
 	}
 
-	public List<Users> findAll() {
+	public List<User> findAll() {
 		var users = repository.findAll();
 		if (users.size() > 0) {
 			users.forEach(u -> u.setPassword(""));
@@ -68,7 +68,7 @@ public class UsersService {
 		return users;
 	}
 
-	public Users createUser(Users user) throws Exception {
+	public User createUser(User user) throws Exception {
 		var dbUser = findByEmail(user.getEmail());
 		if (dbUser != null) {
 			throw new Exception("Email já cadastrado");
@@ -81,7 +81,7 @@ public class UsersService {
 		return repository.save(user);
 	}
 
-	public Users alterUser(Users user) throws Exception {
+	public User alterUser(User user) throws Exception {
 		var dbUser = repository.findById(user.getId());
 		if (!dbUser.isPresent()) {
 			throw new Exception("Usuário não encotrado, impossível alterar");
@@ -97,8 +97,8 @@ public class UsersService {
 		return repository.saveAndFlush(user);
 	}
 
-	public List<Users> findByFiltros(Long id, String email, String userName, Boolean active) throws Exception {
-		List<Users> users = new ArrayList<>();
+	public List<User> findByFiltros(Long id, String email, String userName, Boolean active) throws Exception {
+		List<User> users = new ArrayList<>();
 		users = repository.findAll(where(UsersSpecification.codigoUsers(id)).and(UsersSpecification.emailUsers(email))
 				.and(UsersSpecification.userNameUsers(userName)).and(UsersSpecification.activeUsers(active)));
 
