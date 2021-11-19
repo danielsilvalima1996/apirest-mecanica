@@ -3,7 +3,6 @@ package com.api.mecanica.controller;
 import java.util.List;
 
 import com.api.mecanica.model.Client;
-import com.api.mecanica.model.User;
 import com.api.mecanica.service.ClientService;
 
 import org.springframework.beans.factory.annotation.Autowired;
