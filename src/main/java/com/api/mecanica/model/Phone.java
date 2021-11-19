@@ -2,8 +2,6 @@ package com.api.mecanica.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,7 +9,8 @@ import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
@@ -45,9 +44,10 @@ public class Phone implements Serializable {
 
     private Integer type;
 
+    @ManyToOne
     @JsonIgnore
-    @ManyToMany(mappedBy = "phone")
-    private Set<Client> clients = new HashSet<>();
+    @JoinColumn(name = "client_id", nullable = false)
+    private Client client;
 
     @CreatedDate
     @Column(name = "created", updatable = false)
@@ -67,11 +67,12 @@ public class Phone implements Serializable {
 
     public Phone() {}
     
-    public Phone(Long id, String ddd, String number, TypePhone type) {
+    public Phone(Long id, String ddd, String number, TypePhone type, Client client) {
         this.id = id;
         this.ddd = ddd;
         this.number = number;
         setType(type);
+        this.client = client;
     }
 
     public Long getId() {
@@ -107,12 +108,12 @@ public class Phone implements Serializable {
             this.type = type.getCode();
     }
 
-    public Set<Client> getClients() {
-        return clients;
+    public Client getClient() {
+        return client;
     }
 
-    public void setClients(Set<Client> clients) {
-        this.clients = clients;
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     public Date getCreated() {

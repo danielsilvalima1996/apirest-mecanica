@@ -1,8 +1,10 @@
 package com.api.mecanica.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -15,10 +17,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -56,14 +61,8 @@ public class Client implements Serializable {
     )
     private Set<Address> address = new HashSet<Address>();
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @NotEmpty
-    @JoinTable(
-        name = "tb_client_phone", 
-        joinColumns = @JoinColumn(name = "client_id"), 
-        inverseJoinColumns = @JoinColumn(name = "phone_id")
-    )
-    private Set<Phone> phone = new HashSet<Phone>();
+    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
+    private List<Phone> phone = new ArrayList<>();
 
     @CreatedDate
 	@Column(name = "created", updatable = false)
@@ -84,12 +83,11 @@ public class Client implements Serializable {
     public Client() {
     }
 
-    public Client(Long id, String fullName, String cpfCnpj, Set<Address> address, Set<Phone> phone) {
+    public Client(Long id, String fullName, String cpfCnpj, Set<Address> address) {
         this.id = id;
         this.fullName = fullName;
         this.cpfCnpj = cpfCnpj;
         this.address = address;
-        this.phone = phone;
     }
 
     public Long getId() {
@@ -124,12 +122,8 @@ public class Client implements Serializable {
         this.address = address;
     }
 
-    public Set<Phone> getPhone() {
+    public List<Phone> getPhone() {
         return phone;
-    }
-
-    public void setPhone(Set<Phone> phone) {
-        this.phone = phone;
     }
 
     public Date getCreated() {
