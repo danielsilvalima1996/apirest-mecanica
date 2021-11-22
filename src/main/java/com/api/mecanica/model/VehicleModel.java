@@ -1,22 +1,17 @@
 package com.api.mecanica.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
 
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -26,8 +21,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "tb_brand")
-public class Brand implements Serializable {
+@Table(name = "tb_vehicle_model")
+public class VehicleModel implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -42,10 +37,10 @@ public class Brand implements Serializable {
     @Column(name = "active", nullable = false)
     private Boolean active;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "brand", fetch = FetchType.EAGER)
-    private List<VehicleModel> vehicle = new ArrayList<>();
-    
+    @ManyToOne
+    @JoinColumn(name = "brand_id", nullable = false)
+    private Brand brand;
+
     @CreatedDate
     @Column(name = "created", updatable = false)
     private Date created;
@@ -62,13 +57,13 @@ public class Brand implements Serializable {
     @Column(name = "modified_by")
     private String modifiedBy;
 
-    public Brand() {
-    }
+    public VehicleModel() {}
 
-    public Brand(Long id, String name, Boolean active) {
+    public VehicleModel(Long id, String name, Boolean active,Brand brand) {
         this.id = id;
         this.name = name;
         this.active = active;
+        this.brand = brand;
     }
 
     public Long getId() {
@@ -95,12 +90,12 @@ public class Brand implements Serializable {
         this.active = active;
     }
 
-    public List<VehicleModel> getVehicle() {
-        return vehicle;
+    public Brand getBrand() {
+        return brand;
     }
 
-    public void setVehicle(List<VehicleModel> vehicle) {
-        this.vehicle = vehicle;
+    public void setBrand(Brand brand) {
+        this.brand = brand;
     }
 
     public Date getCreated() {
@@ -151,7 +146,7 @@ public class Brand implements Serializable {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Brand other = (Brand) obj;
+        VehicleModel other = (VehicleModel) obj;
         if (id == null) {
             if (other.id != null)
                 return false;
