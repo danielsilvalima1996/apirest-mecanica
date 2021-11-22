@@ -3,8 +3,11 @@ package com.api.mecanica.service;
 import java.util.List;
 
 import com.api.mecanica.model.Client;
+import com.api.mecanica.model.ClientVehicle;
+import com.api.mecanica.model.enums.TypeFuel;
 import com.api.mecanica.repository.AddressRepository;
 import com.api.mecanica.repository.ClientRepository;
+import com.api.mecanica.repository.ClientVehicleRepository;
 import com.api.mecanica.repository.PhoneRepository;
 import com.api.mecanica.service.interfaces.IClientService;
 
@@ -22,6 +25,9 @@ public class ClientService implements IClientService {
 
 	@Autowired
 	PhoneRepository phoneRepository;
+
+	@Autowired
+	ClientVehicleRepository clientVehicleRepository;
 
 	@Override
 	public Client findById(Long id) {
@@ -43,11 +49,16 @@ public class ClientService implements IClientService {
 		else
 			System.out.println("Error, endereço obrigatório!");
 
-		if(!client.getPhone().isEmpty())
-			phoneRepository.saveAll(client.getPhone());
+		if(!client.getPhones().isEmpty())
+			phoneRepository.saveAll(client.getPhones());
 		else
 			System.out.println("Error, phone obrigatório!");
+
 		Client dbClient = repository.save(client);
+		if(!client.getClientVehicles().isEmpty()) {
+			client.getClientVehicles().stream().forEach(fe -> fe.setClient(client));
+			clientVehicleRepository.saveAll(client.getClientVehicles());
+		}
 		return dbClient;
 	}
 
@@ -58,11 +69,12 @@ public class ClientService implements IClientService {
 		else
 			System.out.println("Error, endereço obrigatório!");
 
-		if(!client.getPhone().isEmpty())
-			phoneRepository.saveAll(client.getPhone());
+		if(!client.getPhones().isEmpty())
+			phoneRepository.saveAll(client.getPhones());
 		else
 			System.out.println("Error, phone obrigatório!");
 		Client dbClient = repository.save(client);
+
 		return dbClient;
 	}
 

@@ -1,28 +1,21 @@
 package com.api.mecanica.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import com.api.mecanica.model.enums.TypeFuel;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import org.springframework.data.annotation.CreatedBy;
@@ -33,8 +26,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "tb_client")
-public class Client implements Serializable {
+@Table(name = "tb_client_vehicle")
+public class ClientVehicle implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -43,54 +36,52 @@ public class Client implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "full_name")
-    @NotNull
-    private String fullName;
+    @ManyToOne
+    @JsonIgnore
+    @JoinColumn(name = "client_id", nullable = false)
+    private Client client;
 
-    @Column(name = "cpf_cnpj", unique = true)
-    @NotNull
-    @Size(min = 11, max = 14)
-    private String cpfCnpj;
+    // @JsonIgnore
+	@ManyToOne
+	@JoinColumn(name = "vehicle_model_id", nullable = false)
+    private VehicleModel vehicleModel;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @NotEmpty
-    @JoinTable(
-        name = "tb_client_address", 
-        joinColumns = @JoinColumn(name = "client_id"), 
-        inverseJoinColumns = @JoinColumn(name = "address_id")
-    )
-    private Set<Address> address = new HashSet<Address>();
+    @Column(name = "year", length = 4)
+    private Integer year;
 
-    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
-    private Set<Phone> phones = new HashSet<>();
+    private Integer type;
 
-    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
-    private Set<ClientVehicle> clientVehicles = new HashSet<>();
+    @Column(name = "licensePlate", length = 7)
+    @Pattern(regexp = "^[A-Za-z0-9]*\\d+[A-Za-z0-9]*$", message = "A placa deve conter apenas números e letra")
+    @Size(min = 7, max = 7)
+    private String licensePlate;
 
     @CreatedDate
-	@Column(name = "created", updatable = false)
-	private Date created;
+    @Column(name = "created", updatable = false)
+    private Date created;
 
-	@LastModifiedDate
-	@Column(name = "modified")
-	private Date modified;
+    @LastModifiedDate
+    @Column(name = "modified")
+    private Date modified;
 
-	@CreatedBy
-	@Column(name = "created_by", updatable = false)
-	private String createdBy;
+    @CreatedBy
+    @Column(name = "created_by", updatable = false)
+    private String createdBy;
 
-	@LastModifiedBy
-	@Column(name = "modified_by")
-	private String modifiedBy;
+    @LastModifiedBy
+    @Column(name = "modified_by")
+    private String modifiedBy;
 
-    public Client() {
+    public ClientVehicle() {
     }
 
-    public Client(Long id, String fullName, String cpfCnpj, Set<Address> address) {
+    public ClientVehicle(Long id, Client client, VehicleModel vehicleModel, Integer year, TypeFuel type, String licensePlate) {
         this.id = id;
-        this.fullName = fullName;
-        this.cpfCnpj = cpfCnpj;
-        this.address = address;
+        this.client = client;
+        this.vehicleModel = vehicleModel;
+        this.year = year;
+        setType(type);
+        this.licensePlate = licensePlate;
     }
 
     public Long getId() {
@@ -101,44 +92,45 @@ public class Client implements Serializable {
         this.id = id;
     }
 
-    public String getFullName() {
-        return fullName;
+    public Client getClient() {
+        return client;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setClient(Client client) {
+        this.client = client;
     }
 
-    public String getCpfCnpj() {
-        return cpfCnpj;
+    public VehicleModel getVehicleModel() {
+        return vehicleModel;
     }
 
-    public void setCpfCnpj(String cpfCnpj) {
-        this.cpfCnpj = cpfCnpj;
+    public void setVehicleModel(VehicleModel vehicleModel) {
+        this.vehicleModel = vehicleModel;
     }
 
-    public Set<Address> getAddress() {
-        return address;
+    public Integer getYear() {
+        return year;
     }
 
-    public void setAddress(Set<Address> address) {
-        this.address = address;
+    public void setYear(Integer year) {
+        this.year = year;
     }
 
-    public Set<Phone> getPhones() {
-        return phones;
+    public TypeFuel getType() {
+        return TypeFuel.valueOf(type);
     }
 
-    public void setPhones(Set<Phone> phones) {
-        this.phones = phones;
+    public void setType(TypeFuel type) {
+        if (type != null)
+            this.type = type.getCode();
     }
 
-    public Set<ClientVehicle> getClientVehicles() {
-        return clientVehicles;
+    public String getLicensePlate() {
+        return licensePlate;
     }
 
-    public void setClientVehicles(Set<ClientVehicle> clientVehicles) {
-        this.clientVehicles = clientVehicles;
+    public void setLicensePlate(String licensePlate) {
+        this.licensePlate = licensePlate;
     }
 
     public Date getCreated() {
@@ -189,7 +181,7 @@ public class Client implements Serializable {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Client other = (Client) obj;
+        ClientVehicle other = (ClientVehicle) obj;
         if (id == null) {
             if (other.id != null)
                 return false;

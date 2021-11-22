@@ -1,17 +1,23 @@
 package com.api.mecanica.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -40,6 +46,10 @@ public class VehicleModel implements Serializable {
     @ManyToOne
     @JoinColumn(name = "brand_id", nullable = false)
     private Brand brand;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "vehicleModel", fetch = FetchType.EAGER)
+    private List<ClientVehicle> clientVehicles = new ArrayList<>();
 
     @CreatedDate
     @Column(name = "created", updatable = false)
@@ -96,6 +106,14 @@ public class VehicleModel implements Serializable {
 
     public void setBrand(Brand brand) {
         this.brand = brand;
+    }
+
+    public List<ClientVehicle> getClientVehicles() {
+        return clientVehicles;
+    }
+
+    public void setClientVehicles(List<ClientVehicle> clientVehicles) {
+        this.clientVehicles = clientVehicles;
     }
 
     public Date getCreated() {

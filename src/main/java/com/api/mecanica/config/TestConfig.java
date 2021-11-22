@@ -7,14 +7,17 @@ import java.util.Set;
 import com.api.mecanica.model.Address;
 import com.api.mecanica.model.Brand;
 import com.api.mecanica.model.Client;
+import com.api.mecanica.model.ClientVehicle;
 import com.api.mecanica.model.Phone;
 import com.api.mecanica.model.User;
 import com.api.mecanica.model.VehicleModel;
 import com.api.mecanica.model.enums.TypeAddress;
+import com.api.mecanica.model.enums.TypeFuel;
 import com.api.mecanica.model.enums.TypePhone;
 import com.api.mecanica.repository.AddressRepository;
 import com.api.mecanica.repository.BrandRepository;
 import com.api.mecanica.repository.ClientRepository;
+import com.api.mecanica.repository.ClientVehicleRepository;
 import com.api.mecanica.repository.PhoneRepository;
 import com.api.mecanica.repository.VehicleModelRepository;
 import com.api.mecanica.service.UserService;
@@ -46,6 +49,9 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     private VehicleModelRepository vehicleModelRepository;
 
+    @Autowired
+    private ClientVehicleRepository clientvehicleRepository;
+
     @Override
     public void run(String... args) throws Exception {
         // TODO Auto-generated method stub
@@ -61,6 +67,7 @@ public class TestConfig implements CommandLineRunner {
         addressRepository.saveAll(Arrays.asList(address1, address2));
 
         Set<Address> setAddress = new HashSet<>(Arrays.asList(address2));
+
         Client client1 = new Client(null, "Yan Jose", "12345678945", setAddress);
 
         setAddress = new HashSet<>(Arrays.asList(address1, address2));
@@ -72,6 +79,7 @@ public class TestConfig implements CommandLineRunner {
         Phone phone3 = new Phone(null, "11", "987302773", TypePhone.CELULAR, clientRepository.findById(2L).get());
         Phone phone4 = new Phone(null, "11", "33330000", TypePhone.RECADO, clientRepository.findById(2L).get());
         phoneRepository.saveAll(Arrays.asList(phone1, phone2, phone3, phone4));
+
 
         Brand brand1 = new Brand(null, "Chevrolet", true);
         Brand brand2 = new Brand(null, "Fiat", true);
@@ -90,7 +98,7 @@ public class TestConfig implements CommandLineRunner {
         VehicleModel vehicleModel1 = new VehicleModel(null, "Onix", true,brandRepository.findById(1L).get());
         VehicleModel vehicleModel2 = new VehicleModel(null, "Argos", true,brandRepository.findById(2L).get());
         VehicleModel vehicleModel3 = new VehicleModel(null, "Gol", true,brandRepository.findById(3L).get());
-        VehicleModel vehicleModel4 = new VehicleModel(null, "Ka", true,brandRepository.findById(4L).get());
+        VehicleModel vehicleModel4 = new VehicleModel(null, "F-1000", true,brandRepository.findById(4L).get());
         VehicleModel vehicleModel5 = new VehicleModel(null, "M3", true,brandRepository.findById(5L).get());
         VehicleModel vehicleModel6 = new VehicleModel(null, "C3", true,brandRepository.findById(6L).get());
         VehicleModel vehicleModel7 = new VehicleModel(null, "Clio", true,brandRepository.findById(7L).get());
@@ -101,6 +109,14 @@ public class TestConfig implements CommandLineRunner {
         vehicleModelRepository.saveAll(Arrays.asList(vehicleModel1, vehicleModel2, vehicleModel3, vehicleModel4, vehicleModel5, vehicleModel6, vehicleModel7, vehicleModel8, vehicleModel9,
         vehicleModel10, vehicleModel11));
 
+        ClientVehicle clientVehicle1 = new ClientVehicle(null, clientRepository.findById(1L).get(), vehicleModelRepository.findById(1L).get(), 2019, TypeFuel.ELETRIC, "ONI2X69");
+        ClientVehicle clientVehicle2 = new ClientVehicle(null, clientRepository.findById(1L).get(), vehicleModelRepository.findById(2L).get(), 2021, TypeFuel.FLEX, "ARG1U00");
+        ClientVehicle clientVehicle3 = new ClientVehicle(null, clientRepository.findById(1L).get(), vehicleModelRepository.findById(4L).get(), 1984, TypeFuel.DIESEL, "FRD1000");
+        ClientVehicle clientVehicle4 = new ClientVehicle(null, clientRepository.findById(1L).get(), vehicleModelRepository.findById(5L).get(), 1994, TypeFuel.ETHANOL, "BMW3M33");
+        ClientVehicle clientVehicle5 = new ClientVehicle(null, clientRepository.findById(2L).get(), vehicleModelRepository.findById(6L).get(), 2021, TypeFuel.HYBRID, "CCC3333");
+        ClientVehicle clientVehicle6 = new ClientVehicle(null, clientRepository.findById(2L).get(), vehicleModelRepository.findById(11L).get(), 2021, TypeFuel.GASOLINE, "JAC1J65");
+        ClientVehicle clientVehicle7 = new ClientVehicle(null, clientRepository.findById(2L).get(), vehicleModelRepository.findById(3L).get(), 2021, TypeFuel.LPG, "GOL9999");
+        clientvehicleRepository.saveAll(Arrays.asList(clientVehicle1, clientVehicle2, clientVehicle3, clientVehicle4, clientVehicle5, clientVehicle6, clientVehicle7));
 
         System.out.println("Rodando os testes");
     }
