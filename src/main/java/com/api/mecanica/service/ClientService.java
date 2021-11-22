@@ -6,13 +6,13 @@ import com.api.mecanica.model.Client;
 import com.api.mecanica.repository.AddressRepository;
 import com.api.mecanica.repository.ClientRepository;
 import com.api.mecanica.repository.PhoneRepository;
-import com.api.mecanica.service.interfaces.ClientServiceInterface;
+import com.api.mecanica.service.interfaces.IClientService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ClientService implements ClientServiceInterface {
+public class ClientService implements IClientService {
 	
 	@Autowired
 	ClientRepository repository;

@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.api.mecanica.model.Client;
 
-public interface ClientServiceInterface {
+public interface IClientService {
 
     public Client findById(Long id);
     public List<Client> findAll();

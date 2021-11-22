@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.api.mecanica.model.Brand;
 
-public interface BrandServiceInterface {
+public interface IBrandService {
 
     public Brand findById(Long id);
     public List<Brand> findAll();

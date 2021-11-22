@@ -4,13 +4,13 @@ import java.util.List;
 
 import com.api.mecanica.model.Brand;
 import com.api.mecanica.repository.BrandRepository;
-import com.api.mecanica.service.interfaces.BrandServiceInterface;
+import com.api.mecanica.service.interfaces.IBrandService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class BrandService implements BrandServiceInterface {
+public class BrandService implements IBrandService {
 	
 	@Autowired
 	BrandRepository repository;
