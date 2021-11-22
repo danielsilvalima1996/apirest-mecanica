@@ -1,9 +1,9 @@
 package com.api.mecanica.service;
 
+import com.api.mecanica.model.dto.DashboardDTO;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.api.mecanica.model.Dashboard;
 
 @Service
 public class DashboardService {
@@ -23,9 +23,9 @@ public class DashboardService {
 	@Autowired
 	UserService usersService;
 
-	public Dashboard counts() throws Exception {
+	public DashboardDTO counts() throws Exception {
 		try {
-		Dashboard dd = new Dashboard();
+		DashboardDTO dd = new DashboardDTO();
 		
 		// OS
 		dd.setQuantityOS(osService.countAll());

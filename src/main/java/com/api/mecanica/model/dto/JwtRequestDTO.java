@@ -1,19 +1,19 @@
-package com.api.mecanica.model;
+package com.api.mecanica.model.dto;
 
 import java.io.Serializable;
 
-public class JwtRequest implements Serializable {
+public class JwtRequestDTO implements Serializable {
 
 	private static final long serialVersionUID = 5926468583005150707L;
 
 	private String username;
 	private String password;
 
-	public JwtRequest() {
+	public JwtRequestDTO() {
 
 	}
 
-	public JwtRequest(String username, String password) {
+	public JwtRequestDTO(String username, String password) {
 		this.username = username;
 		this.password = password;
 	}

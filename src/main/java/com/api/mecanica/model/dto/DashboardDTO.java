@@ -1,8 +1,8 @@
-package com.api.mecanica.model;
+package com.api.mecanica.model.dto;
 
 import java.io.Serializable;
 
-public class Dashboard implements Serializable {
+public class DashboardDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -37,11 +37,11 @@ public class Dashboard implements Serializable {
 	private Long quantityUserActive;
 	private Long quantityUserInactive;
 
-	public Dashboard() {
+	public DashboardDTO() {
 
 	}
 
-	public Dashboard(Long quantityOS, Long quantityOSInProgress, Long quantityOSFinished, Long quantityOSCanceled,
+	public DashboardDTO(Long quantityOS, Long quantityOSInProgress, Long quantityOSFinished, Long quantityOSCanceled,
 			Double totalOS, Double totalOSInProgress, Double totalOSFinished, Double totalOSCanceled,
 			Long quantityLabor, Long quantityLaborActive, Long quantityLaborInactive, Long quantityPart,
 			Long quantityPartActive, Long quantityPartInactive, Long quantityVehicle, Long quantityVehicleActive,
@@ -263,7 +263,7 @@ public class Dashboard implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Dashboard other = (Dashboard) obj;
+		DashboardDTO other = (DashboardDTO) obj;
 		if (quantityLabor == null) {
 			if (other.quantityLabor != null)
 				return false;

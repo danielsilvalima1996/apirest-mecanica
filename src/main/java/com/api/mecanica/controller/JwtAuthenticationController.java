@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.api.mecanica.config.JwtTokenUtil;
-import com.api.mecanica.model.JwtRequest;
 import com.api.mecanica.model.User;
+import com.api.mecanica.model.dto.JwtRequestDTO;
 import com.api.mecanica.repository.UserRepository;
 import com.api.mecanica.service.JwtUserDetailsService;
 
@@ -43,7 +43,7 @@ public class JwtAuthenticationController {
 
 	@ApiOperation(value = "Endpoint login")
 	@PostMapping()
-	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
+	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequestDTO authenticationRequest) throws Exception {
 		User user = repository.findByEmail(authenticationRequest.getUsername());
 		authentication(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 		final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());

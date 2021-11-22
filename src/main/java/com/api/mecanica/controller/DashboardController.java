@@ -1,6 +1,6 @@
 package com.api.mecanica.controller;
 
-import com.api.mecanica.model.Dashboard;
+import com.api.mecanica.model.dto.DashboardDTO;
 import com.api.mecanica.service.DashboardService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ public class DashboardController {
 
 	@ApiOperation(value = "Dados dashboard, totais")
 	@GetMapping(produces = { "application/json" })
-	public Dashboard counts() throws Exception {
+	public DashboardDTO counts() throws Exception {
 		return service.counts();
 	}
 
