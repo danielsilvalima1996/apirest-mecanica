@@ -74,6 +74,11 @@ public class ClientService implements IClientService {
 		else
 			System.out.println("Error, phone obrigatório!");
 		Client dbClient = repository.save(client);
+		/*
+		
+		RESOLVER ERRO UPDATE
+		
+		*/
 
 		return dbClient;
 	}
