@@ -62,7 +62,7 @@ public class Client implements Serializable {
     private Set<Address> address = new HashSet<Address>();
 
     @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
-    private List<Phone> phone = new ArrayList<>();
+    private List<Phone> phones = new ArrayList<>();
 
     @CreatedDate
 	@Column(name = "created", updatable = false)
@@ -123,7 +123,7 @@ public class Client implements Serializable {
     }
 
     public List<Phone> getPhone() {
-        return phone;
+        return phones;
     }
 
     public Date getCreated() {
