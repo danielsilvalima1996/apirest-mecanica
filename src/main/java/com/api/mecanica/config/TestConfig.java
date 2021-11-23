@@ -60,24 +60,22 @@ public class TestConfig implements CommandLineRunner {
         userService.createUser(user1);
         userService.createUser(user2);
 
+        Client client1 = new Client(null, "Yan Jose", "12345678945");
+
+        Client client2 = new Client(null, "Muryllo", "12345678955");
+        client1 = clientRepository.save(client1);
+        client2 = clientRepository.save(client2);
+
         Address address1 = new Address(null, "07142290", "Rua Sebastianópolis do Sul", null, "Jardim Belvedere",
-                "Guarulhos", "SP", "67", TypeAddress.COMERCIAL);
+        "Guarulhos", "SP", "67", TypeAddress.COMERCIAL, client1);
         Address address2 = new Address(null, "04551060", "Rua Funchal", "Terceiro Andar", "Vila Olímpia", "São Paulo",
-                "SP", "263", TypeAddress.RESIDENCIAL);
+        "SP", "263", TypeAddress.RESIDENCIAL, client2);
         addressRepository.saveAll(Arrays.asList(address1, address2));
 
-        Set<Address> setAddress = new HashSet<>(Arrays.asList(address2));
-
-        Client client1 = new Client(null, "Yan Jose", "12345678945", setAddress);
-
-        setAddress = new HashSet<>(Arrays.asList(address1, address2));
-        Client client2 = new Client(null, "Muryllo", "12345678955", setAddress);
-        clientRepository.saveAll(Arrays.asList(client1, client2));
-
-        Phone phone1 = new Phone(null, "11", "986284900", TypePhone.RESIDENCIAL, clientRepository.findById(1L).get());
-        Phone phone2 = new Phone(null, "11", "24569876", TypePhone.COMERCIAL, clientRepository.findById(1L).get());
-        Phone phone3 = new Phone(null, "11", "987302773", TypePhone.CELULAR, clientRepository.findById(2L).get());
-        Phone phone4 = new Phone(null, "11", "33330000", TypePhone.RECADO, clientRepository.findById(2L).get());
+        Phone phone1 = new Phone(null, "11", "986284900", TypePhone.RESIDENCIAL, client1);
+        Phone phone2 = new Phone(null, "11", "24569876", TypePhone.COMERCIAL, client1);
+        Phone phone3 = new Phone(null, "11", "987302773", TypePhone.CELULAR, client2);
+        Phone phone4 = new Phone(null, "11", "33330000", TypePhone.RECADO, client2);
         phoneRepository.saveAll(Arrays.asList(phone1, phone2, phone3, phone4));
 
 
