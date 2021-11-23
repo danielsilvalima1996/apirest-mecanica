@@ -1,10 +1,8 @@
 package com.api.mecanica.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -22,8 +20,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -52,13 +48,7 @@ public class Client implements Serializable {
     @Size(min = 11, max = 14)
     private String cpfCnpj;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @NotEmpty
-    @JoinTable(
-        name = "tb_client_address", 
-        joinColumns = @JoinColumn(name = "client_id"), 
-        inverseJoinColumns = @JoinColumn(name = "address_id")
-    )
+    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
     private Set<Address> address = new HashSet<Address>();
 
     @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
@@ -86,11 +76,10 @@ public class Client implements Serializable {
     public Client() {
     }
 
-    public Client(Long id, String fullName, String cpfCnpj, Set<Address> address) {
+    public Client(Long id, String fullName, String cpfCnpj) {
         this.id = id;
         this.fullName = fullName;
         this.cpfCnpj = cpfCnpj;
-        this.address = address;
     }
 
     public Long getId() {

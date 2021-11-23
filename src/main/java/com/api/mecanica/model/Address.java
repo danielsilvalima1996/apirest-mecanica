@@ -11,7 +11,9 @@ import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.api.mecanica.model.enums.TypeAddress;
@@ -74,15 +76,16 @@ public class Address implements Serializable {
 	@Column(name = "modified_by")
 	private String modifiedBy;
 
+    @ManyToOne
     @JsonIgnore
-    @ManyToMany(mappedBy = "address")
-    private Set<Client> clients = new HashSet<>();
+    @JoinColumn(name = "client_id", nullable = false)
+    private Client client;
 
     public Address() {
     }
 
     public Address(Long id, String zipCode, String address, String complement, String neighborhood, String city,
-            String state, String number, TypeAddress type) {
+            String state, String number, TypeAddress type, Client client) {
         this.id = id;
         this.zipCode = zipCode;
         this.address = address;
@@ -92,6 +95,7 @@ public class Address implements Serializable {
         this.state = state;
         this.number = number;
         setType(type);
+        this.client = client;
     }
 
     public Long getId() {
@@ -199,12 +203,12 @@ public class Address implements Serializable {
         this.modifiedBy = modifiedBy;
     }
 
-    public Set<Client> getClients() {
-        return clients;
+    public Client getClient() {
+        return client;
     }
 
-    public void setClients(Set<Client> clients) {
-        this.clients = clients;
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     @Override
