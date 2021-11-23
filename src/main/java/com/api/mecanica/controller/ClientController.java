@@ -6,6 +6,7 @@ import com.api.mecanica.model.Client;
 import com.api.mecanica.service.ClientService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,26 +28,26 @@ public class ClientController {
 
 	@ApiOperation(value = "Traz um Cliente pelo id")
 	@GetMapping(value = "{id}", produces = { "application/json" })
-	public Client findById(@PathVariable(value = "id") Long id) throws Exception {
-		return service.findById(id);
+	public ResponseEntity<Client> findById(@PathVariable(value = "id") Long id) throws Exception {
+		return ResponseEntity.ok(service.findById(id));
 	}
 	
 	@ApiOperation(value = "Traz uma Lista de Clientes")
 	@GetMapping(produces = { "application/json" })
-	public List<Client> findAll() {
-		return service.findAll();
+	public ResponseEntity<List<Client>> findAll() {
+		return ResponseEntity.ok(service.findAll());
 	}
 	
 
 	@ApiOperation(value = "Cria um Cliente")
 	@PostMapping(consumes = { "application/json" }, produces = { "application/json" })
-	public Client createClient(@RequestBody Client client) throws Exception {
-		return service.createClient(client);
+	public ResponseEntity<Client> createClient(@RequestBody Client client) throws Exception {
+		return ResponseEntity.ok(service.createClient(client));
 	}
 	
 	@ApiOperation(value = "Altera um Cliente")
 	@PutMapping(consumes = { "application/json" }, produces = { "application/json" })
-	public Client alterClient(@RequestBody Client client) throws Exception {
-		return service.alterClient(client);
+	public ResponseEntity<Client> alterClient(@RequestBody Client client) throws Exception {
+		return ResponseEntity.ok(service.alterClient(client));
 	}
 }

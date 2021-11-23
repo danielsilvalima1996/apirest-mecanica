@@ -6,6 +6,7 @@ import com.api.mecanica.model.Brand;
 import com.api.mecanica.service.BrandService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,26 +28,26 @@ public class BrandController {
 
 	@ApiOperation(value = "Traz uma Marca pelo id")
 	@GetMapping(value = "{id}", produces = { "application/json" })
-	public Brand findById(@PathVariable(value = "id") Long id) throws Exception {
-		return service.findById(id);
+	public ResponseEntity<Brand> findById(@PathVariable(value = "id") Long id) throws Exception {
+		return ResponseEntity.ok(service.findById(id));
 	}
 	
 	@ApiOperation(value = "Traz uma Lista de Marcas")
 	@GetMapping(produces = { "application/json" })
-	public List<Brand> findAll() {
-		return service.findAll();
+	public ResponseEntity<List<Brand>> findAll() {
+		return ResponseEntity.ok(service.findAll());
 	}
 	
 
 	@ApiOperation(value = "Cria uma marca")
 	@PostMapping(consumes = { "application/json" }, produces = { "application/json" })
-	public Brand createBrand(@RequestBody Brand brand) throws Exception {
-		return service.createBrand(brand);
+	public ResponseEntity<Brand> createBrand(@RequestBody Brand brand) throws Exception {
+		return ResponseEntity.ok(service.createBrand(brand));
 	}
 	
 	@ApiOperation(value = "Altera uma Marca")
 	@PutMapping(consumes = { "application/json" }, produces = { "application/json" })
-	public Brand alterBrand(@RequestBody Brand brand) throws Exception {
-		return service.alterBrand(brand);
+	public ResponseEntity<Brand> alterBrand(@RequestBody Brand brand) throws Exception {
+		return ResponseEntity.ok(service.alterBrand(brand));
 	}
 }

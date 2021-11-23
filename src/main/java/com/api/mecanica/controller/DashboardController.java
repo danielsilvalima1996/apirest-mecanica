@@ -4,6 +4,7 @@ import com.api.mecanica.model.dto.DashboardDTO;
 import com.api.mecanica.service.DashboardService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,8 +22,8 @@ public class DashboardController {
 
 	@ApiOperation(value = "Dados dashboard, totais")
 	@GetMapping(produces = { "application/json" })
-	public DashboardDTO counts() throws Exception {
-		return service.counts();
+	public ResponseEntity<DashboardDTO> counts() throws Exception {
+		return ResponseEntity.ok(service.counts());
 	}
 
 }

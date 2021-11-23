@@ -5,6 +5,8 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,55 +32,55 @@ public class UserController {
 
 	@ApiOperation(value = "Traz uma lista User pelo email")
 	@GetMapping(value = "email", produces = { "application/json" })
-	public List<User> findByEmailContainingIgnoreCase(@RequestParam(value = "email") String email) {
-		return service.findByEmailContainingIgnoreCase(email);
+	public ResponseEntity<List<User>> findByEmailContainingIgnoreCase(@RequestParam(value = "email") String email) {
+		return ResponseEntity.ok(service.findByEmailContainingIgnoreCase(email));
 	}
 	
 	@ApiOperation(value = "Traz uma lista User pelo username")
 	@GetMapping(value = "username", produces = { "application/json" })
-	public List<User> findByUserNameContainingIgnoreCase(@RequestParam(value = "username") String username) {
-		return service.findByUserNameContainingIgnoreCase(username);
+	public ResponseEntity<List<User>> findByUserNameContainingIgnoreCase(@RequestParam(value = "username") String username) {
+		return ResponseEntity.ok(service.findByUserNameContainingIgnoreCase(username));
 	}
 	
 	@ApiOperation(value = "Traz uma lista User pelo active, true ou false")
 	@GetMapping(value = "active", produces = { "application/json" })
-	public List<User> findByActive(@RequestParam(value = "active") boolean active) {
-		return service.findByActive(active);
+	public ResponseEntity<List<User>> findByActive(@RequestParam(value = "active") boolean active) {
+		return ResponseEntity.ok(service.findByActive(active));
 	}
 
 	@ApiOperation(value = "Traz um User pelo id")
 	@GetMapping(value = "{id}", produces = { "application/json" })
-	public Optional<User> findById(@PathVariable(value = "id") Long id) throws Exception {
-		return service.findById(id);
+	public ResponseEntity<Optional<User>> findById(@PathVariable(value = "id") Long id) throws Exception {
+		return ResponseEntity.ok(service.findById(id));
 	}
 	
 	@ApiOperation(value = "Traz uma Lista de User")
 	@GetMapping(value = "all", produces = { "application/json" })
-	public List<User> findAll() {
-		return service.findAll();
+	public ResponseEntity<List<User>> findAll() {
+		return ResponseEntity.ok(service.findAll());
 	}
 	
 
 	@ApiOperation(value = "Busca uma lista de User por ID ou EMAIL")
 	@GetMapping(value = "/busca", produces = { "application/json" })
-	public List<User> findByEmailContainingOrUserNameContaining(
+	public ResponseEntity<List<User>> findByEmailContainingOrUserNameContaining(
 			@Param(value = "id") Long id,
 			@Param(value = "email") String email, 
 			@Param(value = "userName") String userName,
 			@Param(value = "userName") Boolean active)
 			throws Exception {
-		return service.findByFiltros(id, email, userName, active);
+		return ResponseEntity.ok(service.findByFiltros(id, email, userName, active));
 	}
 
 	@ApiOperation(value = "Cria um único User")
 	@PostMapping(consumes = { "application/json" }, produces = { "application/json" })
-	public User createUser(@RequestBody User user) throws Exception {
-		return service.createUser(user);
+	public ResponseEntity<User> createUser(@RequestBody User user) throws Exception {
+		return ResponseEntity.ok(service.createUser(user));
 	}
 	
 	@ApiOperation(value = "Altera um único User")
 	@PutMapping(consumes = { "application/json" }, produces = { "application/json" })
-	public User alterUser(@RequestBody User user) throws Exception {
-		return service.alterUser(user);
+	public ResponseEntity<User> alterUser(@RequestBody User user) throws Exception {
+		return ResponseEntity.ok(service.alterUser(user));
 	}
 }

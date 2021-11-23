@@ -6,6 +6,7 @@ import com.api.mecanica.model.VehicleModel;
 import com.api.mecanica.service.VehicleModelService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,26 +28,26 @@ public class VehicleModelController {
 
 	@ApiOperation(value = "Traz uma Marca pelo id")
 	@GetMapping(value = "{id}", produces = { "application/json" })
-	public VehicleModel findById(@PathVariable(value = "id") Long id) throws Exception {
-		return service.findById(id);
+	public ResponseEntity<VehicleModel> findById(@PathVariable(value = "id") Long id) throws Exception {
+		return ResponseEntity.ok(service.findById(id));
 	}
 	
 	@ApiOperation(value = "Traz uma Lista de Marcas")
 	@GetMapping(produces = { "application/json" })
-	public List<VehicleModel> findAll() {
-		return service.findAll();
+	public ResponseEntity<List<VehicleModel>> findAll() {
+		return ResponseEntity.ok(service.findAll());
 	}
 	
 
 	@ApiOperation(value = "Cria uma marca")
 	@PostMapping(consumes = { "application/json" }, produces = { "application/json" })
-	public VehicleModel createVehicleModel(@RequestBody VehicleModel vehicleModel) throws Exception {
-		return service.createVehicleModel(vehicleModel);
+	public ResponseEntity<VehicleModel> createVehicleModel(@RequestBody VehicleModel vehicleModel) throws Exception {
+		return ResponseEntity.ok(service.createVehicleModel(vehicleModel));
 	}
 	
 	@ApiOperation(value = "Altera uma Marca")
 	@PutMapping(consumes = { "application/json" }, produces = { "application/json" })
-	public VehicleModel alterVehicleModel(@RequestBody VehicleModel vehicleModel) throws Exception {
-		return service.alterVehicleModel(vehicleModel);
+	public ResponseEntity<VehicleModel> alterVehicleModel(@RequestBody VehicleModel vehicleModel) throws Exception {
+		return ResponseEntity.ok(service.alterVehicleModel(vehicleModel));
 	}
 }
