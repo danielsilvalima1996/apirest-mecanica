@@ -212,19 +212,7 @@ public class Address implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((address == null) ? 0 : address.hashCode());
-        result = prime * result + ((city == null) ? 0 : city.hashCode());
-        result = prime * result + ((complement == null) ? 0 : complement.hashCode());
-        result = prime * result + ((created == null) ? 0 : created.hashCode());
-        result = prime * result + ((createdBy == null) ? 0 : createdBy.hashCode());
         result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((modified == null) ? 0 : modified.hashCode());
-        result = prime * result + ((modifiedBy == null) ? 0 : modifiedBy.hashCode());
-        result = prime * result + ((neighborhood == null) ? 0 : neighborhood.hashCode());
-        result = prime * result + ((number == null) ? 0 : number.hashCode());
-        result = prime * result + ((state == null) ? 0 : state.hashCode());
-        result = prime * result + ((type == null) ? 0 : type.hashCode());
-        result = prime * result + ((zipCode == null) ? 0 : zipCode.hashCode());
         return result;
     }
 
@@ -237,74 +225,20 @@ public class Address implements Serializable {
         if (getClass() != obj.getClass())
             return false;
         Address other = (Address) obj;
-        if (address == null) {
-            if (other.address != null)
-                return false;
-        } else if (!address.equals(other.address))
-            return false;
-        if (city == null) {
-            if (other.city != null)
-                return false;
-        } else if (!city.equals(other.city))
-            return false;
-        if (complement == null) {
-            if (other.complement != null)
-                return false;
-        } else if (!complement.equals(other.complement))
-            return false;
-        if (created == null) {
-            if (other.created != null)
-                return false;
-        } else if (!created.equals(other.created))
-            return false;
-        if (createdBy == null) {
-            if (other.createdBy != null)
-                return false;
-        } else if (!createdBy.equals(other.createdBy))
-            return false;
         if (id == null) {
             if (other.id != null)
                 return false;
         } else if (!id.equals(other.id))
             return false;
-        if (modified == null) {
-            if (other.modified != null)
-                return false;
-        } else if (!modified.equals(other.modified))
-            return false;
-        if (modifiedBy == null) {
-            if (other.modifiedBy != null)
-                return false;
-        } else if (!modifiedBy.equals(other.modifiedBy))
-            return false;
-        if (neighborhood == null) {
-            if (other.neighborhood != null)
-                return false;
-        } else if (!neighborhood.equals(other.neighborhood))
-            return false;
-        if (number == null) {
-            if (other.number != null)
-                return false;
-        } else if (!number.equals(other.number))
-            return false;
-        if (state == null) {
-            if (other.state != null)
-                return false;
-        } else if (!state.equals(other.state))
-            return false;
-        if (type == null) {
-            if (other.type != null)
-                return false;
-        } else if (!type.equals(other.type))
-            return false;
-        if (zipCode == null) {
-            if (other.zipCode != null)
-                return false;
-        } else if (!zipCode.equals(other.zipCode))
-            return false;
         return true;
     }
 
-    
+    @Override
+    public String toString() {
+        return "Address [address=" + address + ", city=" + city + ", client=" + client + ", complement=" + complement
+                + ", created=" + created + ", createdBy=" + createdBy + ", id=" + id + ", modified=" + modified
+                + ", modifiedBy=" + modifiedBy + ", neighborhood=" + neighborhood + ", number=" + number + ", state="
+                + state + ", type=" + type + ", zipCode=" + zipCode + "]";
+    }
 
 }

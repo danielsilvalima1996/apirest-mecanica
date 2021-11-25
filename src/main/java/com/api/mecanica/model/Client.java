@@ -183,4 +183,11 @@ public class Client implements Serializable {
         return true;
     }
 
+    @Override
+    public String toString() {
+        return "Client [address=" + address + ", clientVehicles=" + clientVehicles + ", cpfCnpj=" + cpfCnpj
+                + ", created=" + created + ", createdBy=" + createdBy + ", fullName=" + fullName + ", id=" + id
+                + ", modified=" + modified + ", modifiedBy=" + modifiedBy + ", phones=" + phones + "]";
+    }
+
 }

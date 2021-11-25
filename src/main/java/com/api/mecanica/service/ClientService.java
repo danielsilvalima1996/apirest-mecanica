@@ -1,8 +1,11 @@
 package com.api.mecanica.service;
 
+import java.util.HashSet;
 import java.util.List;
 
+import com.api.mecanica.model.Address;
 import com.api.mecanica.model.Client;
+import com.api.mecanica.model.ClientVehicle;
 import com.api.mecanica.model.Phone;
 import com.api.mecanica.repository.AddressRepository;
 import com.api.mecanica.repository.ClientRepository;
@@ -70,35 +73,44 @@ public class ClientService implements IClientService {
 
 	@Override
 	public Client alterClient(Client client) {
-		Client dbClient = repository.findById(client.getId()).get();
-		if (dbClient != null) {
-			dbClient.setCpfCnpj(client.getCpfCnpj());
-			dbClient.setFullName(client.getFullName());
-			final Client newClient = repository.save(dbClient);
+		Client dbClient = repository.save(client);
 
-			if (!client.getAddress().isEmpty()) {
-				client.getAddress().stream().forEach(fe -> fe.setClient(newClient));
-				addressRepository.saveAll(client.getAddress());
-			} else
-				System.out.println("Error, endereço obrigatório!");
-
-			if (!client.getPhones().isEmpty()) {
-				client.getPhones().stream().forEach(fe -> fe.setClient(newClient));
-				phoneRepository.saveAll(client.getPhones());
-				List<Phone> dbPhones = phoneRepository.findByClient(newClient);
-				for (Phone phone : dbPhones) {
-					System.out.println(phone);
-				}
-			} else
-				System.out.println("Error, phone obrigatório!");
-
-			if (!client.getClientVehicles().isEmpty()) {
-				client.getClientVehicles().stream().forEach(fe -> fe.setClient(newClient));
-				clientVehicleRepository.saveAll(client.getClientVehicles());
+		if (!client.getAddress().isEmpty()) {
+			client.getAddress().stream().forEach(fe -> fe.setClient(dbClient));
+			List<Address> listAddress = addressRepository.saveAll(client.getAddress());
+			dbClient.setAddress(new HashSet<>(listAddress));
+			List<Address> dbAddress = addressRepository.findByClient(dbClient);
+			if (dbAddress.size() > listAddress.size()) {
+				dbAddress.removeIf(x -> listAddress.contains(x));
+				addressRepository.deleteAll(dbAddress);
 			}
-			return newClient;
-		}
-		return null;
+		} else
+			throw new IllegalAccessError("Endereço não pode ser null");
+
+		if (!client.getPhones().isEmpty()) {
+			client.getPhones().stream().forEach(fe -> fe.setClient(dbClient));
+			List<Phone> listPhones = phoneRepository.saveAll(client.getPhones());
+			dbClient.setPhones(new HashSet<>(listPhones));
+			List<Phone> dbPhones = phoneRepository.findByClient(dbClient);
+			if (dbPhones.size() > listPhones.size()) {
+				dbPhones.removeIf(x -> listPhones.contains(x));
+				phoneRepository.deleteAll(dbPhones);
+			}
+		} else
+			throw new IllegalAccessError("Telefone não pode ser null");
+
+		if (!client.getClientVehicles().isEmpty()) {
+			client.getClientVehicles().stream().forEach(fe -> fe.setClient(dbClient));
+			List<ClientVehicle> listClientVehicles = clientVehicleRepository.saveAll(client.getClientVehicles());
+			dbClient.setClientVehicles(new HashSet<>(listClientVehicles));
+			List<ClientVehicle> dbClientVehicles = clientVehicleRepository.findByClient(dbClient);
+			if (dbClientVehicles.size() > listClientVehicles.size()) {
+				dbClientVehicles.removeIf(x -> listClientVehicles.contains(x));
+				clientVehicleRepository.deleteAll(dbClientVehicles);
+			}
+		} else
+			throw new IllegalAccessError("Veiculo não pode ser null");
+		return dbClient;
 	}
 
 	@Override

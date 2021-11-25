@@ -42,6 +42,7 @@ public class Phone implements Serializable {
     @Size(min = 8, max = 9)
     private String number;
 
+    @Column(name = "type")
     private Integer type;
 
     @ManyToOne
