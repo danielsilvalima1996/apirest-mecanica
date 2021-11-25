@@ -6,6 +6,7 @@ import com.api.mecanica.model.Address;
 import com.api.mecanica.model.Brand;
 import com.api.mecanica.model.Client;
 import com.api.mecanica.model.ClientVehicle;
+import com.api.mecanica.model.Labor;
 import com.api.mecanica.model.Phone;
 import com.api.mecanica.model.User;
 import com.api.mecanica.model.VehicleModel;
@@ -16,6 +17,7 @@ import com.api.mecanica.repository.AddressRepository;
 import com.api.mecanica.repository.BrandRepository;
 import com.api.mecanica.repository.ClientRepository;
 import com.api.mecanica.repository.ClientVehicleRepository;
+import com.api.mecanica.repository.LaborRepository;
 import com.api.mecanica.repository.PhoneRepository;
 import com.api.mecanica.repository.VehicleModelRepository;
 import com.api.mecanica.service.UserService;
@@ -49,6 +51,9 @@ public class TestConfig implements CommandLineRunner {
 
     @Autowired
     private ClientVehicleRepository clientvehicleRepository;
+
+    @Autowired
+    private LaborRepository laborRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -113,6 +118,19 @@ public class TestConfig implements CommandLineRunner {
         ClientVehicle clientVehicle6 = new ClientVehicle(null, clientRepository.findById(2L).get(), vehicleModelRepository.findById(11L).get(), 2021, TypeFuel.GASOLINE, "JAC1J65");
         ClientVehicle clientVehicle7 = new ClientVehicle(null, clientRepository.findById(2L).get(), vehicleModelRepository.findById(3L).get(), 2021, TypeFuel.LPG, "GOL9999");
         clientvehicleRepository.saveAll(Arrays.asList(clientVehicle1, clientVehicle2, clientVehicle3, clientVehicle4, clientVehicle5, clientVehicle6, clientVehicle7));
+
+        Labor labor1 = new Labor(null, "Regulagem do freio de mão", 65.00, true);
+        Labor labor2 = new Labor(null, "Lavagem", 25.00, true);
+        Labor labor3 = new Labor(null, "Troca da pastilha de freio", 40.00, true);
+        Labor labor4 = new Labor(null, "Limpeza de bico da injeção eletrônica", 150.00, true);
+        Labor labor5 = new Labor(null, "Montagem de pneu", 20.00, true);
+        Labor labor6 = new Labor(null, "Alimento da suspensão", 60.00, true);
+        Labor labor7 = new Labor(null, "Cambagem", 35.00, true);
+        Labor labor8 = new Labor(null, "Limpeza do ar condicionado", 180.00, true);
+        Labor labor9 = new Labor(null, "Troca do escamaento", 32.00, true);
+        Labor labor10 = new Labor(null, "Troca da bandeija", 15.00, true);
+
+        laborRepository.saveAll(Arrays.asList(labor1, labor2,  labor3,  labor4,  labor5,  labor6,  labor7,  labor8,  labor9, labor10));
 
         System.out.println("Rodando os testes");
     }
