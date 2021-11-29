@@ -75,8 +75,6 @@ public class UserService {
 		}
 		String result = bc.encode(user.getPassword());
 		user.setPassword(result);
-		String avatar = "https://api.adorable.io/avatars/64/" + user.getEmail() + ".png";
-		user.setAvatar(avatar);
 		user.setActive(true);
 		return repository.save(user);
 	}
@@ -92,8 +90,6 @@ public class UserService {
 		} else {
 			user.setPassword(dbUser.get().getPassword().toString());
 		}
-		String avatar = "https://api.adorable.io/avatars/64/" + user.getEmail() + ".png";
-		user.setAvatar(avatar);
 		return repository.saveAndFlush(user);
 	}
 

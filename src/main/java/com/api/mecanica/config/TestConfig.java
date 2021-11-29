@@ -58,6 +58,7 @@ public class TestConfig implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         // TODO Auto-generated method stub
+
         User user1 = new User(null, "dsl15021996@gmail.com", "Daniel da Silva de Lima", "123456", null, true);
         User user2 = new User(null, "teste@gmail.com", "TESTE TI", "123456", null, true);
         userService.createUser(user1);
@@ -80,7 +81,6 @@ public class TestConfig implements CommandLineRunner {
         Phone phone3 = new Phone(null, "11", "987302773", TypePhone.CELULAR, client2);
         Phone phone4 = new Phone(null, "11", "33330000", TypePhone.RECADO, client2);
         phoneRepository.saveAll(Arrays.asList(phone1, phone2, phone3, phone4));
-
 
         Brand brand1 = new Brand(null, "Chevrolet", true);
         Brand brand2 = new Brand(null, "Fiat", true);

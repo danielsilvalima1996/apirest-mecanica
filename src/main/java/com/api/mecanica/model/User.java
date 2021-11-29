@@ -9,6 +9,7 @@ import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -45,8 +46,9 @@ public class User implements Serializable {
 	@Column(name = "password")
 	private String password;
 
+	@Lob
 	@Column(name = "avatar")
-	private String avatar;
+	private byte[] avatar;
 
 	@Column(name = "active")
 	private boolean active;
@@ -72,7 +74,7 @@ public class User implements Serializable {
 	public User() {
 	}
 
-	public User(Long id, String email, String userName, String password, String avatar, boolean active) {
+	public User(Long id, String email, String userName, String password, byte[] avatar, boolean active) {
 		this.id = id;
 		this.email = email;
 		this.userName = userName;
@@ -113,11 +115,11 @@ public class User implements Serializable {
 		this.password = password;
 	}
 
-	public String getAvatar() {
+	public byte[] getAvatar() {
 		return avatar;
 	}
 
-	public void setAvatar(String avatar) {
+	public void setAvatar(byte[] avatar) {
 		this.avatar = avatar;
 	}
 
