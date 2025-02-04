@@ -1,0 +1,9 @@
+spring:
+  profiles.active: dev
+  jpa.open-in-view: true
+
+application:
+  security:
+    jwt:
+      secret-key: secretkey
+      expiration: 86400000 # um dia

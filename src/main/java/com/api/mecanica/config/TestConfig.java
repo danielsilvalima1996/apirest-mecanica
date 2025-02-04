@@ -1,6 +1,7 @@
 package com.api.mecanica.config;
 
 import java.util.Arrays;
+import java.util.Date;
 
 import com.api.mecanica.model.Address;
 import com.api.mecanica.model.Brand;
@@ -28,7 +29,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 @Configuration
-@Profile("test")
+@Profile("prod")
 public class TestConfig implements CommandLineRunner {
 
     @Autowired
@@ -59,8 +60,11 @@ public class TestConfig implements CommandLineRunner {
     public void run(String... args) throws Exception {
         // TODO Auto-generated method stub
 
-        User user1 = new User(null, "dsl15021996@gmail.com", "Daniel da Silva de Lima", "123456", null, true);
-        User user2 = new User(null, "teste@gmail.com", "TESTE TI", "123456", null, true);
+        int random = (int) new Date().getTime();
+
+        User user1 = new User(null, "teste" + random + "gmail.com", "Teste-" + random, "123456", null, true);
+        random = (int) new Date().getTime() + 1;
+        User user2 = new User(null, "teste" + random + "gmail.com", "Teste-" + random, "123456", null, true);
         userService.createUser(user1);
         userService.createUser(user2);
 
