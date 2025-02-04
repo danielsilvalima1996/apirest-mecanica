@@ -3,7 +3,7 @@ package com.api.mecanica.controller;
 import java.util.List;
 import java.util.Optional;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.api.mecanica.model.OrdensServicos;
 import com.api.mecanica.service.OrdensServicosService;
 
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -29,13 +29,13 @@ public class OrdensServicosController {
 	@Autowired
 	OrdensServicosService service;
 
-	@ApiOperation(value = "Traz uma OS pelo id")
+	@Operation(summary ="Traz uma OS pelo id")
 	@GetMapping(value = "{id}", produces = { "application/json" })
 	public Optional<OrdensServicos> findById(@PathVariable(value = "id") Long id) throws Exception {
 		return service.findById(id);
 	}
 
-	@ApiOperation(value = "Traz uma Lista de OS")
+	@Operation(summary ="Traz uma Lista de OS")
 	@GetMapping(value = "all", produces = { "application/json" })
 	public List<OrdensServicos> findAll(@Param(value = "id") Long id, @Param(value = "nomeCliente") String nomeCliente,
 			@Param(value = "cpfCnpj") String cpfCnpj, @Param(value = "observacoes") String observacoes,
@@ -45,25 +45,25 @@ public class OrdensServicosController {
 		return service.findAll(id, nomeCliente, cpfCnpj, observacoes, idVeiculo, placa, idUsuario, isFinalizado);
 	}
 
-	@ApiOperation(value = "Cria uma OS")
+	@Operation(summary ="Cria uma OS")
 	@PostMapping(consumes = { "application/json" }, produces = { "application/json" })
 	public OrdensServicos createOs(@Valid @RequestBody OrdensServicos os) {
 		return service.createOS(os);
 	}
 
-	@ApiOperation(value = "Altera uma OS")
+	@Operation(summary ="Altera uma OS")
 	@PutMapping(consumes = { "application/json" }, produces = { "application/json" })
 	public OrdensServicos alterOs(@Valid @RequestBody OrdensServicos os) throws Exception {
 		return service.alterOS(os);
 	}
 
-	@ApiOperation(value = "Finaliza uma OS")
+	@Operation(summary ="Finaliza uma OS")
 	@PutMapping(value = "/finalizar/{id}", produces = { "application/json" })
 	public OrdensServicos finalizarOs(@Valid @PathVariable(name = "id", required = true) Long id) throws Exception {
 		return service.finalizarOs(id);
 	}
 	
-	@ApiOperation(value = "cancela uma OS")
+	@Operation(summary ="cancela uma OS")
 	@PutMapping(value = "/cancelar/{id}", produces = { "application/json" })
 	public OrdensServicos cancelarOs(@Valid @PathVariable(name = "id", required = true) Long id) throws Exception {
 		return service.cancelarOs(id);

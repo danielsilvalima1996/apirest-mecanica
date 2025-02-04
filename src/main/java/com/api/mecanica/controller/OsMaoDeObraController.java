@@ -1,6 +1,6 @@
 package com.api.mecanica.controller;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.api.mecanica.model.OsMaoDeObra;
 import com.api.mecanica.service.OsMaoDeObraService;
 
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -24,13 +24,13 @@ public class OsMaoDeObraController {
 	@Autowired
 	OsMaoDeObraService service;
 	
-	@ApiOperation(value = "Cria uma OS Mao de Obra")
+	@Operation(summary ="Cria uma OS Mao de Obra")
 	@PostMapping(value = "{id}", consumes = { "application/json" }, produces = { "application/json" })
 	public OsMaoDeObra createOs(@Valid @RequestBody OsMaoDeObra os, @PathVariable(value = "id") Long id) throws Exception {
 		return service.createOsMaoDeObra(os, id);
 	}
 	
-	@ApiOperation(value = "Deleta uma OS Mao de Obra")
+	@Operation(summary ="Deleta uma OS Mao de Obra")
 	@DeleteMapping(value = "{id}", consumes = { "application/json" })
 	public void deleteOs(@Valid @RequestBody OsMaoDeObra os, @PathVariable(value = "id") Long id) throws Exception {
 		service.deleteOsMaoDeObra(os, id);

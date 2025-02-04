@@ -3,7 +3,7 @@ package com.api.mecanica.service;
 import java.util.List;
 import java.util.Optional;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 import com.api.mecanica.exception.PecaException;
 import com.api.mecanica.model.Pecas;
