@@ -2,7 +2,7 @@ package com.api.mecanica.controller;
 
 import java.util.List;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -22,7 +22,7 @@ import com.api.mecanica.exception.MaoDeObraException;
 import com.api.mecanica.model.MaoDeObra;
 import com.api.mecanica.service.MaoDeObraService;
 
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -32,7 +32,7 @@ public class MaoObraController {
 	@Autowired
 	MaoDeObraService service;
 
-	@ApiOperation(value = "Retorna uma lista de mão de obra cadastrada")
+	@Operation(summary ="Retorna uma lista de mão de obra cadastrada")
 	@GetMapping(value = "all", produces = { "application/json" })
 	public ResponseEntity<List<MaoDeObra>> findAll() {
 
@@ -49,7 +49,7 @@ public class MaoObraController {
 
 	}
 
-	@ApiOperation(value = "Traz uma mão de obra pelo id")
+	@Operation(summary ="Traz uma mão de obra pelo id")
 	@GetMapping(value = "{id}", produces = { "application/json" })
 	public ResponseEntity<MaoDeObra> findById(@PathVariable(value = "id") Long id) {
 		try {
@@ -62,7 +62,7 @@ public class MaoObraController {
 	}
 
 	@PostMapping("/cadastrar")
-	@ApiOperation(value = "Cadastra uma nova mao de obra")
+	@Operation(summary ="Cadastra uma nova mao de obra")
 	public ResponseEntity<MaoDeObra> cadastrarMaoDeObra(@Valid @RequestBody MaoDeObra maoDeObra) {
 		try {
 
@@ -76,32 +76,32 @@ public class MaoObraController {
 
 	}
 
-	@ApiOperation(value = "Atualiza uma mão de obra já cadastrada")
+	@Operation(summary ="Atualiza uma mão de obra já cadastrada")
 	@PutMapping("/atualizar")
 	public MaoDeObra atualizarMaoDeObra(@RequestBody MaoDeObra maoDeObra) {
 		return service.alterMaoDeObra(maoDeObra);
 	}
 
-	@ApiOperation(value = "Traz uma lista de mão de obras ativas")
+	@Operation(summary ="Traz uma lista de mão de obras ativas")
 	@GetMapping(value = "active")
 	public List<MaoDeObra> findByActive(@RequestParam(value = "active") boolean active) {
 		return service.findByActive(active);
 	}
 
-	@ApiOperation(value = "Traz uma lista de mão de obras pela descrição")
+	@Operation(summary ="Traz uma lista de mão de obras pela descrição")
 	@GetMapping(value = "descricao", produces = { "application/json" })
 	public List<MaoDeObra> findByDescricaoContainingIgnoreCase(@RequestParam(value = "descricao") String descricao) {
 		return service.findByDescricaoContainingIgnoreCase(descricao);
 	}
 
-	@ApiOperation(value = "Busca uma lista de Mão de Obras por ID ou Descrição")
+	@Operation(summary ="Busca uma lista de Mão de Obras por ID ou Descrição")
 	@GetMapping(value = "/busca", produces = { "application/json" })
 	public List<MaoDeObra> findByFiltros(@Param(value = "id") Long id, @Param(value = "descricao") String descricao,
 			@Param(value = "active") Boolean active) throws Exception {
 		return service.findByFiltros(id, descricao, active);
 	}
 	
-	@ApiOperation(value = "Cria Varias Mãos de Obras")
+	@Operation(summary ="Cria Varias Mãos de Obras")
 	@PostMapping(value = "all", consumes = { "application/json" }, produces = { "application/json" })
 	public List<MaoDeObra> createMuitasMaos(@RequestBody List<MaoDeObra> maos) throws Exception {
 		return service.createMuitasMaos(maos);

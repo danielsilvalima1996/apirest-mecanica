@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -26,26 +26,26 @@ public class VehicleModelController {
 	@Autowired
 	VehicleModelService service;
 
-	@ApiOperation(value = "Traz uma Marca pelo id")
+	@Operation(summary ="Traz uma Marca pelo id")
 	@GetMapping(value = "{id}", produces = { "application/json" })
 	public ResponseEntity<VehicleModel> findById(@PathVariable(value = "id") Long id) throws Exception {
 		return ResponseEntity.ok(service.findById(id));
 	}
 	
-	@ApiOperation(value = "Traz uma Lista de Marcas")
+	@Operation(summary ="Traz uma Lista de Marcas")
 	@GetMapping(produces = { "application/json" })
 	public ResponseEntity<List<VehicleModel>> findAll() {
 		return ResponseEntity.ok(service.findAll());
 	}
 	
 
-	@ApiOperation(value = "Cria uma marca")
+	@Operation(summary ="Cria uma marca")
 	@PostMapping(consumes = { "application/json" }, produces = { "application/json" })
 	public ResponseEntity<VehicleModel> createVehicleModel(@RequestBody VehicleModel vehicleModel) throws Exception {
 		return ResponseEntity.ok(service.createVehicleModel(vehicleModel));
 	}
 	
-	@ApiOperation(value = "Altera uma Marca")
+	@Operation(summary ="Altera uma Marca")
 	@PutMapping(consumes = { "application/json" }, produces = { "application/json" })
 	public ResponseEntity<VehicleModel> alterVehicleModel(@RequestBody VehicleModel vehicleModel) throws Exception {
 		return ResponseEntity.ok(service.alterVehicleModel(vehicleModel));
